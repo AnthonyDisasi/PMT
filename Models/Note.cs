@@ -15,8 +15,15 @@ namespace PMT.Models
         public string TacheID { get; set; }
 
         public string Commentaire { get; set; }
-        [DataType(DataType.Date)]
-        public DateTime Date_Post { get; set; }
+        public DateTime Date_Post { get 
+            {
+                return Date_Post;
+            }
+            set
+            {
+                Date_Post = DateTime.Now;
+            }
+        }
         public string UserPost { get; set; }
 
         public Tache Tache { get; set; }

@@ -14,13 +14,19 @@ namespace PMT.Models
         public string ID { get; set; }
         public string TechnicienID { get; set; }
 
+        [Required]
+        public string Description { get; set; }
         public string Type { get; set; }
+        [Required]
         public string Statut { get; set; }
+        [Required]
         public string Priorite { get; set; }
 
         [DataType(DataType.Date)]
+        [Required]
         public DateTime Date_Debut { get; set; }
         [DataType(DataType.Date)]
+        [Required]
         public DateTime Date_Fin { get; set; }
 
         public ICollection<Affectation> Affectations { get; set; }

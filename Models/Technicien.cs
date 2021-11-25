@@ -13,10 +13,23 @@ namespace PMT.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string ID { get; set; }
 
+        [Required]
         public string Nom { get; set; }
+        [Required]
         public string Prenom { get; set; }
+        [Required]
         public string Postnom { get; set; }
+        [Required]
         public string Post { get; set; }
+
+        [Required]
+        public string Username { get; set; }
+        [DataType(DataType.EmailAddress)]
+        [Required]
+        public string Mail { get; set; }
+        [DataType(DataType.Password)]
+        [Required]
+        public string Password { get; set; }
 
         public string AllName { get
             {

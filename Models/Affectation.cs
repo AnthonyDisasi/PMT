@@ -18,7 +18,15 @@ namespace PMT.Models
 
 
         [DataType(DataType.Date)]
-        public DateTime Date_Affectation { get; set; }
+        public DateTime Date_Affectation { set
+            {
+                Date_Affectation = DateTime.Now;
+            }
+            get
+            {
+                return Date_Affectation;
+            }
+        }
 
         public Tache Tache { get; set; }
         public Technicien Technicien { get; set; }

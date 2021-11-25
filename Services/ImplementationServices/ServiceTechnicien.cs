@@ -41,6 +41,17 @@ namespace PMT.Services.ImplementationServices
             return await context.Techniciens.FindAsync(id);
         }
 
+        public string GetIdUser(string username)
+        {
+            //var model = context.Techniciens.FirstOrDefaultAsync(t => t.Username == User.Identity.Name);
+            return context.Techniciens.FirstOrDefault(t => t.Username == username).ID;
+        }
+
+        public async Task<IEnumerable<Tache>> GetTaches(string idUser)
+        {
+            return await context.Taches.AsNoTracking().Where(t => t.TechnicienID == idUser).ToListAsync();
+        }
+
         public async Task Update(Technicien technicien)
         {
             context.Entry(technicien).State = EntityState.Modified;
@@ -48,3 +59,4 @@ namespace PMT.Services.ImplementationServices
         }
     }
 }
+
