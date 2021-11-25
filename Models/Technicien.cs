@@ -20,7 +20,7 @@ namespace PMT.Models
         [Required]
         public string Postnom { get; set; }
         [Required]
-        public string Post { get; set; }
+        public string Titre { get; set; }
 
         [Required]
         public string Username { get; set; }

@@ -13,6 +13,7 @@ namespace PMT.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string ID { get; set; }
         public string TechnicienID { get; set; }
+        public string ParentID { get; set; }
 
         [Required]
         public string Description { get; set; }

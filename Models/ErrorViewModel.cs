@@ -8,4 +8,10 @@ namespace PMT.Models
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
+
+    public class Erreur
+    {
+        public string Code { get; set; }
+        public string Description { get; set; }
+    }
 }
