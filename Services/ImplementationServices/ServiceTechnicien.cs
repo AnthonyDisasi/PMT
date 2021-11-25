@@ -75,12 +75,12 @@ namespace PMT.Services.ImplementationServices
 
         public async Task<IEnumerable<Technicien>> Get()
         {
-            return await context.Techniciens.ToListAsync();
+            return await context.Techniciens.Include(a => a.Affectations).ThenInclude(t => t.Tache).ToListAsync();
         }
 
         public async Task<Technicien> Get(string id)
         {
-            return await context.Techniciens.FindAsync(id);
+            return await context.Techniciens.Include(a => a.Affectations).ThenInclude(t => t.Tache).FirstOrDefaultAsync(t => t.ID == id);
         }
 
         public string GetIdUser(string username)
