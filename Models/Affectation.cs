@@ -7,12 +7,20 @@ using System.Threading.Tasks;
 
 namespace PMT.Models
 {
-    public class Priorite
+    public class Affectation
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string ID { get; set; }
 
-        public string Nom { get; set; }
+        public string TacheID { get; set; }
+        public string TechnicienID { get; set; }
+
+
+        [DataType(DataType.Date)]
+        public DateTime Date_Affectation { get; set; }
+
+        public Tache Tache { get; set; }
+        public Technicien Technicien { get; set; }
     }
 }

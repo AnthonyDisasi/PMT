@@ -27,8 +27,11 @@ namespace PMT
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
             services.AddDbContext<Db_Context>(options => options.UseSqlServer(this.Configuration.GetConnectionString("DbPMT")));
             services.AddIdentity<User_App, IdentityRole>().AddEntityFrameworkStores<Db_Context>();
+
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

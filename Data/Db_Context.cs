@@ -12,11 +12,12 @@ namespace PMT.Data
     {
         public Db_Context(DbContextOptions<Db_Context> options) : base(options) { }
 
-        DbSet<Tache> Taches {get; set;}
-        DbSet<Priorite> Priorites { get; set; }
-        DbSet<Note> Notes { get; set; }
-        DbSet<Technicien> Techniciens { get; set; }
-        DbSet<Statut> Statuts { get; set; }
+        public DbSet<Tache> Taches {get; set;}
+        public DbSet<Priorite> Priorites { get; set; }
+        public DbSet<Note> Notes { get; set; }
+        public DbSet<Technicien> Techniciens { get; set; }
+        public DbSet<Statut> Statuts { get; set; }
+        public DbSet<Affectation> Affectations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
