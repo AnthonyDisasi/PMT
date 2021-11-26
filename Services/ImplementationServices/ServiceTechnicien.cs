@@ -72,7 +72,7 @@ namespace PMT.Services.ImplementationServices
 
         public async Task<IEnumerable<Technicien>> Get()
         {
-            return await context.Techniciens.Include(a => a.Affectations).ThenInclude(t => t.Tache).ToListAsync();
+            return await context.Techniciens.Include(a => a.Affectations).ToListAsync();
         }
 
         public async Task<Technicien> Get(string id)

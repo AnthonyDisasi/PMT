@@ -18,6 +18,7 @@
                     <th scope="col">Titre</th>
                     <th scope="col">Username</th>
                     <th scope="col">E - mail</th>
+                    <th scope="col">Affectations</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -30,6 +31,15 @@
                         <td>@Html.DisplayFor(i => item.Titre)</td>
                         <td>@Html.DisplayFor(i => item.Username)</td>
                         <td>@Html.DisplayFor(i => item.Mail)</td>
+                        @if (item.Affectations.Count() == 0)
+                        {
+                            <td>Aucune affectation</td>
+                        }
+                        else
+                        {
+                            <td>@item.Affectations.Count</td>
+                        }
+
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                 <a asp-controller="Technicien" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger"><i class="bi bi-trash"></i></a>

@@ -33,7 +33,7 @@ namespace PMT.Models
 
         public string AllName { get
             {
-                return Nom + Postnom + Prenom;
+                return Nom + " - " + Postnom + " - " + Prenom;
             }
         }
 

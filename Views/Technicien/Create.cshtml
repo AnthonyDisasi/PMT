@@ -3,57 +3,64 @@
     ViewData["Title"] = "New";
 }
 
-<div class="col-xl-6" style="margin:auto">
-    <div class="card p-4">
-        <form asp-action="Create" method="post" class="php-email-form" novalidate>
-            <div class="row gy-4">
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">General Form Elements</h5>
 
-                <div class="col-md-6">
-                    <input type="text" class="form-control" asp-for="Nom" placeholder="Nom" required>
-                    <span asp-validation-for="Nom" class="text-danger"></span>
-                </div>
-                <div class="col-md-6 ">
-                    <input type="text" class="form-control" asp-for="Postnom" placeholder="Postnom" required>
-                    <span asp-validation-for="Postnom" class="text-danger"></span>
-                </div>
+        <div class="col-xl-6" style="margin:auto">
+            <div class="card p-4">
+                <form asp-action="Create" method="post" novalidate>
+                    <div class="row gy-4">
 
-                <div class="col-md-6">
-                    <input type="text" class="form-control" asp-for="Prenom" placeholder="Prenom" required>
-                    <span asp-validation-for="Prenom" class="text-danger"></span>
-                </div>
-                <div class="col-md-6 ">
-                    <input type="text" class="form-control" asp-for="Titre" placeholder="Titre" required>
-                    <span asp-validation-for="Titre" class="text-danger"></span>
-                </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" asp-for="Nom" placeholder="Nom" required>
+                            <span asp-validation-for="Nom" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 ">
+                            <input type="text" class="form-control" asp-for="Postnom" placeholder="Postnom" required>
+                            <span asp-validation-for="Postnom" class="text-danger"></span>
+                        </div>
 
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon3"><i class="bi bi-person"></i></span>
-                        <input type="password" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon3" asp-for="Username" required>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" asp-for="Prenom" placeholder="Prenom" required>
+                            <span asp-validation-for="Prenom" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 ">
+                            <input type="text" class="form-control" asp-for="Titre" placeholder="Titre" required>
+                            <span asp-validation-for="Titre" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon3"><i class="bi bi-person"></i></span>
+                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon3" asp-for="Username" required>
+                            </div>
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 ">
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon3"><i class="bi bi-shield-lock"></i></span>
+                                <input type="password" class="form-control" placeholder="Mot de passe" aria-label="Password" aria-describedby="basic-addon3" asp-for="Password" required>
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon3"><i class="bi bi-envelope"></i></span>
+                                <input type="email" class="form-control" placeholder="E- Mail" aria-label="Mail" aria-describedby="basic-addon3" asp-for="Mail" required>
+                            </div>
+                            <span asp-validation-for="Mail" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-12 text-center">
+                            <button type="submit" class="btn btn-success rounded-pill">Enregistrer</button>
+                            <button type="reset" class="btn btn-warning rounded-pill">Recommencer</button>
+                        </div>
+
                     </div>
-                    <span asp-validation-for="Username" class="text-danger"></span>
-                </div>
-                <div class="col-md-6 ">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon3"><i class="bi bi-shield-lock"></i></span>
-                        <input type="password" class="form-control" placeholder="Mot de passe" aria-label="Password" aria-describedby="basic-addon3" asp-for="Password" required>
-                    </div>
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-
-                <div class="col-md-12">
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon3"><i class="bi bi-envelope"></i></span>
-                        <input type="text" class="form-control" placeholder="E- Mail" aria-label="Mail" aria-describedby="basic-addon3" asp-for="Mail" required>
-                    </div>
-                    <span asp-validation-for="Mail" class="text-danger"></span>
-                </div>
-
-                <div class="col-md-12 text-center">
-                    <button type="submit">Enregistrer</button>
-                </div>
-
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </div>
