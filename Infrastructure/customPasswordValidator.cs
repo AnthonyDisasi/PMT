@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PMT.Infrastructure
 {
-    public class customPasswordValidator : PasswordValidator<User_App>
+    public class CustomPasswordValidator : PasswordValidator<User_App>
     {
         public override async Task<IdentityResult> ValidateAsync(UserManager<User_App> manager, User_App user, string password)
         {

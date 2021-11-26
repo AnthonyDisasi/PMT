@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PMT.Data;
 
 namespace PMT.Migrations
 {
     [DbContext(typeof(Db_Context))]
-    partial class Db_ContextModelSnapshot : ModelSnapshot
+    [Migration("20211126140049__update_2")]
+    partial class _update_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -260,6 +262,9 @@ namespace PMT.Migrations
                     b.Property<string>("TacheID")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("TechnicienID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
@@ -270,6 +275,8 @@ namespace PMT.Migrations
                     b.HasIndex("StatutID");
 
                     b.HasIndex("TacheID");
+
+                    b.HasIndex("TechnicienID");
 
                     b.ToTable("Taches");
                 });
@@ -471,9 +478,15 @@ namespace PMT.Migrations
                         .WithMany("Taches")
                         .HasForeignKey("TacheID");
 
+                    b.HasOne("PMT.Models.Technicien", "Technicien")
+                        .WithMany()
+                        .HasForeignKey("TechnicienID");
+
                     b.Navigation("Priorite");
 
                     b.Navigation("Statut");
+
+                    b.Navigation("Technicien");
                 });
 
             modelBuilder.Entity("PMT.Models.Tache", b =>

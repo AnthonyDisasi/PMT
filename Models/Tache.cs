@@ -12,16 +12,16 @@ namespace PMT.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string ID { get; set; }
-        public string TechnicienID { get; set; }
+        public string CreateurTacheID { get; set; }
         public string ParentID { get; set; }
 
         [Required]
         public string Description { get; set; }
         public string Type { get; set; }
         [Required]
-        public string Statut { get; set; }
+        public string StatutID { get; set; }
         [Required]
-        public string Priorite { get; set; }
+        public string PrioriteID { get; set; }
 
         [DataType(DataType.Date)]
         [Required]
@@ -33,6 +33,9 @@ namespace PMT.Models
         public ICollection<Affectation> Affectations { get; set; }
         public ICollection<Note> Notes { get; set; }
         public ICollection<Tache> Taches { get; set; }
-        public Technicien Technicien { get; set; }
+
+        //public Technicien Technicien { get; set; }
+        public Statut Statut { get; set; }
+        public Priorite Priorite { get; set; }
     }
 }

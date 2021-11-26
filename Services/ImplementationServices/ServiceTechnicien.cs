@@ -12,26 +12,23 @@ namespace PMT.Services.ImplementationServices
     public class ServiceTechnicien : IServiceTechnicien
     {
         private readonly Db_Context context;
-        private readonly UserManager<User_App> userManager;
-        private readonly IUserValidator<User_App> userValidator;
-        private readonly IPasswordValidator<User_App> passwordValidator;
-        private readonly IPasswordHasher<User_App> passwordHasher;
+        private UserManager<User_App> userManager;
+        private IUserValidator<User_App> userValidator;
+        private IPasswordValidator<User_App> passwordValidator;
+        private IPasswordHasher<User_App> passwordHasher;
 
         public List<Erreur> erreurs = null;
 
         public ServiceTechnicien(UserManager<User_App> userManager,
             IUserValidator<User_App> userValidator,
             IPasswordValidator<User_App> passwordValidator,
-            IPasswordHasher<User_App> passwordHasher)
+            IPasswordHasher<User_App> passwordHasher,
+            Db_Context context)
         {
             this.userManager = userManager;
             this.userValidator = userValidator;
             this.passwordValidator = passwordValidator;
             this.passwordHasher = passwordHasher;
-        }
-
-        public ServiceTechnicien(Db_Context context)
-        {
             this.context = context;
         }
 
@@ -91,7 +88,7 @@ namespace PMT.Services.ImplementationServices
 
         public async Task<IEnumerable<Tache>> GetTaches(string idUser)
         {
-            return await context.Taches.AsNoTracking().Where(t => t.TechnicienID == idUser).ToListAsync();
+            return await context.Taches.AsNoTracking().Where(t => t.CreateurTacheID == idUser).ToListAsync();
         }
 
         public async Task<string> Update(Technicien technicien, string id)

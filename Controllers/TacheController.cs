@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PMT.Controllers
 {
-    public class TacheController1 : Controller
+    public class TacheController : Controller
     {
         public ActionResult Index()
         {

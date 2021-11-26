@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PMT.Data;
 
 namespace PMT.Migrations
 {
     [DbContext(typeof(Db_Context))]
-    partial class Db_ContextModelSnapshot : ModelSnapshot
+    [Migration("20211126073400__init_5")]
+    partial class _init_5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -233,9 +235,6 @@ namespace PMT.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("CreateurTacheID")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("Date_Debut")
                         .HasColumnType("datetime2");
 
@@ -249,15 +248,18 @@ namespace PMT.Migrations
                     b.Property<string>("ParentID")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PrioriteID")
+                    b.Property<string>("Priorite")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StatutID")
+                    b.Property<string>("Statut")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TacheID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TechnicienID")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Type")
@@ -265,11 +267,9 @@ namespace PMT.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("PrioriteID");
-
-                    b.HasIndex("StatutID");
-
                     b.HasIndex("TacheID");
+
+                    b.HasIndex("TechnicienID");
 
                     b.ToTable("Taches");
                 });
@@ -455,25 +455,15 @@ namespace PMT.Migrations
 
             modelBuilder.Entity("PMT.Models.Tache", b =>
                 {
-                    b.HasOne("PMT.Models.Priorite", "Priorite")
-                        .WithMany()
-                        .HasForeignKey("PrioriteID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PMT.Models.Statut", "Statut")
-                        .WithMany()
-                        .HasForeignKey("StatutID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("PMT.Models.Tache", null)
                         .WithMany("Taches")
                         .HasForeignKey("TacheID");
 
-                    b.Navigation("Priorite");
+                    b.HasOne("PMT.Models.Technicien", "Technicien")
+                        .WithMany()
+                        .HasForeignKey("TechnicienID");
 
-                    b.Navigation("Statut");
+                    b.Navigation("Technicien");
                 });
 
             modelBuilder.Entity("PMT.Models.Tache", b =>

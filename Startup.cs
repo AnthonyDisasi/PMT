@@ -31,16 +31,17 @@ namespace PMT
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<Db_Context>(options => options.UseSqlServer(this.Configuration.GetConnectionString("DbPMT")));
-            services.AddIdentity<User_App, IdentityRole>().AddEntityFrameworkStores<Db_Context>();
-
             services.AddTransient<IServiceTache, ServiceTache>();
             services.AddTransient<IServiceNote, ServiceNote>();
             services.AddTransient<IServiceTechnicien, ServiceTechnicien>();
             services.AddTransient<IServiceAffectation, ServiceAffectation>();
 
-            services.AddTransient<IPasswordValidator<User_App>, customPasswordValidator>();
+            services.AddTransient<IPasswordValidator<User_App>, CustomPasswordValidator>();
             services.AddTransient<IUserValidator<User_App>, CustomUserValidator>();
+
+
+            services.AddDbContext<Db_Context>(options => options.UseSqlServer(this.Configuration.GetConnectionString("DbPMT")));
+            services.AddIdentity<User_App, IdentityRole>().AddEntityFrameworkStores<Db_Context>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
