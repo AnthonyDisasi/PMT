@@ -1,0 +1,62 @@
+﻿@model PMT.Models.Tache
+@{
+    ViewData["Title"] = "New";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Create new task</h5>
+
+        <div class="col-xl-6" style="margin:auto">
+            <div class="card p-4">
+                <form asp-action="Create" method="post" novalidate>
+                    <div class="row gy-4">
+
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" asp-for="Description" placeholder="Description" required>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="date" class="form-control" asp-for="Date_Debut" placeholder="Date début" required>
+                            <span asp-validation-for="Date_Debut" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 ">
+                            <input type="date" class="form-control" asp-for="Date_Fin" placeholder="Date fin" required>
+                            <span asp-validation-for="Date_Fin" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <select asp-for="PrioriteID" asp-items="ViewBag.Priorites" class="form-select" aria-label="Default select example" required>
+                                    <option value="">Selectionner une priorité</option>
+                                </select>
+                            </div>
+                            <span asp-validation-for="PrioriteID" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 ">
+                            <div class="input-group">
+                                <select asp-for="StatutID" class="form-select" asp-items="ViewBag.Statuts" aria-label="Default select example" required>
+                                    <option value="">Selectionner un statut</option>
+                                </select>
+                            </div>
+                            <span asp-validation-for="StatutID" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="col-md-6 ">
+                            <input type="text" class="form-control" asp-for="Type" placeholder="Type" required>
+                            <span asp-validation-for="Type" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-12 text-center">
+                            <button type="submit" class="btn btn-success rounded-pill">Enregistrer</button>
+                            <button type="reset" class="btn btn-warning rounded-pill">Recommencer</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

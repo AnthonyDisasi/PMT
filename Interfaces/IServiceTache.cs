@@ -1,4 +1,5 @@
-﻿using PMT.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using PMT.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,11 @@ namespace PMT.Services
     {
         public Task<IEnumerable<Tache>> Get();
         public Task<Tache> Get(string id);
-        public Task<Tache> Create(Tache tache);
+
+        public Task<List<SelectListItem>> ListStatut();
+        public Task<List<SelectListItem>> ListePriorite();
+
+        public Task<Tache> Create(Tache tache, string Username);
         public Task Update(Tache tache);
         public Task Delete(string id);
     }

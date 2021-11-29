@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PMT.Models;
+using PMT.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,71 +11,74 @@ namespace PMT.Controllers
 {
     public class TacheController : Controller
     {
-        public ActionResult Index()
+        private readonly IServiceTache _service;
+
+        public TacheController(IServiceTache service)
         {
-            return View();
+            _service = service;
         }
 
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        public async Task<ActionResult> Index()
+            => View(await _service.Get());
 
-        public ActionResult Create()
-        {
-            return View();
-        }
+        public async Task<ActionResult> Details(string id)
+            => View(await _service.Get(id));
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create()
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        public ActionResult Edit(int id)
-        {
+            ViewData["Priorites"] = await _service.ListePriorite();
+            ViewData["Statuts"] = await _service.ListStatut();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Create(Tache model)
         {
-            try
+            if (ModelState.IsValid)
             {
+                //anthony.disasi
+                //await _service.Create(model, User.Identity.Name);
+                await _service.Create(model, "anthony.disasi");
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+
+            ViewData["Priorites"] = await _service.ListePriorite();
+            ViewData["Statuts"] = await _service.ListStatut();
+            return View(model);
         }
 
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Edit(string id)
         {
-            return View();
+            ViewData["Priorites"] = await _service.ListePriorite();
+            ViewData["Statuts"] = await _service.ListStatut();
+            return View(await _service.Get(id));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(Tache model)
         {
-            try
+            if (ModelState.IsValid)
             {
+                await _service.Update(model);
                 return RedirectToAction(nameof(Index));
+
             }
-            catch
-            {
-                return View();
-            }
+            ViewData["Priorites"] = await _service.ListePriorite();
+            ViewData["Statuts"] = await _service.ListStatut();
+            return View(model);
+        }
+
+        public async Task<ActionResult> Delete(string id)
+            => View(await _service.Get(id));
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Delete(Tache model)
+        {
+            await _service.Delete(model.ID);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

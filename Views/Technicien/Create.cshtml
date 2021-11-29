@@ -1,11 +1,11 @@
-﻿@model PMT.Models.Technicien
+﻿@model PMT.Models.technicienModel
 @{
     ViewData["Title"] = "New";
 }
 
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">General Form Elements</h5>
+        <h5 class="card-title">Add new Technician</h5>
 
         <div class="col-xl-6" style="margin:auto">
             <div class="card p-4">
@@ -37,13 +37,6 @@
                             </div>
                             <span asp-validation-for="Username" class="text-danger"></span>
                         </div>
-                        <div class="col-md-6 ">
-                            <div class="input-group">
-                                <span class="input-group-text" id="basic-addon3"><i class="bi bi-shield-lock"></i></span>
-                                <input type="password" class="form-control" placeholder="Mot de passe" aria-label="Password" aria-describedby="basic-addon3" asp-for="Password" required>
-                            </div>
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </div>
 
                         <div class="col-md-12">
                             <div class="input-group">
@@ -52,6 +45,23 @@
                             </div>
                             <span asp-validation-for="Mail" class="text-danger"></span>
                         </div>
+
+                        <div class="col-md-6 ">
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon3"><i class="bi bi-shield-lock"></i></span>
+                                <input type="password" class="form-control" placeholder="Mot de passe" aria-label="Password" aria-describedby="basic-addon3" asp-for="Password" required>
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 ">
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon3"><i class="bi bi-shield-lock"></i></span>
+                                <input type="password" class="form-control" placeholder="Mot de passe" aria-label="ConfirmPassword" aria-describedby="basic-addon3" asp-for="ConfirmPassword" required>
+                            </div>
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+
 
                         <div class="col-md-12 text-center">
                             <button type="submit" class="btn btn-success rounded-pill">Enregistrer</button>

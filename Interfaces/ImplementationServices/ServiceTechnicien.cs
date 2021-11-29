@@ -80,10 +80,10 @@ namespace PMT.Services.ImplementationServices
             return await context.Techniciens.Include(a => a.Affectations).ThenInclude(t => t.Tache).FirstOrDefaultAsync(t => t.ID == id);
         }
 
-        public string GetIdUser(string username)
+        public async Task<string> GetIdUser(string username)
         {
             //var model = context.Techniciens.FirstOrDefaultAsync(t => t.Username == User.Identity.Name);
-            return context.Techniciens.FirstOrDefault(t => t.Username == username).ID;
+            return (await context.Techniciens.FirstOrDefaultAsync(t => t.Username == username)).ID;
         }
 
         public async Task<IEnumerable<Tache>> GetTaches(string idUser)

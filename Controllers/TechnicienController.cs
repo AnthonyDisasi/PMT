@@ -24,6 +24,7 @@ namespace PMT.Controllers
             return View(await service.Get());
         }
 
+        [ActionName("Details/{id}")]
         public async Task<ActionResult> Details(string id)
         {
             if(id == null)
@@ -44,11 +45,23 @@ namespace PMT.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Technicien model)
+        public async Task<ActionResult> Create(technicienModel model)
         {
             if (ModelState.IsValid)
             {
-                await service.Create(model);
+                var technicien = new Technicien
+                {
+                    ID = model.ID,
+                    Nom = model.Nom,
+                    Postnom = model.Postnom,
+                    Prenom = model.Prenom,
+                    Mail = model.Mail,
+                    Password = model.Password,
+                    Titre = model.Titre,
+                    Username = model.Username
+                };
+
+                await service.Create(technicien);
                 return RedirectToAction(nameof(Index));
             }
             return View(model);

@@ -6,8 +6,7 @@
 
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Datatables</h5>
-        <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>
+        <h5 class="card-title">Technicien</h5>
 
         <!-- Table with stripped rows -->
         <table class="table datatable">
@@ -27,7 +26,7 @@
                 {
                     <tr>
                         <th scope="row">@nb</th>
-                        <td>@Html.DisplayFor(i => item.AllName)</td>
+                        <td>@Html.DisplayFor(i => item.Nom) - @Html.DisplayFor(i => item.Prenom) </td>
                         <td>@Html.DisplayFor(i => item.Titre)</td>
                         <td>@Html.DisplayFor(i => item.Username)</td>
                         <td>@Html.DisplayFor(i => item.Mail)</td>
@@ -42,8 +41,6 @@
 
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                <a asp-controller="Technicien" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger"><i class="bi bi-trash"></i></a>
-                                <a asp-controller="Technicien" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
                                 <a asp-controller="Technicien" asp-action="Details" asp-route-id="@item.ID" class="btn btn-success"><i class="bi bi-info-circle"></i></a>
                             </div>
                         </td>
