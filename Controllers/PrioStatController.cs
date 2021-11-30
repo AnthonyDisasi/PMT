@@ -8,12 +8,13 @@ namespace PMT.Controllers
 {
     public class PrioStatController : Controller
     {
+        
         public IActionResult Priorite()
         {
             return View();
         }
 
-        public IActionResult Priorite()
+        public IActionResult Statut()
         {
             return View();
         }

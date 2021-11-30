@@ -24,10 +24,11 @@ namespace PMT.Models
         [Required]
         public string Description { get; set; }
         public string Type { get; set; }
+
         [Required]
-        public string StatutID { get; set; }
+        public string Statut { get; set; }
         [Required]
-        public string PrioriteID { get; set; }
+        public string Priorite { get; set; }
 
         public bool EstActif { get; set; }
 
@@ -43,7 +44,5 @@ namespace PMT.Models
         public ICollection<Tache> Taches { get; set; }
 
         //public Technicien Technicien { get; set; }
-        public Statut Statut { get; set; }
-        public Priorite Priorite { get; set; }
     }
 }
