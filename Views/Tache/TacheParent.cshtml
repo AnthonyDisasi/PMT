@@ -1,19 +1,18 @@
 ﻿@model PMT.Models.Tache
 @{
     ViewData["Title"] = "Detail";
-    int nb = 1;
 }
 <!--arrow-left-square-->
 
 <div class="col-xl-8" style="margin:auto">
-
+    <h1>@Model.Taches.Count</h1>
     <div class="card">
         <div class="card-body pt-3">
 
             <!-- Profile Edit Form -->
             <form>
                 <div class="text-center">
-                    <h4>Detail de la Tâche</h4>
+                    <h4>Tâche</h4>
                     <div class="pt-2">
                         <a asp-controller="Tache" asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
                         <a asp-controller="Tache" asp-action="Delete" asp-route-id="@Model.ID" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
@@ -75,51 +74,11 @@
                 </div>
 
                 <div class="text-center">
-                    <a asp-controller="Tache" asp-action="IndexTache" class="btn btn-primary"><i class="bi bi-arrow-right-square"></i></a>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-arrow-right-square"></i></button>
                 </div>
             </form><!-- End Profile Edit Form -->
 
-            @if (Model.Taches.Count != 0)
-            {
-                <!-- Table with stripped rows -->
-                <table class="table datatable">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nom</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Priorité</th>
-                            <th scope="col">Statut</th>
-                            <th scope="col">Date debut</th>
-                            <th scope="col">Date fin</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.Taches)
-                        {
-                            <tr>
-                                <th scope="row">@nb</th>
-                                <td>@Html.DisplayFor(i => item.Nom)</td>
-                                <td>@Html.DisplayFor(i => item.Type)</td>
-                                <td>@Html.DisplayFor(i => item.PrioriteID)</td>
-                                <td>@Html.DisplayFor(i => item.StatutID)</td>
-                                <td>@Html.DisplayFor(i => item.Date_Debut)</td>
-                                <td>@Html.DisplayFor(i => item.Date_Fin)</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <a asp-controller="Tache" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger"><i class="bi bi-trash"></i></a>
-                                        <a asp-controller="Tache" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
-                                        <a asp-controller="Tache" asp-action="Details" asp-route-id="@item.ID" class="btn btn-success"><i class="bi bi-info-circle"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            nb++;
-                        }
-                    </tbody>
-                </table>
-                <!-- End Table with stripped rows -->
-            }
+
         </div>
     </div>
 

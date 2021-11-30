@@ -16,6 +16,7 @@ namespace PMT.Models
         public string TacheID { get; set; }
         public string TechnicienID { get; set; }
 
+        public bool EstActif { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime Date_Affectation { set

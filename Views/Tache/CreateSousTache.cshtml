@@ -1,6 +1,6 @@
 ﻿@model PMT.Models.Tache
 @{
-    ViewData["Title"] = "Update";
+    ViewData["Title"] = "New";
 }
 
 <div class="col-xl-8" style="margin:auto">
@@ -9,14 +9,12 @@
         <div class="card-body pt-3">
 
             <!-- Profile Edit Form -->
-            <form asp-action="Edit" method="post" novalidate>
+            <form asp-action="Create" method="post" novalidate>
                 <input type="hidden" asp-for="TacheID" value="@ViewBag.IdParent" />
                 <div class="text-center">
-                    <h4>Modifier la tâche</h4>
+                    <h4>Nouelle sous - tâche</h4>
                     <div class="pt-2">
-                        <a asp-controller="Tache" asp-action="Details" asp-route-id="@Model.ID" class="btn btn-success btn-sm"><i class="bi bi-info-circle"></i></a>
-                        <a asp-controller="Tache" asp-action="Delete" asp-route-id="@Model.ID" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
-                        <a asp-controller="Tache" asp-action="IndexTache" class="btn btn-primary btn-sm"><i class="bi bi-arrow-right-square"></i></a>
+                        <a asp-controller="Tache" asp-action="Index" class="btn btn-primary btn-sm"><i class="bi bi-arrow-right-square"></i></a>
                     </div>
                 </div>
                 <br />
@@ -82,7 +80,8 @@
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="btn btn-warning">Modifier</button>
+                    <button type="submit" class="btn btn-success rounded-pill">Enregistrer</button>
+                    <button type="reset" class="btn btn-warning rounded-pill">Recommencer</button>
                 </div>
             </form><!-- End Profile Edit Form -->
 

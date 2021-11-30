@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PMT.Data;
 
 namespace PMT.Migrations
 {
     [DbContext(typeof(Db_Context))]
-    partial class Db_ContextModelSnapshot : ModelSnapshot
+    [Migration("20211130091344__update_6")]
+    partial class _update_6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -233,7 +235,7 @@ namespace PMT.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("CreateurTache")
+                    b.Property<string>("CreateurTacheID")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date_Debut")
@@ -246,10 +248,10 @@ namespace PMT.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("EstActif")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Nom")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ParentID")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PrioriteID")

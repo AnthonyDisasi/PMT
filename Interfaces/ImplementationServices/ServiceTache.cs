@@ -18,10 +18,18 @@ namespace PMT.Services.ImplementationServices
             _context = context;
         }
 
+        public async Task<Tache> AddSousTacheAsync(Tache tache, string id)
+        {
+            var tacheParent = await Get(id);
+            tacheParent.Taches.Add(tache);
+            await Update(tacheParent);
+            return tacheParent;
+        }
+
         public async Task<Tache> Create(Tache tache, string Username)
         {
-            string UserTec = (await _context.Techniciens.FirstOrDefaultAsync(t => t.Username == Username)).ID;
-            tache.CreateurTacheID = UserTec;
+            tache.CreateurTache = Username;
+            tache.EstActif = true;
             _context.Taches.Add(tache);
             await _context.SaveChangesAsync();
             return tache;
@@ -30,15 +38,17 @@ namespace PMT.Services.ImplementationServices
         public async Task Delete(string id)
         {
             var tache = await _context.Taches.FindAsync(id);
-            _context.Taches.Remove(tache);
-            await _context.SaveChangesAsync();
+            tache.EstActif = false;
+            await Update(tache);
         }
-
         public async Task<IEnumerable<Tache>> Get()
-            => await _context.Taches.Include(a => a.Affectations).Include(t => t.Taches).ToListAsync();
+            => await _context.Taches.Include(a => a.Affectations).Include(t => t.Taches).Where(t => t.EstActif == true).ToListAsync();
+
+        public async Task<IEnumerable<Tache>> GetWhereDateFinMax()
+            => await _context.Taches.Include(t => t.Taches).Include(a => a.Affectations).Where(t => t.TacheID == null).Where(t => t.EstActif == true).ToListAsync();
 
         public async Task<Tache> Get(string id)
-            => await _context.Taches.FindAsync(id);
+            => await _context.Taches.AsNoTracking().Include(t => t.Taches).Include(a => a.Affectations).Where(t => t.EstActif == true).FirstOrDefaultAsync(t => t.ID == id);
 
         public async Task<List<SelectListItem>> ListePriorite()
             => await (from p in _context.Priorites select new SelectListItem { Text = p.Nom, Value = p.ID }).ToListAsync();

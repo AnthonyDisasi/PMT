@@ -1,7 +1,84 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model PMT.Models.Tache
 @{
+    ViewData["Title"] = "Delete";
 }
+<!--arrow-left-square-->
 
-<h1>Delete</h1>
+<div class="col-xl-8" style="margin:auto">
+
+    <div class="card">
+        <div class="card-body pt-3">
+
+            <!-- Profile Edit Form -->
+            <form>
+                <div class="text-center">
+                    <h4>Supprimer la tâche</h4>
+                    <div class="pt-2">
+                        <a asp-controller="Tache" asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+                        <a asp-controller="Tache" asp-action="IndexTache" class="btn btn-primary btn-sm"><i class="bi bi-arrow-right-square"></i></a>
+                    </div>
+                </div>
+                <br />
+
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Description</label>
+                    <div class="col-md-8 col-lg-9">
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Description</label>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Type</label>
+                    <div class="col-md-8 col-lg-9">
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Type</label>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Description Tâche parente</label>
+                    <div class="col-md-8 col-lg-9">
+                        @if (Model.TacheID == null)
+                        {
+
+                            <label class="col-md-4 col-lg-9 col-form-label">Pas de tâche parente</label>
+                        }
+                        else
+                        {
+
+                            <label class="col-md-4 col-lg-9 col-form-label">@Model.TacheID</label>
+                        }
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Priorité</label>
+                    <div class="col-md-8 col-lg-9">
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.PrioriteID</label>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Statut</label>
+                    <div class="col-md-8 col-lg-9">
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.StatutID</label>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Date début</label>
+                    <div class="col-md-8 col-lg-9">
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Date_Debut</label>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Date finale</label>
+                    <div class="col-md-8 col-lg-9">
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Date_Fin</label>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a asp-controller="Tache" asp-action="Delete" asp-route-id="@Model.ID" type="submit" class="btn btn-danger">Delete</a>
+                </div>
+            </form><!-- End Profile Edit Form -->
+
+
+        </div>
+    </div>
+
+</div>

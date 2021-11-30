@@ -88,7 +88,7 @@ namespace PMT.Services.ImplementationServices
 
         public async Task<IEnumerable<Tache>> GetTaches(string idUser)
         {
-            return await context.Taches.AsNoTracking().Where(t => t.CreateurTacheID == idUser).ToListAsync();
+            return await context.Taches.AsNoTracking().Where(t => t.CreateurTache == idUser).ToListAsync();
         }
 
         public async Task<string> Update(Technicien technicien, string id)

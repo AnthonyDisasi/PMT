@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PMT.Data;
 using PMT.Infrastructure;
+using PMT.Interfaces;
+using PMT.Interfaces.ImplementationServices;
 using PMT.Models;
 using PMT.Services;
 using PMT.Services.ImplementationServices;
@@ -35,6 +37,7 @@ namespace PMT
             services.AddTransient<IServiceNote, ServiceNote>();
             services.AddTransient<IServiceTechnicien, ServiceTechnicien>();
             services.AddTransient<IServiceAffectation, ServiceAffectation>();
+            services.AddTransient<IServicePrioStatAsync, ServicePrioStatAsync>();
 
             services.AddTransient<IPasswordValidator<User_App>, CustomPasswordValidator>();
             services.AddTransient<IUserValidator<User_App>, CustomUserValidator>();

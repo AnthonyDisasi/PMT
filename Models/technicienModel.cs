@@ -30,6 +30,7 @@ namespace PMT.Models
 
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
+        public bool EstActif { get; set; }
 
 
         public string AllName

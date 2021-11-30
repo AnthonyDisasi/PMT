@@ -25,6 +25,7 @@ namespace PMT.Models
             }
         }
         public string UserPost { get; set; }
+        public bool EstActif { get; set; }
 
         public Tache Tache { get; set; }
     }

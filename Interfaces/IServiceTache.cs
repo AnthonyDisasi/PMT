@@ -10,6 +10,7 @@ namespace PMT.Services
     public interface IServiceTache
     {
         public Task<IEnumerable<Tache>> Get();
+        public Task<IEnumerable<Tache>> GetWhereDateFinMax();
         public Task<Tache> Get(string id);
 
         public Task<List<SelectListItem>> ListStatut();
@@ -18,5 +19,8 @@ namespace PMT.Services
         public Task<Tache> Create(Tache tache, string Username);
         public Task Update(Tache tache);
         public Task Delete(string id);
+
+        //Return tache parent
+        public Task<Tache> AddSousTacheAsync(Tache tache, string id);
     }
 }

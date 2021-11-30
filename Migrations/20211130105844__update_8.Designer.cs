@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PMT.Data;
 
 namespace PMT.Migrations
 {
     [DbContext(typeof(Db_Context))]
-    partial class Db_ContextModelSnapshot : ModelSnapshot
+    [Migration("20211130105844__update_8")]
+    partial class _update_8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -250,6 +252,9 @@ namespace PMT.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Nom")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ParentID")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PrioriteID")

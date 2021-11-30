@@ -9,12 +9,18 @@ namespace PMT.Models
 {
     public class Tache
     {
+        public Tache()
+        {
+            Taches = new HashSet<Tache>();
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string ID { get; set; }
-        public string CreateurTacheID { get; set; }
-        public string ParentID { get; set; }
+        public string TacheID { get; set; }
+        public string CreateurTache { get; set; }
 
+        public string Nom { get; set; }
         [Required]
         public string Description { get; set; }
         public string Type { get; set; }
@@ -22,6 +28,8 @@ namespace PMT.Models
         public string StatutID { get; set; }
         [Required]
         public string PrioriteID { get; set; }
+
+        public bool EstActif { get; set; }
 
         [DataType(DataType.Date)]
         [Required]

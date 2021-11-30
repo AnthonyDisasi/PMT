@@ -1,0 +1,66 @@
+﻿@model IEnumerable<PMT.Models.Tache>
+@{
+    ViewData["Title"] = "Liste tache";
+    int nb = 1;
+}
+
+<div class="col-md-10" style="margin:auto; width:70%;">
+
+    <div class="card">
+        <div class="card-body pt-3">
+            <div class="text-center">
+                <h3 class="card-title">Liste des tâches</h3>
+                <a class="text-right" asp-controller="Tache" asp-action="Create">Ajouter une nouvelle tâche</a>
+            </div>
+            <!-- F.A.Q Group 2 -->
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="accordion accordion-flush" id="faq-group-2">
+
+                        <div class="accordion-item">
+                            @foreach (var item in Model)
+                            {
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" data-bs-target="#faqsTwo-@nb" type="button" data-bs-toggle="collapse">
+                                        <i class="bi bi-bookmark-check"></i> @item.Nom
+                                    </button>
+                                </h2>
+                                <div id="faqsTwo-@nb" class="accordion-collapse collapse" data-bs-parent="#faq-group-2">
+                                    <div class="accordion-body">
+
+                                        <br />
+                                        @if (item.Taches.Count == 0)
+                                        {
+                                            <p>Aucune sous - tâche </p>
+                                        }
+                                        else
+                                        {
+                                            <div>
+                                                <p>@item.Description</p>
+                                                <p><i class="bi bi-calendar-event"></i> Date limite de la sous -tâche : @item.Date_Fin</p>
+                                                <p><i class="bi bi-sort-numeric-down"></i> Nombre des sous - tâches : @item.Taches.Count</p>
+                                            </div>
+                                        }
+                                        <br />
+                                        <div class="btn-group text-center" role="group" aria-label="Basic mixed styles example">
+                                            <a asp-controller="Tache" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                                            <a asp-controller="Tache" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                                            <a asp-controller="Tache" asp-action="Details" asp-route-id="@item.ID" class="btn btn-success"><i class="bi bi-info-circle"></i></a>
+                                            <a asp-controller="Tache" asp-action="CreateSousTache" asp-route-id="@item.ID" class="btn btn-primary"><i class="bi bi-clipboard-plus"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                nb++;
+                                <hr/>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- End F.A.Q Group 2 -->
+
+        </div>
+
+    </div>
+</div>
