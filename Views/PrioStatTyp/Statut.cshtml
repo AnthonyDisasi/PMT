@@ -1,0 +1,59 @@
+﻿
+@model IEnumerable<PMT.Models.Statut>
+@{
+    ViewData["Title"] = "Statuts";
+}
+
+<link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="card-body">
+    <div class="float-right">
+        <!-- Vertically centered Modal -->
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#verticalycentered">
+            Ajouter un statut
+        </button>
+        <div class="modal fade" id="verticalycentered" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form asp-controller="PrioStatTyp" asp-action="CreateStatut" method="get" novalidate>
+                        <div class="modal-header">
+                            <h5 class="modal-title text-black">Nouveau statut</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mb-3">
+                                <label class="col-md-4 col-lg-3 col-form-label text-black">Priorité</label>
+                                <div class="col-md-8 col-lg-9">
+                                    <input name="Nom" type="text" placeholder="Statut" class="form-control text-black" id="company" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success rounded-pill">Enregistrer</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div><!-- End Vertically centered Modal-->
+    </div>
+</div>
+
+<div class="tab-pane" id="messages">
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <span class="float-right font-weight-bold"><a asp-controller="PrioStatTyp" asp-action="DeleteStatut" asp-route-id="@item.ID" class="btn btn-danger"><i class="bi bi-trash"></i></a></span> <p class="text-white">Nom : @item.Nom</p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

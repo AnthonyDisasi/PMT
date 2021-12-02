@@ -53,6 +53,8 @@ namespace PMT.Services.ImplementationServices
         public async Task<List<SelectListItem>> ListePriorite()
             => await (from p in _context.Priorites select new SelectListItem { Text = p.Nom, Value = p.ID }).ToListAsync();
 
+        public async Task<List<SelectListItem>> ListeType()
+            => await (from t in _context.Types select new SelectListItem { Text = t.Nom, Value = t.ID }).ToListAsync();
         public async Task<List<SelectListItem>> ListStatut()
             => await(from s in _context.Statuts select new SelectListItem { Text = s.Nom, Value = s.ID }).ToListAsync();
 

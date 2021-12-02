@@ -14,7 +14,6 @@ namespace PMT.Models
         public string ID { get; set; }
 
         public string Nom { get; set; }
-        public int MyProperty { get; set; }
         public bool EstActif { get; set; }
     }
 }

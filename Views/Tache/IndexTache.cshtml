@@ -1,66 +1,62 @@
 ﻿@model IEnumerable<PMT.Models.Tache>
 @{
     ViewData["Title"] = "Liste tache";
-    int nb = 1;
+    int nb = 1, day = 0;
 }
 
-<div class="col-md-10" style="margin:auto; width:70%;">
 
-    <div class="card">
-        <div class="card-body pt-3">
-            <div class="text-center">
-                <h3 class="card-title">Liste des tâches</h3>
-                <a class="text-right" asp-controller="Tache" asp-action="Create">Ajouter une nouvelle tâche</a>
-            </div>
-            <!-- F.A.Q Group 2 -->
-            <div class="card">
-                <div class="card-body">
+<div class="card-body">
+    <div class="float-right">
+        <a asp-controller="Tache" asp-action="Create" class="btn btn-light btn-round px-5 float-right"><i class="bi bi-journal-plus"></i> Ajouter une tâche</a>
+    </div>
+    <br/><br/>
+    <div class="table-responsive">
+        <div class="accordion accordion-flush" id="faq-group-2">
 
-                    <div class="accordion accordion-flush" id="faq-group-2">
+            <div class="accordion-item">
+                <table class="table table-hover table-striped">
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            day = item.Date_Fin.Day - DateTime.Now.Day;
+                            <tr>
+                                <td>
+                                    <span class="float-right font-weight-bold text-white"> day(s) ago</span> <button class="accordion-button collapsed text-white" data-bs-target="#faqsTwo-@nb" type="button" data-bs-toggle="collapse"><i class="bi bi-bookmark-check"></i> @item.Nom </button>
 
-                        <div class="accordion-item">
-                            @foreach (var item in Model)
-                            {
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" data-bs-target="#faqsTwo-@nb" type="button" data-bs-toggle="collapse">
-                                        <i class="bi bi-bookmark-check"></i> @item.Nom
-                                    </button>
-                                </h2>
-                                <div id="faqsTwo-@nb" class="accordion-collapse collapse" data-bs-parent="#faq-group-2">
-                                    <div class="accordion-body">
+                                    <div id="faqsTwo-@nb" class="accordion-collapse collapse" data-bs-parent="#faq-group-2">
+                                        <div class="accordion-body">
 
-                                        <br />
-                                        @if (item.Taches.Count == 0)
-                                        {
-                                            <p>Aucune sous - tâche </p>
-                                        }
-                                        else
-                                        {
-                                            <div>
-                                                <p>@item.Description</p>
-                                                <p><i class="bi bi-calendar-event"></i> Date limite de la sous -tâche : @item.Date_Fin</p>
-                                                <p><i class="bi bi-sort-numeric-down"></i> Nombre des sous - tâches : @item.Taches.Count</p>
+                                            <br />
+                                            @if (item.Taches.Count == 0)
+                                            {
+                                                <p class="text-white">Aucune sous - tâche </p>
+                                            }
+                                            else
+                                            {
+                                                <div class="text-white">
+                                                    <p>@item.Description</p>
+                                                    <hr />
+                                                    <p><i class="bi bi-calendar-event"></i> Date limite de la sous -tâche : @item.Date_Fin</p>
+                                                    <p><i class="bi bi-sort-numeric-down"></i> Nombre des sous - tâches : @item.Taches.Count</p>
+                                                </div>
+                                            }
+                                            <br />
+                                            <hr />
+                                            <div class="btn-group text-center" role="group" aria-label="Basic mixed styles example" style="margin:auto">
+                                                <a asp-controller="Tache" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                                                <a asp-controller="Tache" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                                                <a asp-controller="Tache" asp-action="Details" asp-route-id="@item.ID" class="btn btn-success"><i class="bi bi-info-circle"></i></a>
+                                                <a asp-controller="Tache" asp-action="CreateSousTache" asp-route-id="@item.ID" class="btn btn-primary"><i class="bi bi-clipboard-plus"></i></a>
                                             </div>
-                                        }
-                                        <br />
-                                        <div class="btn-group text-center" role="group" aria-label="Basic mixed styles example">
-                                            <a asp-controller="Tache" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger"><i class="bi bi-trash"></i></a>
-                                            <a asp-controller="Tache" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
-                                            <a asp-controller="Tache" asp-action="Details" asp-route-id="@item.ID" class="btn btn-success"><i class="bi bi-info-circle"></i></a>
-                                            <a asp-controller="Tache" asp-action="CreateSousTache" asp-route-id="@item.ID" class="btn btn-primary"><i class="bi bi-clipboard-plus"></i></a>
                                         </div>
                                     </div>
-                                </div>
-                                nb++;
-                                <hr/>
-                            }
-                        </div>
-                    </div>
-
-                </div>
-            </div><!-- End F.A.Q Group 2 -->
-
+                                </td>
+                            </tr>
+                            nb++;
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
-
     </div>
 </div>

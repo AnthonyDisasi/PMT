@@ -29,6 +29,7 @@ namespace PMT.Controllers
         {
             ViewData["Priorites"] = await _service.ListePriorite();
             ViewData["Statuts"] = await _service.ListStatut();
+            ViewData["Types"] = await _service.ListeType();
             return View();
         }
 
@@ -47,6 +48,7 @@ namespace PMT.Controllers
 
             ViewData["Priorites"] = await _service.ListePriorite();
             ViewData["Statuts"] = await _service.ListStatut();
+            ViewData["Types"] = await _service.ListeType();
             return View(model);
         }
         
@@ -55,6 +57,7 @@ namespace PMT.Controllers
             ViewData["IdParent"] = id;
             ViewData["Priorites"] = await _service.ListePriorite();
             ViewData["Statuts"] = await _service.ListStatut();
+            ViewData["Types"] = await _service.ListeType();
             return View();
         }
 
@@ -76,6 +79,7 @@ namespace PMT.Controllers
             }
             ViewData["Priorites"] = await _service.ListePriorite();
             ViewData["Statuts"] = await _service.ListStatut();
+            ViewData["Types"] = await _service.ListeType();
             return View(tache);
         }
 
@@ -85,6 +89,7 @@ namespace PMT.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             ViewData["Priorites"] = await _service.ListePriorite();
+            ViewData["Types"] = await _service.ListeType();
             ViewData["Statuts"] = await _service.ListStatut();
             return View(await _service.Get(id));
         }
@@ -102,6 +107,7 @@ namespace PMT.Controllers
             }
             ViewData["Priorites"] = await _service.ListePriorite();
             ViewData["Statuts"] = await _service.ListStatut();
+            ViewData["Types"] = await _service.ListeType();
             return View(model);
         }
 

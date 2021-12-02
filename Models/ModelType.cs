@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PMT.Models
 {
-    public class Type
+    public class ModelType
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

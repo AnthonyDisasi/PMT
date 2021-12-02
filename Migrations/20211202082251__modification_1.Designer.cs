@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PMT.Data;
 
 namespace PMT.Migrations
 {
     [DbContext(typeof(Db_Context))]
-    partial class Db_ContextModelSnapshot : ModelSnapshot
+    [Migration("20211202082251__modification_1")]
+    partial class _modification_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -213,6 +215,9 @@ namespace PMT.Migrations
 
                     b.Property<bool>("EstActif")
                         .HasColumnType("bit");
+
+                    b.Property<int>("MyProperty")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nom")
                         .HasColumnType("nvarchar(max)");

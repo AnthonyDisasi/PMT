@@ -15,6 +15,7 @@ namespace PMT.Services
 
         public Task<List<SelectListItem>> ListStatut();
         public Task<List<SelectListItem>> ListePriorite();
+        public Task<List<SelectListItem>> ListeType();
 
         public Task<Tache> Create(Tache tache, string Username);
         public Task Update(Tache tache);
