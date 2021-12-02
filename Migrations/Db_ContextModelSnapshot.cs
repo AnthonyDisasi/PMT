@@ -267,13 +267,13 @@ namespace PMT.Migrations
                     b.Property<string>("Nom")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PrioriteID")
+                    b.Property<string>("Priorite")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StatutID")
+                    b.Property<string>("Statut")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TacheID")
                         .HasColumnType("nvarchar(450)");
@@ -282,10 +282,6 @@ namespace PMT.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("PrioriteID");
-
-                    b.HasIndex("StatutID");
 
                     b.HasIndex("TacheID");
 
@@ -470,25 +466,9 @@ namespace PMT.Migrations
 
             modelBuilder.Entity("PMT.Models.Tache", b =>
                 {
-                    b.HasOne("PMT.Models.Priorite", "Priorite")
-                        .WithMany()
-                        .HasForeignKey("PrioriteID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PMT.Models.Statut", "Statut")
-                        .WithMany()
-                        .HasForeignKey("StatutID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("PMT.Models.Tache", null)
                         .WithMany("Taches")
                         .HasForeignKey("TacheID");
-
-                    b.Navigation("Priorite");
-
-                    b.Navigation("Statut");
                 });
 
             modelBuilder.Entity("PMT.Models.Tache", b =>

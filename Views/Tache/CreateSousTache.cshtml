@@ -46,20 +46,20 @@
                 <div class="row mb-3">
                     <label class="col-md-4 col-lg-3 col-form-label">Priorité</label>
                     <div class="col-md-8 col-lg-9">
-                        <select asp-for="PrioriteID" asp-items="ViewBag.Priorites" class="form-select" aria-label="Default select example" required>
+                        <select asp-for="Priorite" asp-items="ViewBag.Priorites" class="form-select" aria-label="Default select example" required>
                             <option value="">Selectionner une priorité</option>
                         </select>
-                        <span asp-validation-for="PrioriteID" class="text-danger"></span>
+                        <span asp-validation-for="Priorite" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label class="col-md-4 col-lg-3 col-form-label">Statut</label>
                     <div class="col-md-8 col-lg-9">
-                        <select asp-for="StatutID" asp-items="ViewBag.Statuts" class="form-select" aria-label="Default select example" required>
+                        <select asp-for="Statut" asp-items="ViewBag.Statuts" class="form-select" aria-label="Default select example" required>
                             <option value="">Selectionner un statut</option>
                         </select>
-                        <span asp-validation-for="StatutID" class="text-danger"></span>
+                        <span asp-validation-for="Statut" class="text-danger"></span>
                     </div>
                 </div>
 
