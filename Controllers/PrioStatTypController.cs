@@ -15,7 +15,6 @@ namespace PMT.Controllers
         public PrioStatTypController(IServicePrioStatTypAsync service)
         {
             _service = service;
-            message = "";
         }
 
         public string Create(string Nom)

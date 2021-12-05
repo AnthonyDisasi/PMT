@@ -36,7 +36,9 @@
                 <div class="row mb-3">
                     <label class="col-md-4 col-lg-3 col-form-label">Type</label>
                     <div class="col-md-8 col-lg-9">
-                        <input asp-for="Type" type="text" class="form-control" id="company" required>
+                        <select asp-for="Type" asp-items="ViewBag.Types" class="form-control" aria-label="Default select example" required>
+                            <option value="">Selectionner un type</option>
+                        </select>
                         <span asp-validation-for="Type" class="text-danger"></span>
                     </div>
                 </div>

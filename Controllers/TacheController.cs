@@ -40,9 +40,7 @@ namespace PMT.Controllers
             //model.ParentID = "45ea0b4d-1fed-4620-b1d1-72a001ad93cc";
             if (ModelState.IsValid)
             {
-                //anthony.disasi
-                //await _service.Create(model, User.Identity.Name);
-                await _service.Create(model, "anthony.disasi");
+                await _service.Create(model, User.Identity.Name);
                 return RedirectToAction(nameof(IndexTache));
             }
 
@@ -67,8 +65,7 @@ namespace PMT.Controllers
         {
             if (ModelState.IsValid)
             {
-                //await _service.Create(model, User.Identity.Name);
-                var model = await _service.Create(tache, "anthony.disasi");
+                var model = await _service.Create(tache, User.Identity.Name);
                 await _service.AddSousTacheAsync(model, tache.TacheID);
                 return RedirectToAction("IndexTache");
             }
@@ -101,6 +98,7 @@ namespace PMT.Controllers
             model.EstActif = true;
             if (ModelState.IsValid)
             {
+                model.CreateurTache = User.Identity.Name;
                 await _service.Update(model);
                 return RedirectToAction(nameof(IndexTache));
 
