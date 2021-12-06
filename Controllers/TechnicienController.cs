@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PMT.Models;
 using PMT.Services;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace PMT.Controllers
 {
+    [Authorize]
     public class TechnicienController : Controller
     {
         private readonly IServiceTechnicien service;

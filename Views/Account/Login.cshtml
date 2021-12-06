@@ -1,0 +1,40 @@
+﻿@model LoginModel
+@{
+    ViewData["Title"] = "New";
+}
+
+<div class="card card-authentication1 mx-auto my-5">
+	<div class="card-body">
+		<div class="card-content p-2">
+		<div class="text-center">
+		 	<img src="assets/images/logo-icon.png" alt="logo icon">
+		</div>
+		<div class="card-title text-uppercase text-center py-3">Connexion</div>
+		<form asp-action="Login" method="post" >
+			<div class="form-group">
+			<label for="exampleInputUsername" class="sr-only">Username</label>
+			<div class="position-relative has-icon-right">
+				<input type="text" id="exampleInputUsername" asp-for="Username" class="form-control input-shadow" placeholder="Entrez Username">
+				<div class="form-control-position">
+					<i class="icon-user"></i>
+				</div>
+			</div>
+			</div>
+			<div class="form-group">
+			<label for="exampleInputPassword" class="sr-only">Password</label>
+			<div class="position-relative has-icon-right">
+				<input type="password" id="exampleInputPassword" asp-for="Password" class="form-control input-shadow" placeholder="Entrez le Password">
+				<div class="form-control-position">
+					<i class="icon-lock"></i>
+				</div>
+			</div>
+			</div>
+			<button type="button" class="btn btn-light btn-block">Connexion</button>
+
+			</form>
+		</div>
+		</div>
+	    </div>
+	</div>
+</div>
+
