@@ -99,6 +99,7 @@ namespace PMT.Services.ImplementationServices
             User_App user = await userManager.FindByIdAsync(id);
             if(user != null)
             {
+                user.UserName = technicien.Username;
                 user.Email = technicien.Mail;
                 IdentityResult ValidEmail = await userValidator.ValidateAsync(userManager, user);
                 

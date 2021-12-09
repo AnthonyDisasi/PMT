@@ -1,0 +1,107 @@
+﻿@model IEnumerable<PMT.Models.ModelType>
+@{
+    ViewData["Title"] = "Types";
+    int nb = 1;
+}
+<!-- Datatables -->
+
+<link href="~/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+<h1>Les titres</h1>
+<div class="col-xl-8" style="margin:auto">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="x_content">
+                    <form class="" asp-controller="PrioStatTyp" asp-action="CreateType"method="get" novalidate>
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <span class="section">Nouveau Titre</span>
+
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3  label-align">Nom du type</label>
+                            <div class="col-md-6 col-sm-6">
+                                <input class="form-control has-feedback-left" name="Nom" type="text"/>
+                                <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                        <div class="ln_solid">
+                            <div class="form-group">
+                                <br /><br />
+                                <div class="col-md-6 offset-md-3 text-center">
+                                    <button type='submit' class="btn btn-primary">Ajouter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                                <p class="text-muted font-13 m-b-30">
+
+                                </p>
+                                <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th colspan="7">@Html.DisplayNameFor(model => model.Nom)</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+
+
+                                    <tbody>
+                                        @if (Model.Count() == 0)
+                                        {
+                                            <tr>
+                                                <td colspan="9">Aucun titre</td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>@nb</td>
+                                                    <td colspan="7">
+                                                        @Html.DisplayFor(modelItem => item.Nom)
+                                                    </td>
+                                                    <td style="text-align:center">
+                                                        <a asp-controller="PrioStatTyp" asp-action="DeleteTitre" asp-route-id="@item.ID" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> </a>
+                                                    </td>
+                                                </tr>
+                                                nb++;
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}

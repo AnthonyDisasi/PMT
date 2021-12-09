@@ -19,6 +19,7 @@ namespace PMT.Data
         public DbSet<Statut> Statuts { get; set; }
         public DbSet<Affectation> Affectations { get; set; }
         public DbSet<ModelType> Types { get; set; }
+        public DbSet<Titre> Titres { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

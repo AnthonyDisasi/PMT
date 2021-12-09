@@ -1,62 +1,87 @@
 ﻿@model IEnumerable<Tache>
 @{
-    ViewData["Title"] = "Liste tache";
-    int nb = 1, day = 0;
+    ViewData["Title"] = "Tâches";
+    int nb = 1;
 }
+<link href="~/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+<h1>Les techniciens</h1>
+<div  class="col-xl-8" style="margin:auto">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li>
+                            <a asp-action="Create" class="btn btn-outline-success btn-xs"><i class="fa fa-plus"></i>  nouvelle</a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                                <p class="text-muted font-13 m-b-30">
+
+                                </p>
+                                <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <td>#</td>
+                                            <th>@Html.DisplayNameFor(model => model.Nom)</th>
+                                            <th>Progession</th>
+                                            <th>Deadline</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
 
 
-<div class="card-body">
-    <div class="float-right">
-        <a asp-controller="Tache" asp-action="Create" class="btn btn-light btn-round px-5 float-right"><i class="bi bi-journal-plus"></i> Ajouter une tâche</a>
-    </div>
-    <br/><br/>
-    <div class="table-responsive">
-        <div class="accordion accordion-flush" id="faq-group-2">
-
-            <div class="accordion-item">
-                <table class="table table-hover table-striped">
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            day = item.Date_Fin.Day - DateTime.Now.Day;
-                            <tr>
-                                <td>
-                                    <span class="float-right font-weight-bold text-white"> day(s) ago</span> <button class="accordion-button collapsed text-white" data-bs-target="#faqsTwo-@nb" type="button" data-bs-toggle="collapse"><i class="bi bi-bookmark-check"></i> @item.Nom </button>
-
-                                    <div id="faqsTwo-@nb" class="accordion-collapse collapse" data-bs-parent="#faq-group-2">
-                                        <div class="accordion-body">
-
-                                            <br />
-                                            @if (item.Taches.Count == 0)
+                                    <tbody>
+                                        @if (Model.Count() == 0)
+                                        {
+                                            <tr>
+                                                <td colspan="5">Aucune tâche existe!</td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            @foreach (var item in Model)
                                             {
-                                                <p class="text-white">Aucune sous - tâche </p>
+                                                <tr>
+                                                    <td>@nb</td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Nom)
+                                                    </td>
+                                                    <td>
+                                                        <div class="progress-bar progress-bar-striped bg-success" data-transitiongoal="90"></div>
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Date_Fin)
+                                                    </td>
+                                                    <td style="text-align:center">
+                                                        <a asp-controller="Tache" asp-action="Details" asp-route-id="@item.ID" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> </a>
+                                                        <a asp-controller="Tache" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> </a>
+                                                        <a asp-controller="Tache" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> </a>
+                                                    </td>
+                                                </tr>
+                                                nb++;
                                             }
-                                            else
-                                            {
-                                                <div class="text-white">
-                                                    <p>@item.Description</p>
-                                                    <hr />
-                                                    <p><i class="bi bi-calendar-event"></i> Date limite de la sous -tâche : @item.Date_Fin</p>
-                                                    <p><i class="bi bi-sort-numeric-down"></i> Nombre des sous - tâches : @item.Taches.Count</p>
-                                                </div>
-                                            }
-                                            <br />
-                                            <hr />
-                                            <div class="btn-group text-center" role="group" aria-label="Basic mixed styles example" style="margin:auto">
-                                                <a asp-controller="Tache" asp-action="ListAffectationEtDetailsTache" asp-route-id="@item.ID" class="btn btn-danger"><i class="zmdi zmdi-account-add"></i></a>
-                                                <a asp-controller="Tache" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger"><i class="bi bi-trash"></i></a>
-                                                <a asp-controller="Tache" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
-                                                <a asp-controller="Tache" asp-action="Details" asp-route-id="@item.ID" class="btn btn-success"><i class="bi bi-info-circle"></i></a>
-                                                <a asp-controller="Tache" asp-action="CreateSousTache" asp-route-id="@item.ID" class="btn btn-primary"><i class="bi bi-clipboard-plus"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            nb++;
-                        }
-                    </tbody>
-                </table>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

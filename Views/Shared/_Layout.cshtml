@@ -1,215 +1,180 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@ViewData["Title"] - PMT</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+    <title>PMT - @ViewData["Title"]</title>
 
-    <!-- loader-->
-    <link href="~/css/pace.min.css" rel="stylesheet" />
-    <script src="~/js/pace.min.js"></script>
-    <!--favicon-->
-    <link rel="icon" href="~/images/favicon.ico" type="image/x-icon">
-    <!-- Vector CSS -->
-    <link href="~/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
-    <!-- simplebar CSS-->
-    <link href="~/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
-    <!-- Bootstrap core CSS-->
-    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- animate CSS-->
-    <link href="~/css/animate.css" rel="stylesheet" type="text/css" />
-    <!-- Icons CSS-->
-    <link href="~/css/icons.css" rel="stylesheet" type="text/css" />
-    <!-- Sidebar CSS-->
-    <link href="~/css/sidebar-menu.css" rel="stylesheet" />
-    <!-- Custom Style-->
-    <link href="~/css/app-style.css" rel="stylesheet" />
+    <!-- Bootstrap -->
+    <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link href="~/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="~/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="~/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="~/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="~/vendors/animate.css/animate.min.css" rel="stylesheet">
 
-    <!-- Favicons -->
-    <link href="~/img/favicon.png" rel="icon">
-    <link href="~/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link href="~/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="~/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="~/vendor/quill/quill.snow.css" rel="stylesheet">
-    <link href="~/vendor/quill/quill.bubble.css" rel="stylesheet">
-    <link href="~/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="~/vendor/simple-datatables/style.css" rel="stylesheet">
-
-    <!-- Main CSS File -->
-    <link href="~/css/style.css" rel="stylesheet">
-
+    <!-- Custom Theme Style -->
+    <link href="~/build/css/custom.min.css" rel="stylesheet">
 </head>
 
-<body class="bg-theme bg-theme1">
+<body class="nav-md">
+    
+    @if (User?.Identity?.IsAuthenticated ?? false)
+    {
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="clearfix"></div>
 
-    <!-- Start wrapper-->
-    <div id="wrapper">
-        @if (User?.Identity?.IsAuthenticated ?? false)
-        {
-                    <!--Start sidebar-wrapper-->
-                    <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
-                        <div class="brand-logo">
-                            <a asp-controller="Tache" asp-action="Home">
-                                <img src="~/images/logo-icon.png" class="logo-icon" alt="logo icon">
-                                <h5 class="logo-text">P - M - T</h5>
-                            </a>
+                    <!-- menu profile quick info -->
+                    <div class="profile clearfix" style="text-align:center">
+                        <h2><i class="fa fa-calendar-check-o"></i> P.M.T</h2>
+                    </div>
+                    <!-- /menu profile quick info -->
+
+                    <br />
+
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <h3>General</h3>
+                            <ul class="nav side-menu">
+                                <li>
+                                    <a><i class="fa fa-users"></i> Techniciens <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li>
+                                            <a asp-controller="Technicien" asp-action="Index">Techniciens<span class="fa fa-chevron-down"></span></a>
+                                        </li>
+                                        <li>
+                                            <a>Titre<span class="fa fa-chevron-down"></span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-tasks"></i> Tâches <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li class="sub_menu">
+                                            <a asp-controller="Tache" asp-action="IndexTache">Tâches</a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="PrioStatTyp" asp-action="Priorite">Priorités</a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="PrioStatTyp" asp-action="Statut">Statuts</a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="PrioStatTyp" asp-action="Type">Types</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </div>
-                        <ul class="sidebar-menu do-nicescrol">
-                            <li class="sidebar-header">MAIN NAVIGATION</li>
-                            <li>
-                                <a asp-controller="Tache" asp-action="IndexTache">
-                                    <i class="bi bi-journal-bookmark-fill"></i> <span>Tâches</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-controller="Technicien" asp-action="Index">
-                                    <i class="bi bi-journal-bookmark-fill"></i> <span>Technicien</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a asp-controller="PrioStatTyp" asp-action="Priorite">
-                                    <i class="zmdi zmdi-grid"></i> <span>Priorités</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a asp-controller="PrioStatTyp" asp-action="Statut">
-                                    <i class="zmdi zmdi-grid"></i> <span>Statuts</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a asp-controller="PrioStatTyp" asp-action="Type">
-                                    <i class="zmdi zmdi-account-circle"></i> <span>Types</span>
-                                </a>
-                            </li>
-                        </ul>
 
                     </div>
-                    <!--End sidebar-wrapper-->
-                    <!--Start topbar header-->
-        <!--Start topbar header-->
-        <header class="topbar-nav">
-            <nav class="navbar navbar-expand fixed-top">
-                <ul class="navbar-nav mr-auto align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link toggle-menu" href="javascript:void();">
-                            <i class="icon-menu menu-icon"></i>
+                    <!-- /sidebar menu -->
+                    <!-- /menu footer buttons -->
+                    <div class="sidebar-footer hidden-small">
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" asp-controller="Account" asp-action="Logout">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                         </a>
-                    </li>
-                </ul>
-                            
-                <ul class="navbar-nav align-items-center right-nav-link">
-                    <li class="nav-item dropdown-lg">@User.Identity.Name </li>
-                </ul>
-            </nav>
-        </header>
-        <!--End topbar header-->
-        }
-        <div class="clearfix"></div>
-
-        <div class="content-wrapper">
-            <div class="container-fluid">
-
-                <!--start overlay-->
+                    </div>
+                    <!-- /menu footer buttons -->
+                </div>
+            </div>
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <nav class="nav navbar-nav">
+                        <ul class=" navbar-right">
+                            <li class="nav-item dropdown open" style="padding-left: 15px;">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                    @User.Identity.Name
+                                </a>
+                                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                                    <a asp-controller="Account" asp-action="Profil" class="dropdown-item"> Profile</a>
+                                    <a class="dropdown-item red" asp-controller="Account" asp-action="Logout"><i class="fa fa-sign-out red pull-right"></i> Deconnexion</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+            
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+                    @RenderBody()
+                </div>
+            </div>
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    P.M.T
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
+    }
+    else
+    {
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
                 @RenderBody()
-                <div class="overlay toggle-menu"></div>
-                <!--end overlay-->
-
-            </div>
-            <!-- End container-fluid-->
-
-        </div><!--End content-wrapper-->
-        <!--Start Back To Top Button-->
-        <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-        <!--End Back To Top Button-->
-        <!--start color switcher-->
-        <div class="right-sidebar">
-            <div class="switcher-icon">
-                <i class="zmdi zmdi-settings zmdi-hc-spin"></i>
-            </div>
-            <div class="right-sidebar-content">
-
-                <p class="mb-0">Gaussion Texture</p>
-                <hr>
-
-                <ul class="switcher">
-                    <li id="theme1"></li>
-                    <li id="theme2"></li>
-                    <li id="theme3"></li>
-                    <li id="theme4"></li>
-                    <li id="theme5"></li>
-                    <li id="theme6"></li>
-                </ul>
-
-                <p class="mb-0">Gradient Background</p>
-                <hr>
-
-                <ul class="switcher">
-                    <li id="theme7"></li>
-                    <li id="theme8"></li>
-                    <li id="theme9"></li>
-                    <li id="theme10"></li>
-                    <li id="theme11"></li>
-                    <li id="theme12"></li>
-                    <li id="theme13"></li>
-                    <li id="theme14"></li>
-                    <li id="theme15"></li>
-                </ul>
-
             </div>
         </div>
-        <!--end color switcher-->
+        <!-- /page content -->
+    }
 
-    </div><!--End wrapper-->
-    <!-- Bootstrap core JavaScript-->
-    <script src="~/js/jquery.min.js"></script>
-    <script src="~/js/popper.min.js"></script>
-    <script src="~/js/bootstrap.min.js"></script>
+    <!-- jQuery -->
+    <script src="~/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="~/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="~/vendors/nprogress/nprogress.js"></script>
+    <!-- iCheck -->
+    <script src="~/vendors/iCheck/icheck.min.js"></script>
 
-    <!-- simplebar js -->
-    <script src="~/plugins/simplebar/js/simplebar.js"></script>
-    <!-- sidebar-menu js -->
-    <script src="~/js/sidebar-menu.js"></script>
-    <!-- loader scripts -->
-    <script src="~/js/jquery.loading-indicator.js"></script>
-    <!-- Custom scripts -->
-    <script src="~/js/app-script.js"></script>
-    <!-- Chart js -->
+    <!-- Datatables -->
+    <script src="~/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="~/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="~/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="~/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="~/vendors/jszip/dist/jszip.min.js"></script>
+    <script src="~/vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="~/vendors/pdfmake/build/vfs_fonts.js"></script>
 
-    <script src="~/plugins/Chart.js/Chart.min.js"></script>
+    <script src="../vendors/validator/multifield.js"></script>
+    <script src="../vendors/validator/validator.js"></script>
 
-    <!-- Index js -->
-    <script src="~/js/index.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="~/build/js/custom.min.js"></script>
 
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-    <!-- Vendor JS Files -->
-    <script src="~/vendor/apexcharts/apexcharts.min.js"></script>
-    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/vendor/chart.js/chart.min.js"></script>
-    <script src="~/vendor/echarts/echarts.min.js"></script>
-    <script src="~/vendor/quill/quill.min.js"></script>
-    <script src="~/vendor/simple-datatables/simple-datatables.js"></script>
-    <script src="~/vendor/tinymce/tinymce.min.js"></script>
-    <script src="~/vendor/php-email-form/validate.js"></script>
-
-    <!-- Main JS File -->
-    <script src="~/js/main.js"></script>
 </body>
 </html>

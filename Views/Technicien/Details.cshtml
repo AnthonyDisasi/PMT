@@ -3,122 +3,168 @@
     ViewData["Title"] = "Detail";
     int nb = 1;
 }
-<!--arrow-left-square-->
+
+<h1>Informations sur le technicien</h1>
 
 <div class="col-xl-8" style="margin:auto">
+    <hr />
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-xs"><i class="fa fa-reply"></i> retour</a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <dl class="row">
+                        <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                            @Html.DisplayNameFor(model => model.ID)
+                        </dt>
+                        <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                            @Html.DisplayFor(model => model.ID)
+                        </dd>
+                        <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                            @Html.DisplayNameFor(model => model.Nom)
+                        </dt>
+                        <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                            @Html.DisplayFor(model => model.Nom)
+                        </dd>
+                        <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                            @Html.DisplayNameFor(model => model.Postnom)
+                        </dt>
+                        <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                            @Html.DisplayFor(model => model.Postnom)
+                        </dd>
+                        <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                            @Html.DisplayNameFor(model => model.Prenom)
+                        </dt>
+                        <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                            @Html.DisplayFor(model => model.Prenom)
+                        </dd>
+                        <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                            @Html.DisplayNameFor(model => model.Titre)
+                        </dt>
+                        <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                            @Html.DisplayFor(model => model.Titre)
+                        </dd>
+                        <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                            @Html.DisplayNameFor(model => model.Username)
+                        </dt>
+                        <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                            @Html.DisplayFor(model => model.Username)
+                        </dd>
+                        <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                            @Html.DisplayNameFor(model => model.Password)
+                        </dt>
+                        <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                            @Html.DisplayFor(model => model.Password)
+                        </dd>
+                    </dl>
 
-    <div class="card">
-        <div class="card-body pt-3">
-
-            <!-- Profile Edit Form -->
-            <form>
-                <div class="text-center">
-                    <h4>Detail du technicien</h4>
-                    <div class="pt-2">
-                        <a asp-controller="Technicien" asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
-                        <a asp-controller="Technicien" asp-action="Delete" asp-route-id="@Model.ID" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
-                        <a asp-controller="Technicien" asp-action="Index" class="btn btn-primary btn-sm"><i class="bi bi-arrow-right-square"></i></a>
+                    <div class="text-center">
+                        <a class="btn btn-outline-info"  asp-action="Edit" asp-route-id="@Model.ID">Modification</a>
                     </div>
+                    <br />
                 </div>
-                <br />
-
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Nom</label>
-                    <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Nom</label>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Postnom</label>
-                    <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Postnom</label>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Prenom</label>
-                    <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Prenom</label>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Titre</label>
-                    <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Titre</label>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Username</label>
-                    <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Username</label>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">E - mail</label>
-                    <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Mail</label>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Nombre d'affectation</label>
-                    <div class="col-md-8 col-lg-9">
-                        @if (Model.Affectations.Count == 0)
-                        {
-
-                            <label class="col-md-4 col-lg-9 col-form-label">Aucune affection</label>
-                        }
-                        else
-                        {
-
-                            <label class="col-md-4 col-lg-9 col-form-label">@Model.Affectations.Count()</label>
-                        }
-                    </div>
-                </div>
-
-                <div class="text-center">
-                    <a asp-controller="Technicien" asp-action="Index" class="btn btn-primary"><i class="bi bi-arrow-right-square"></i></a>
-                </div>
-            </form><!-- End Profile Edit Form -->
-
-            @if (Model.Affectations.Count != 0)
-            {
-                <!-- Table with stripped rows -->
-                <table class="table datatable">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nom</th>
-                            <th scope="col">Début</th>
-                            <th scope="col">Fin</th>
-                            <th scope="col">Statut</th>
-                            <th scope="col">Priorité</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.Affectations)
-                        {
-                            <tr>
-                                <th scope="row">@nb</th>
-                                <td>@Html.DisplayFor(i => item.Tache.Nom)</td>
-                                <td>@Html.DisplayFor(i => item.Tache.Date_Debut.ToShortDateString())</td>
-                                <td>@Html.DisplayFor(i => item.Tache.Date_Fin.ToShortDateString())</td>
-                                <td>@Html.DisplayFor(i => item.Tache.Statut)</td>
-                                <td>@Html.DisplayFor(i => item.Tache.Priorite)</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <a asp-controller="Tache" asp-action="Delete" asp-route-id="@item.Tache.ID" class="btn btn-danger"><i class="bi bi-trash"></i></a>
-                                        <a asp-controller="Tache" asp-action="Edit" asp-route-id="@item.Tache.ID" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
-                                        <a asp-controller="Tache" asp-action="Details" asp-route-id="@item.Tache.ID" class="btn btn-success"><i class="bi bi-info-circle"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            nb++;
-                        }
-                    </tbody>
-                </table>
-                <!-- End Table with stripped rows -->
-            }
+            </div>
         </div>
     </div>
+</div>
 
+<!-- Datatables -->
+
+<link href="~/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+<link href="~/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+<h2>Les Tâches affectées</h2>
+<div class="row">
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li>
+                        <a asp-action="Create" asp-route-id="@Model.ID" class="btn btn-outline-secondary btn-xs"><i class="fa fa-reply"></i> Nouvelle</a>
+                    </li>
+                </ul>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                            <p class="text-muted font-13 m-b-30">
+
+                            </p>
+                            <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nom</th>
+                                        <th>Date début</th>
+                                        <th>Date fin</th>
+                                        <th>Priorité</th>
+                                        <th>Stqtut</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+                                    @if (Model.Affectations.Count() < 1)
+                                    {
+                                        <tr>
+                                            <td colspan="7">Aucune tâche affectée !</td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        @foreach (var item in Model.Affectations)
+                                        {
+                                            <tr>
+                                                <td>@nb</td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Tache.Nom)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Tache.Date_Debut)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Tache.Date_Fin)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Tache.Priorite)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Tache.Statut)
+                                                </td>
+                                                <td style="text-align:center">
+                                                    <a asp-controller="Tache" asp-action="Details" asp-route-id="@item.Tache.ID" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> </a>
+                                                    <a asp-controller="Tache" asp-action="Edit" asp-route-id="@item.Tache.ID" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> </a>
+                                                    <a asp-controller="Tache" asp-action="Delete" asp-route-id="@item.Tache.ID" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> </a>
+                                                </td>
+                                            </tr>
+                                            
+                                            nb++;
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

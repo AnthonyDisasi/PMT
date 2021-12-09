@@ -3,87 +3,164 @@
     ViewData["Title"] = "EditProfil";
 }
 
+<h1>Modifier votre profil</h1>
+
+<hr />
 <div class="col-xl-8" style="margin:auto">
-
-    <div class="card">
-        <div class="card-body pt-3">
-
-            <!-- Profile Edit Form -->
-            <form asp-action="EditProfil" method="post" novalidate>
-                <input type="hidden" asp-for="ID" value="@ViewBag.technicienID" />
-                <div class="text-center">
-                    <h4>Modifier votre profil</h4>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a asp-action="Profil" class="btn btn-outline-secondary btn-xs"><i class="fa fa-reply"></i> retour</a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
                 </div>
-                <br />
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Nom</label>
-                    <div class="col-md-8 col-lg-9">
-                        <input asp-for="Nom" type="text" class="form-control" id="company" required>
-                        <span asp-validation-for="Nom" class="text-danger"></span>
-                    </div>
-                </div>
+                <div class="x_content">
+                    <form class="" asp-action="EditProfil" method="post">
 
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Postnom</label>
-                    <div class="col-md-8 col-lg-9">
-                        <input asp-for="Postnom" type="text" class="form-control" id="company" required>
-                        <span asp-validation-for="Postnom" class="text-danger"></span>
-                    </div>
-                </div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="ID" value="@ViewBag.technicienID" />
+                        <span class="section">Informations</span>
 
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Prenom</label>
-                    <div class="col-md-8 col-lg-9">
-                        <input asp-for="Prenom" type="text" class="form-control" id="company" required>
-                        <span asp-validation-for="Prenom" class="text-danger"></span>
-                    </div>
-                </div>
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3  label-align" asp-for="Nom"></label>
+                            <div class="col-md-6 col-sm-6">
+                                <input class="form-control has-feedback-left" asp-for="Nom" />
+                                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            <span asp-validation-for="Nom" class="text-danger"></span>
+                        </div>
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3  label-align" asp-for="Postnom"></label>
+                            <div class="col-md-6 col-sm-6">
+                                <input class="form-control has-feedback-left" asp-for="Postnom" />
+                                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            <span asp-validation-for="Postnom" class="text-danger"></span>
+                        </div>
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3  label-align" asp-for="Prenom"></label>
+                            <div class="col-md-6 col-sm-6">
+                                <input class="form-control has-feedback-left" asp-for="Prenom" />
+                                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            <span asp-validation-for="Prenom" class="text-danger"></span>
+                        </div>
 
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Titre</label>
-                    <div class="col-md-8 col-lg-9">
-                        <input asp-for="Titre" type="text" class="form-control" id="company" required>
-                        <span asp-validation-for="Titre" class="text-danger"></span>
-                    </div>
-                </div>
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3  label-align" asp-for="Titre"></label>
+                            <div class="col-md-6 col-sm-6">
+                                <input class="form-control has-feedback-left" asp-for="Titre" />
+                                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            <span asp-validation-for="Titre" class="text-danger"></span>
+                        </div>
 
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Username</label>
-                    <div class="col-md-8 col-lg-9">
-                        <input asp-for="Username" type="text" class="form-control" id="company" required>
-                        <span asp-validation-for="Username" class="text-danger"></span>
-                    </div>
-                </div>
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3  label-align" asp-for="Username"></label>
+                            <div class="col-md-6 col-sm-6">
+                                <input class="form-control has-feedback-left" asp-for="Username" />
+                                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
 
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">E - mail</label>
-                    <div class="col-md-8 col-lg-9">
-                        <input asp-for="Mail" type="text" class="form-control" id="company" required>
-                        <span asp-validation-for="Mail" class="text-danger"></span>
-                    </div>
-                </div>
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3  label-align" asp-for="Mail"></label>
+                            <div class="col-md-6 col-sm-6">
+                                <input class="form-control has-feedback-left" asp-for="Mail" />
+                                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            <span asp-validation-for="Mail" class="text-danger"></span>
+                        </div>
+                                        
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3  label-align" asp-for="Password"></label>
+                            <div class="col-md-6 col-sm-6">
+                                <input class="form-control" id="password1" asp-for="Password" />
 
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Mot de passe</label>
-                    <div class="col-md-8 col-lg-9">
-                        <input asp-for="Password" type="password" class="form-control" id="company" required>
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                    </div>
-                </div>
+                                <span style="position: absolute;right:15px;top:7px;" onclick="hideshow()">
+                                    <i id="slash" class="fa fa-eye-slash"></i>
+                                    <i id="eye" class="fa fa-eye"></i>
+                                </span>
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="field item form-group">
+                            <label class="col-form-label col-md-3 col-sm-3  label-align" asp-for="ConfirmPassword"></label>
+                            <div class="col-md-6 col-sm-6">
+                                <input class="form-control" id="password1" asp-for="ConfirmPassword" />
 
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Confirmer mot de passe</label>
-                    <div class="col-md-8 col-lg-9">
-                        <input asp-for="ConfirmPassword" type="password" class="form-control" id="company" required>
-                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                    </div>
-                </div>
+                                <span style="position: absolute;right:15px;top:7px;" onclick="hideshow()">
+                                    <i id="slash" class="fa fa-eye-slash"></i>
+                                    <i id="eye" class="fa fa-eye"></i>
+                                </span>
+                            </div>
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
 
-                <div class="text-center">
-                    <button type="submit" class="btn btn-success rounded-pill">Enregistrer</button>
-                    <button type="reset" class="btn btn-warning rounded-pill">Recommencer</button>
+                        <div class="ln_solid">
+                            <div class="form-group">
+                                <br /><br />
+                                <div class="col-md-6 offset-md-3 text-center">
+                                    <button type='submit' class="btn btn-primary">Enregistrer</button>
+                                    <button type='reset' class="btn btn-success">Recommencer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form><!-- End Profile Edit Form -->
+            </div>
         </div>
     </div>
 </div>
+
+<!-- Javascript functions	-->
+<script>
+    function hideshow() {
+        var password = document.getElementById("password1");
+        var slash = document.getElementById("slash");
+        var eye = document.getElementById("eye");
+
+        if (password.type === 'password') {
+            password.type = "text";
+            slash.style.display = "block";
+            eye.style.display = "none";
+        }
+        else {
+            password.type = "password";
+            slash.style.display = "none";
+            eye.style.display = "block";
+        }
+
+    }
+</script>
+
+<script>
+    // initialize a validator instance from the "FormValidator" constructor.
+    // A "<form>" element is optionally passed as an argument, but is not a must
+    var validator = new FormValidator({
+        "events": ['blur', 'input', 'change']
+    }, document.forms[0]);
+    // on form "submit" event
+    document.forms[0].onsubmit = function (e) {
+        var submit = true,
+            validatorResult = validator.checkAll(this);
+        console.log(validatorResult);
+        return !!validatorResult.valid;
+    };
+    // on form "reset" event
+    document.forms[0].onreset = function (e) {
+        validator.reset();
+    };
+    // stuff related ONLY for this demo page:
+    $('.toggleValidationTooltips').change(function () {
+        validator.settings.alerts = !this.checked;
+        if (this.checked)
+            $('form .alert').remove();
+    }).prop('checked', false);
+
+</script>

@@ -2,71 +2,71 @@
 @{
     ViewData["Title"] = "Delete";
 }
-
 <!--arrow-left-square-->
 
+<h1>Informations sur le technicien</h1>
+
 <div class="col-xl-8" style="margin:auto">
-
-    <div class="card">
-        <div class="card-body pt-3">
-
-            <!-- Profile Edit Form -->
-            <form asp-action="Delete" method="post" novalidate>
-                <div class="text-center">
-                    <h4>Supprimer le technicien</h4>
-                    <div class="pt-2">
-                        <a asp-controller="Technicien" asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
-                        <a asp-controller="Technicien" asp-action="Index" class="btn btn-primary btn-sm"><i class="bi bi-arrow-right-square"></i></a>
-                    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-xs"><i class="fa fa-reply"></i> retour</a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
                 </div>
-                <br />
-                
-                <input type="hidden" asp-for="ID" value="@ViewBag.technicienID" />
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Nom</label>
-                    <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Nom</label>
-                    </div>
+                <div class="x_content">
+                    
+                    <form asp-action="Delete" method="post" novalidate>
+                        <dl class="row">
+                            <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                                @Html.DisplayNameFor(model => model.Nom)
+                            </dt>
+                            <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                                @Html.DisplayFor(model => model.Nom)
+                            </dd>
+                            <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                                @Html.DisplayNameFor(model => model.Postnom)
+                            </dt>
+                            <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                                @Html.DisplayFor(model => model.Postnom)
+                            </dd>
+                            <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                                @Html.DisplayNameFor(model => model.Prenom)
+                            </dt>
+                            <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                                @Html.DisplayFor(model => model.Prenom)
+                            </dd>
+                            <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                                @Html.DisplayNameFor(model => model.Titre)
+                            </dt>
+                            <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                                @Html.DisplayFor(model => model.Titre)
+                            </dd>
+                            <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                                @Html.DisplayNameFor(model => model.Username)
+                            </dt>
+                            <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                                @Html.DisplayFor(model => model.Username)
+                            </dd>
+                            <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                                @Html.DisplayNameFor(model => model.Password)
+                            </dt>
+                            <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                                @Html.DisplayFor(model => model.Password)
+                            </dd>
+                        </dl>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </form>
+                    <br />
                 </div>
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Prenom</label>
-                    <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Postnom</label>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Prenom</label>
-                    <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Prenom</label>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Titre</label>
-                    <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Titre</label>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Username</label>
-                    <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Username</label>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">E - mail</label>
-                    <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Mail</label>
-                    </div>
-                </div>
-
-                <div class="text-center">
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </div>
-            </form><!-- End Profile Edit Form -->
-
-
+            </div>
         </div>
     </div>
-
 </div>

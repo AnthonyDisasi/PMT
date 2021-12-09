@@ -23,12 +23,14 @@ namespace PMT.Models
         public string Username { get; set; }
         [DataType(DataType.EmailAddress)]
         [Required]
+        [Display(Name = "E - mail")]
         public string Mail { get; set; }
         [DataType(DataType.Password)]
         [Required]
         public string Password { get; set; }
 
         [Compare("Password")]
+        [Display(Name = "Confirmer Password")]
         public string ConfirmPassword { get; set; }
         public bool EstActif { get; set; }
 

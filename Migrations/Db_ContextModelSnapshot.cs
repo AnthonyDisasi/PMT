@@ -338,6 +338,23 @@ namespace PMT.Migrations
                     b.ToTable("Techniciens");
                 });
 
+            modelBuilder.Entity("PMT.Models.Titre", b =>
+                {
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("EstActif")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Nom")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Titres");
+                });
+
             modelBuilder.Entity("PMT.Models.User_App", b =>
                 {
                     b.Property<string>("Id")
