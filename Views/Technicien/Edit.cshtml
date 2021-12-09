@@ -1,6 +1,92 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model PMT.Models.technicienModel
 @{
+    ViewData["Title"] = "Update";
 }
-<h1>Edit</h1>
+
+<div class="col-xl-8" style="margin:auto">
+
+    <div class="card">
+        <div class="card-body pt-3">
+
+            <!-- Profile Edit Form -->
+            <form asp-action="Edit" method="post" novalidate>
+                <input type="hidden" asp-for="ID" value="@ViewBag.technicienID" />
+                <div class="text-center">
+                    <h4>Modifier technicien</h4>
+                    <div class="pt-2">
+                        <a asp-controller="Technicien" asp-action="Index" class="btn btn-primary btn-sm"><i class="bi bi-arrow-right-square"></i></a>
+                    </div>
+                </div>
+                <br />
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Nom</label>
+                    <div class="col-md-8 col-lg-9">
+                        <input asp-for="Nom" type="text" class="form-control" id="company" required>
+                        <span asp-validation-for="Nom" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Postnom</label>
+                    <div class="col-md-8 col-lg-9">
+                        <input asp-for="Postnom" type="text" class="form-control" id="company" required>
+                        <span asp-validation-for="Postnom" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Prenom</label>
+                    <div class="col-md-8 col-lg-9">
+                        <input asp-for="Prenom" type="text" class="form-control" id="company" required>
+                        <span asp-validation-for="Prenom" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Titre</label>
+                    <div class="col-md-8 col-lg-9">
+                        <input asp-for="Titre" type="text" class="form-control" id="company" required>
+                        <span asp-validation-for="Titre" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Username</label>
+                    <div class="col-md-8 col-lg-9">
+                        <input asp-for="Username" type="text" class="form-control" id="company" required>
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">E - mail</label>
+                    <div class="col-md-8 col-lg-9">
+                        <input asp-for="Mail" type="text" class="form-control" id="company" required>
+                        <span asp-validation-for="Mail" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Mot de passe</label>
+                    <div class="col-md-8 col-lg-9">
+                        <input asp-for="Password" type="password" class="form-control" id="company" required>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Confirmer mot de passe</label>
+                    <div class="col-md-8 col-lg-9">
+                        <input asp-for="ConfirmPassword" type="password" class="form-control" id="company" required>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success rounded-pill">Enregistrer</button>
+                    <button type="reset" class="btn btn-warning rounded-pill">Recommencer</button>
+                </div>
+            </form><!-- End Profile Edit Form -->
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
-﻿@model Technicien
+﻿@model PMT.Models.Technicien
 @{
-    ViewData["Title"] = "Detail";
+    ViewData["Title"] = "Profil";
     int nb = 1;
 }
 <!--arrow-left-square-->
@@ -12,16 +12,6 @@
 
             <!-- Profile Edit Form -->
             <form>
-                <div class="text-center">
-                    <h4>Detail du technicien</h4>
-                    <div class="pt-2">
-                        <a asp-controller="Technicien" asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
-                        <a asp-controller="Technicien" asp-action="Delete" asp-route-id="@Model.ID" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
-                        <a asp-controller="Technicien" asp-action="Index" class="btn btn-primary btn-sm"><i class="bi bi-arrow-right-square"></i></a>
-                    </div>
-                </div>
-                <br />
-
                 <div class="row mb-3">
                     <label class="col-md-4 col-lg-3 col-form-label">Nom</label>
                     <div class="col-md-8 col-lg-9">

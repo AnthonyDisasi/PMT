@@ -10,7 +10,7 @@
         <div class="card-body pt-3">
 
             <!-- Profile Edit Form -->
-            <form>
+            <form asp-action="Delete" method="post" novalidate>
                 <div class="text-center">
                     <h4>Supprimer la tâche</h4>
                     <div class="pt-2">
@@ -73,7 +73,7 @@
                 </div>
 
                 <div class="text-center">
-                    <a asp-controller="Tache" asp-action="Delete" asp-route-id="@Model.ID" type="submit" class="btn btn-danger">Delete</a>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </div>
             </form><!-- End Profile Edit Form -->
 

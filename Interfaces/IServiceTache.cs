@@ -13,6 +13,9 @@ namespace PMT.Services
         public Task<IEnumerable<Tache>> GetWhereDateFinMax();
         public Task<Tache> Get(string id);
 
+        public Task<List<SelectListItem>> ListUser();
+        public Task AddAffectationAsync(Affectation affectation);
+
         public Task<List<SelectListItem>> ListStatut();
         public Task<List<SelectListItem>> ListePriorite();
         public Task<List<SelectListItem>> ListeType();

@@ -31,8 +31,6 @@ namespace PMT
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-
             services.AddTransient<IServiceTache, ServiceTache>();
             services.AddTransient<IServiceNote, ServiceNote>();
             services.AddTransient<IServiceTechnicien, ServiceTechnicien>();
@@ -45,6 +43,8 @@ namespace PMT
 
             services.AddDbContext<Db_Context>(options => options.UseSqlServer(this.Configuration.GetConnectionString("DbPMT")));
             services.AddIdentity<User_App, IdentityRole>().AddEntityFrameworkStores<Db_Context>();
+
+            services.AddControllersWithViews();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -63,7 +63,9 @@ namespace PMT
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

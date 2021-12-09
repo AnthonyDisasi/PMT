@@ -1,7 +1,72 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Technicien
 @{
+    ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<!--arrow-left-square-->
+
+<div class="col-xl-8" style="margin:auto">
+
+    <div class="card">
+        <div class="card-body pt-3">
+
+            <!-- Profile Edit Form -->
+            <form asp-action="Delete" method="post" novalidate>
+                <div class="text-center">
+                    <h4>Supprimer le technicien</h4>
+                    <div class="pt-2">
+                        <a asp-controller="Technicien" asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+                        <a asp-controller="Technicien" asp-action="Index" class="btn btn-primary btn-sm"><i class="bi bi-arrow-right-square"></i></a>
+                    </div>
+                </div>
+                <br />
+                
+                <input type="hidden" asp-for="ID" value="@ViewBag.technicienID" />
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Nom</label>
+                    <div class="col-md-8 col-lg-9">
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Nom</label>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Prenom</label>
+                    <div class="col-md-8 col-lg-9">
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Postnom</label>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Prenom</label>
+                    <div class="col-md-8 col-lg-9">
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Prenom</label>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Titre</label>
+                    <div class="col-md-8 col-lg-9">
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Titre</label>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Username</label>
+                    <div class="col-md-8 col-lg-9">
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Username</label>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">E - mail</label>
+                    <div class="col-md-8 col-lg-9">
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Mail</label>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form><!-- End Profile Edit Form -->
+
+
+        </div>
+    </div>
+
+</div>

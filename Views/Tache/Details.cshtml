@@ -78,9 +78,13 @@
                     <a asp-controller="Tache" asp-action="IndexTache" class="btn btn-primary"><i class="bi bi-arrow-right-square"></i></a>
                 </div>
             </form><!-- End Profile Edit Form -->
+            
+            <br/><br/>
+            <div class="float-right">
+                <a asp-controller="Tache" asp-action="CreateSousTache" asp-route-id="@Model.ID"  class="btn btn-light btn-round px-5 float-right"><i class="bi bi-journal-plus"></i> Ajouter une tâche</a>
+            </div>
+            <br/><br/>
 
-            @if (Model.Taches.Count != 0)
-            {
                 <!-- Table with stripped rows -->
                 <table class="table datatable">
                     <thead>
@@ -96,30 +100,86 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.Taches)
+                        @if (Model.Taches.Count != 0)
+                        {
+                            nb = 1;
+                            @foreach (var item in Model.Taches)
+                            {
+                                <tr>
+                                    <th scope="row">@nb</th>
+                                    <td>@Html.DisplayFor(i => item.Nom)</td>
+                                    <td>@Html.DisplayFor(i => item.Type)</td>
+                                    <td>@Html.DisplayFor(i => item.Priorite)</td>
+                                    <td>@Html.DisplayFor(i => item.Statut)</td>
+                                    <td>@Html.DisplayFor(i => item.Date_Debut)</td>
+                                    <td>@Html.DisplayFor(i => item.Date_Fin)</td>
+                                    <td>
+                                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                            <a asp-controller="Tache" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                                            <a asp-controller="Tache" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                                            <a asp-controller="Tache" asp-action="Details" asp-route-id="@item.ID" class="btn btn-success"><i class="bi bi-info-circle"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                nb++;
+                            }
+                        }
+                        else
                         {
                             <tr>
-                                <th scope="row">@nb</th>
-                                <td>@Html.DisplayFor(i => item.Nom)</td>
-                                <td>@Html.DisplayFor(i => item.Type)</td>
-                                <td>@Html.DisplayFor(i => item.Priorite)</td>
-                                <td>@Html.DisplayFor(i => item.Statut)</td>
-                                <td>@Html.DisplayFor(i => item.Date_Debut)</td>
-                                <td>@Html.DisplayFor(i => item.Date_Fin)</td>
-                                <td>
-                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                        <a asp-controller="Tache" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger"><i class="bi bi-trash"></i></a>
-                                        <a asp-controller="Tache" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
-                                        <a asp-controller="Tache" asp-action="Details" asp-route-id="@item.ID" class="btn btn-success"><i class="bi bi-info-circle"></i></a>
-                                    </div>
-                                </td>
+                                <td colspan="8">Aucune sous tâche</td>
                             </tr>
-                            nb++;
                         }
                     </tbody>
+                    </table>
+                    <!-- End Table with stripped rows -->
+
+            <br/><br/>
+            <div class="float-right">
+                <a asp-controller="Tache" asp-action="ListAffectationEtDetailsTache" asp-route-id="@Model.ID"  class="btn btn-light btn-round px-5 float-right"><i class="zmdi zmdi-account-add"></i> Ajouter une affectation</a>
+            </div>
+            <br/><br/>
+
+            
+                <!-- Table with stripped rows -->
+                <table class="table datatable">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Titre</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Affectations.Count != 0)
+                        {
+                            nb = 1;
+                            @foreach (var item in Model.Affectations)
+                            {
+                                <tr>
+                                    <th scope="row">@nb</th>
+                                    <td>@Html.DisplayFor(i => item.Technicien.AllName)</td>
+                                    <td>@Html.DisplayFor(i => item.Technicien.Titre)</td>
+                                    <td>
+                                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                            <a asp-controller="Tache" asp-action="Retire" asp-route-id="@item.ID" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                                            <a asp-controller="Tache" asp-action="Details" asp-route-id="@item.ID" class="btn btn-success"><i class="bi bi-info-circle"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                nb++;
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4">Aucune affectation</td>
+                            </tr>
+                        }
+                </tbody>
                 </table>
-                <!-- End Table with stripped rows -->
-            }
+                <!-- End Table with stripped rows colspan-->
         </div>
     </div>
 

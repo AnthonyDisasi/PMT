@@ -48,7 +48,7 @@ namespace PMT.Services.ImplementationServices
             => await _context.Taches.Include(t => t.Taches).Include(a => a.Affectations).Where(t => t.TacheID == null).Where(t => t.EstActif == true).ToListAsync();
 
         public async Task<Tache> Get(string id)
-            => await _context.Taches.AsNoTracking().Include(t => t.Taches).Include(a => a.Affectations).Where(t => t.EstActif == true).FirstOrDefaultAsync(t => t.ID == id);
+            => await _context.Taches.AsNoTracking().Include(t => t.Taches).Include(a => a.Affectations).ThenInclude(t => t.Technicien).Where(t => t.EstActif == true).FirstOrDefaultAsync(t => t.ID == id);
 
         public async Task<List<SelectListItem>> ListePriorite()
             => await (from p in _context.Priorites select new SelectListItem { Text = p.Nom, Value = p.ID }).ToListAsync();
@@ -62,6 +62,21 @@ namespace PMT.Services.ImplementationServices
         {
             _context.Entry(tache).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<SelectListItem>> ListUser()
+            => await (from t in _context.Techniciens select new SelectListItem { Text = t.Nom, Value = t.ID }).ToListAsync();
+
+        public async Task AddAffectationAsync(Affectation affectation)
+        {
+            _context.Affectations.Add(affectation);
+            await _context.SaveChangesAsync();
+
+            //Add Affectation
+
+            var tache = await Get(affectation.TacheID);
+            tache.Affectations.Add(affectation);
+            await Update(tache);
         }
     }
 }

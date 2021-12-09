@@ -1,6 +1,6 @@
 ﻿@model PMT.Models.technicienModel
 @{
-    ViewData["Title"] = "New";
+    ViewData["Title"] = "EditProfil";
 }
 
 <div class="col-xl-8" style="margin:auto">
@@ -9,12 +9,10 @@
         <div class="card-body pt-3">
 
             <!-- Profile Edit Form -->
-            <form asp-action="Create" method="post" novalidate>
+            <form asp-action="EditProfil" method="post" novalidate>
+                <input type="hidden" asp-for="ID" value="@ViewBag.technicienID" />
                 <div class="text-center">
-                    <h4>Nouveau technicien</h4>
-                    <div class="pt-2">
-                        <a asp-controller="Technicien" asp-action="Index" class="btn btn-primary btn-sm"><i class="bi bi-arrow-right-square"></i></a>
-                    </div>
+                    <h4>Modifier votre profil</h4>
                 </div>
                 <br />
                 <div class="row mb-3">
@@ -86,8 +84,6 @@
                     <button type="reset" class="btn btn-warning rounded-pill">Recommencer</button>
                 </div>
             </form><!-- End Profile Edit Form -->
-
-
         </div>
     </div>
 </div>

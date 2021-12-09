@@ -6,7 +6,10 @@
 
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Technicien</h5>
+        <div class="float-right">
+            <a asp-controller="Technicien" asp-action="Create" class="btn btn-light btn-round px-5 float-right"><i class="bi bi-journal-plus"></i> Ajouter un technicien</a>
+        </div>
+        <h5 class="card-title">Techniciens</h5>
 
         <!-- Table with stripped rows -->
         <table class="table datatable">
@@ -41,6 +44,8 @@
 
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                <a asp-controller="Technicien" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                                <a asp-controller="Technicien" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
                                 <a asp-controller="Technicien" asp-action="Details" asp-route-id="@item.ID" class="btn btn-success"><i class="bi bi-info-circle"></i></a>
                             </div>
                         </td>

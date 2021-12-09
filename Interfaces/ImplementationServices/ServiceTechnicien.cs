@@ -86,6 +86,9 @@ namespace PMT.Services.ImplementationServices
             return (await context.Techniciens.FirstOrDefaultAsync(t => t.Username == username)).ID;
         }
 
+        public async Task<Technicien> GetUserByUsername(string username)
+            => await context.Techniciens.Include(a => a.Affectations).ThenInclude(t => t.Tache).FirstOrDefaultAsync(t => t.Username == username);
+
         public async Task<IEnumerable<Tache>> GetTaches(string idUser)
         {
             return await context.Taches.AsNoTracking().Where(t => t.CreateurTache == idUser).ToListAsync();

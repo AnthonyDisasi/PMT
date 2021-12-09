@@ -12,6 +12,7 @@ namespace PMT.Services
         public Task<IEnumerable<Technicien>> Get();
         public Task<IEnumerable<Tache>> GetTaches(string idUser);
         public Task<string> GetIdUser(string username);
+        public Task<Technicien> GetUserByUsername(string username);
         public Task<Technicien> Get(string id);
         public Task<Technicien> Create(Technicien technicien);
         public Task<string> Update(Technicien technicien, string id);

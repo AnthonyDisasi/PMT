@@ -10,7 +10,6 @@ namespace PMT.Data
 {
     public class Db_Context : IdentityDbContext<User_App>
     {
-        public Db_Context() { }
         public Db_Context(DbContextOptions<Db_Context> options) : base(options) { }
 
         public DbSet<Tache> Taches {get; set;}

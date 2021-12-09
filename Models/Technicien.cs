@@ -24,6 +24,13 @@ namespace PMT.Models
         public string Password { get; set; }
         public bool EstActif { get; set; }
 
+        public string AllName
+        {
+            get
+            {
+                return Nom + " - " + Postnom + " - " + Prenom;
+            }
+        }
         public ICollection<Affectation> Affectations { get; set; }
     }
 }

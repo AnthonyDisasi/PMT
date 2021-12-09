@@ -20,7 +20,7 @@ namespace PMT.Controllers
             _service = service;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<ActionResult> Index()
             => View(await _service.Get());
         public async Task<IActionResult> IndexTache()
             => View(await _service.GetWhereDateFinMax());
@@ -52,6 +52,12 @@ namespace PMT.Controllers
             return View(model);
         }
         
+        public async Task<IActionResult> AffecterTech(string id)
+        {
+            ViewData["ListTech"] = await _service.ListUser();
+            return View();
+        }
+
         public async Task<IActionResult> CreateSousTache(string id)
         {
             ViewData["IdParent"] = id;
@@ -120,6 +126,36 @@ namespace PMT.Controllers
         {
             await _service.Delete(model.ID);
             return RedirectToAction(nameof(IndexTache));
+        }
+
+        public async Task<IActionResult> ListAffectationEtDetailsTache(string id)
+        {
+            ViewData["ListTech"] = await _service.ListUser();
+            return View(await _service.Get(id));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddAffectation(string idTache, string idTech)
+        {
+            var tache = await _service.Get(idTache);
+            foreach (var item in tache.Affectations)
+            {
+                if (item.TechnicienID == idTech)
+                {
+                    return View(await ListAffectationEtDetailsTache(idTache));
+                }
+            }
+            var affectation = new Affectation
+            {
+                TacheID = idTache,
+                TechnicienID = idTech,
+                EstActif = true,
+            };
+
+            ViewData["ListTech"] = await _service.ListUser();
+            await _service.AddAffectationAsync(affectation);
+
+            return View(await ListAffectationEtDetailsTache(idTache));
         }
     }
 }

@@ -1,0 +1,242 @@
+﻿@model Tache
+@{
+    ViewData["Title"] = "Detail";
+    int nb = 1;
+}
+<!--arrow-left-square-->
+
+<div class="col-xl-8" style="margin:auto">
+
+    <div class="card">
+        <div class="card-body pt-3">
+
+            <!-- Profile Edit Form -->
+            <form>
+                <div class="text-center">
+                    <h4>Detail de la Tâche</h4>
+                    <div class="pt-2">
+                        <a asp-controller="Tache" asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+                        <a asp-controller="Tache" asp-action="Delete" asp-route-id="@Model.ID" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                        <a asp-controller="Tache" asp-action="IndexTache" class="btn btn-primary btn-sm"><i class="bi bi-arrow-right-square"></i></a>
+                    </div>
+                </div>
+                <br />
+
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Description</label>
+                    <div class="col-md-8 col-lg-9">
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Description</label>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Type</label>
+                    <div class="col-md-8 col-lg-9">
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Type</label>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Description Tâche parente</label>
+                    <div class="col-md-8 col-lg-9">
+                        @if (Model.TacheID == null)
+                        {
+
+                            <label class="col-md-4 col-lg-9 col-form-label">Pas de tâche parente</label>
+                        }
+                        else
+                        {
+
+                            <label class="col-md-4 col-lg-9 col-form-label">@Model.TacheID</label>
+                        }
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Priorité</label>
+                    <div class="col-md-8 col-lg-9">
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Priorite</label>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Statut</label>
+                    <div class="col-md-8 col-lg-9">
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Statut</label>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Date début</label>
+                    <div class="col-md-8 col-lg-9">
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Date_Debut</label>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Date finale</label>
+                    <div class="col-md-8 col-lg-9">
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Date_Fin</label>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a asp-controller="Tache" asp-action="IndexTache" class="btn btn-primary"><i class="bi bi-arrow-right-square"></i></a>
+                </div>
+            </form><!-- End Profile Edit Form -->
+            
+<br/><br/>
+
+            <div class="card-body">
+                <div class="float-right">
+                    <!-- Vertically centered Modal -->
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#verticalycentered">
+                        Ajouter un technicien
+                    </button>
+                    <div class="modal fade" id="verticalycentered" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <form asp-controller="Tache" asp-action="AddAffectation" method="get" novalidate>
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-black">Nouvelle affectation</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row mb-3">
+                                            <label class="col-md-4 col-lg-3 col-form-label text-black">Priorité</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="idTache" type="hidden"  value="@Model.ID" class="form-control text-black" id="company">
+                                                <select name="idTech" asp-items="@ViewBag.ListTech" class="form-control" aria-label="Default select example" required>
+                                                    <option value="">Selectionner un technicien</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-success rounded-pill">Ajouter</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div><!-- End Vertically centered Modal-->
+                </div>
+            </div>
+
+            <br/><br/>
+            <form asp-controller="Tache" asp-action="AddAffectation" method="get" novalidate>
+                <div class="text-center">
+                    <h4>Affecter technicien</h4>
+                </div>
+                <br />
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Nom</label>
+                    <div class="col-md-8 col-lg-9">
+                        <input name="idTache" type="hidden"  value="@Model.ID" class="form-control text-black" id="company">
+                        <select name="idTech" asp-items="@ViewBag.ListTech" class="form-control" aria-label="Default select example" required>
+                            <option value="">Selectionner un technicien</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success rounded-pill">Enregistrer</button>
+                    <button type="reset" class="btn btn-warning rounded-pill">Recommencer</button>
+                </div>
+            </form>
+            <br/><br/>
+
+            <!-- Table with stripped rows -->
+            <table class="table datatable">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Titre</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Affectations.Count != 0)
+                    {
+                        nb = 1;
+                        @foreach (var item in Model.Affectations)
+                        {
+                            <tr>
+                                <th scope="row">@nb</th>
+                                <td>@Html.DisplayFor(i => item.Technicien.AllName)</td>
+                                <td>@Html.DisplayFor(i => item.Technicien.Titre)</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                        <a asp-controller="Tache" asp-action="Retire" asp-route-id="@item.ID" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                                        <a asp-controller="Tache" asp-action="Details" asp-route-id="@item.ID" class="btn btn-success"><i class="bi bi-info-circle"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            nb++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4">Aucun Technicien affecté à cette tâche</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <!-- End Table with stripped rows -->
+
+            <br/><br/>
+            <div class="float-right">
+                <a asp-controller="Tache" asp-action="CreateSousTache" asp-route-id="@Model.ID"  class="btn btn-light btn-round px-5 float-right"><i class="bi bi-journal-plus"></i> Ajouter une tâche</a>
+            </div>
+            <br/><br/>
+                        
+                <!-- Table with stripped rows -->
+                <table class="table datatable">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Priorité</th>
+                            <th scope="col">Statut</th>
+                            <th scope="col">Date debut</th>
+                            <th scope="col">Date fin</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @if (Model.Taches.Count != 0)
+                    {
+                        nb = 1;
+                        @foreach (var item in Model.Taches)
+                        {
+                            <tr>
+                                <th scope="row">@nb</th>
+                                <td>@Html.DisplayFor(i => item.Nom)</td>
+                                <td>@Html.DisplayFor(i => item.Type)</td>
+                                <td>@Html.DisplayFor(i => item.Priorite)</td>
+                                <td>@Html.DisplayFor(i => item.Statut)</td>
+                                <td>@Html.DisplayFor(i => item.Date_Debut)</td>
+                                <td>@Html.DisplayFor(i => item.Date_Fin)</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                        <a asp-controller="Tache" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                                        <a asp-controller="Tache" asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                                        <a asp-controller="Tache" asp-action="Details" asp-route-id="@item.ID" class="btn btn-success"><i class="bi bi-info-circle"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            nb++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8">Aucune sous tâche</td>
+                        </tr>
+                    }
+                </tbody>
+                </table>
+                <!-- End Table with stripped rows -->
+        </div>
+    </div>
+
+</div>
