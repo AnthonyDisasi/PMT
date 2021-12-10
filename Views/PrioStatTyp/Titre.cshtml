@@ -1,6 +1,6 @@
-﻿@model IEnumerable<PMT.Models.ModelType>
+﻿@model IEnumerable<PMT.Models.Titre>
 @{
-    ViewData["Title"] = "Types";
+    ViewData["Title"] = "Type";
     int nb = 1;
 }
 <!-- Datatables -->
@@ -26,31 +26,38 @@
                 </div>
 
                 <div class="x_content">
-                    <form class="" asp-controller="PrioStatTyp" asp-action="CreateType"method="get" novalidate>
+                    <!-- Large modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Ajouter</button>
 
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <span class="section">Nouveau Titre</span>
+                    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
 
-                        <div class="field item form-group">
-                            <label class="col-form-label col-md-3 col-sm-3  label-align">Nom du type</label>
-                            <div class="col-md-6 col-sm-6">
-                                <input class="form-control has-feedback-left" name="Nom" type="text"/>
-                                <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">Titre</h4>
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                                </button>
                             </div>
-                        </div>
-                        <div class="ln_solid">
-                            <div class="form-group">
-                                <br /><br />
-                                <div class="col-md-6 offset-md-3 text-center">
-                                    <button type='submit' class="btn btn-primary">Ajouter</button>
+                            
+                            <form class="" asp-controller="PrioStatTyp" asp-action="CreateTitre"method="get" novalidate>
+                                <div class="modal-body">
+                                    <div class="field item form-group">
+                                        <label class="col-form-label col-md-3 col-sm-3  label-align">Nom du titre</label>
+                                        <div class="col-md-6 col-sm-6">
+                                            <input class="form-control has-feedback-left" name="Nom" placeholder="Nom du titre" type="text"/>
+                                            <span class="fa fa-pencil form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                                </div>
+                            </form>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
+                    </div>
+                    <br />
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="card-box table-responsive">

@@ -71,7 +71,7 @@ namespace PMT
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Tache}/{action=Index}/{id?}");
+                    pattern: "{controller=Tache}/{action=IndexTache}/{id?}");
             });
         }
     }

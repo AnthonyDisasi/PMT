@@ -51,12 +51,12 @@ namespace PMT.Services.ImplementationServices
             => await _context.Taches.AsNoTracking().Include(t => t.Taches).Include(a => a.Affectations).ThenInclude(t => t.Technicien).Where(t => t.EstActif == true).FirstOrDefaultAsync(t => t.ID == id);
 
         public async Task<List<SelectListItem>> ListePriorite()
-            => await (from p in _context.Priorites select new SelectListItem { Text = p.Nom, Value = p.ID }).ToListAsync();
+            => await (from p in _context.Priorites select new SelectListItem { Text = p.Nom, Value = p.Nom }).ToListAsync();
 
         public async Task<List<SelectListItem>> ListeType()
-            => await (from t in _context.Types select new SelectListItem { Text = t.Nom, Value = t.ID }).ToListAsync();
+            => await (from t in _context.Types select new SelectListItem { Text = t.Nom, Value = t.Nom }).ToListAsync();
         public async Task<List<SelectListItem>> ListStatut()
-            => await(from s in _context.Statuts select new SelectListItem { Text = s.Nom, Value = s.ID }).ToListAsync();
+            => await(from s in _context.Statuts select new SelectListItem { Text = s.Nom, Value = s.Nom }).ToListAsync();
 
         public async Task Update(Tache tache)
         {
@@ -65,18 +65,22 @@ namespace PMT.Services.ImplementationServices
         }
 
         public async Task<List<SelectListItem>> ListUser()
-            => await (from t in _context.Techniciens select new SelectListItem { Text = t.Nom, Value = t.ID }).ToListAsync();
+            => await (from t in _context.Techniciens select new SelectListItem { Text = t.AllName, Value = t.Username }).ToListAsync();
 
         public async Task AddAffectationAsync(Affectation affectation)
         {
-            _context.Affectations.Add(affectation);
-            await _context.SaveChangesAsync();
-
-            //Add Affectation
-
             var tache = await Get(affectation.TacheID);
+            var technicien = await _context.Techniciens.FindAsync(affectation.TechnicienID);
+
+            _context.Affectations.Add(affectation);
+
             tache.Affectations.Add(affectation);
-            await Update(tache);
+            _context.Entry(tache).State = EntityState.Modified;
+
+            technicien.Affectations.Add(affectation);
+            _context.Entry(technicien).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
         }
     }
 }

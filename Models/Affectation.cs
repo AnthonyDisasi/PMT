@@ -18,16 +18,7 @@ namespace PMT.Models
 
         public bool EstActif { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateTime Date_Affectation { set
-            {
-                Date_Affectation = DateTime.Now;
-            }
-            get
-            {
-                return Date_Affectation;
-            }
-        }
+        public DateTime Date_Affectation { get; set; }
 
         public Tache Tache { get; set; }
         public Technicien Technicien { get; set; }

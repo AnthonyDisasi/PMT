@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PMT.Data;
 using PMT.Models;
@@ -46,6 +47,7 @@ namespace PMT.Services.ImplementationServices
             {
                 user = await userManager.FindByNameAsync(technicien.Username);
                 technicien.ID = user.Id;
+                technicien.EstActif = true;
                 context.Techniciens.Add(technicien);
                 await context.SaveChangesAsync();
                 return technicien;
@@ -60,7 +62,8 @@ namespace PMT.Services.ImplementationServices
             {
                 IdentityResult result = await userManager.DeleteAsync(user);
                 var technicien = await context.Techniciens.FindAsync(id);
-                context.Techniciens.Remove(technicien);
+                technicien.EstActif = false;
+                context.Entry(technicien).State = EntityState.Modified;
                 await context.SaveChangesAsync();
                 return "Suppression réussite";
             }
@@ -72,7 +75,7 @@ namespace PMT.Services.ImplementationServices
 
         public async Task<IEnumerable<Technicien>> Get()
         {
-            return await context.Techniciens.Include(a => a.Affectations).ToListAsync();
+            return await context.Techniciens.Where(t => t.EstActif == true).Include(a => a.Affectations).ToListAsync();
         }
 
         public async Task<Technicien> Get(string id)
@@ -91,7 +94,7 @@ namespace PMT.Services.ImplementationServices
 
         public async Task<IEnumerable<Tache>> GetTaches(string idUser)
         {
-            return await context.Taches.AsNoTracking().Where(t => t.CreateurTache == idUser).ToListAsync();
+            return await context.Taches.AsNoTracking().Where(t => t.EstActif == true).Where(t => t.CreateurTache == idUser).ToListAsync();
         }
 
         public async Task<string> Update(Technicien technicien, string id)
@@ -118,7 +121,7 @@ namespace PMT.Services.ImplementationServices
                     IdentityResult result = await userManager.UpdateAsync(user);
                     if (result.Succeeded)
                     {
-
+                        technicien.EstActif = true;
                         context.Entry(technicien).State = EntityState.Modified;
                         await context.SaveChangesAsync();
                         return "Modification réussite";
@@ -127,5 +130,11 @@ namespace PMT.Services.ImplementationServices
             }
             return "Echec de modification";
         }
+
+        public async Task<List<SelectListItem>> ListTitre()
+            => await (from t in context.Titres select new SelectListItem { Text = t.Nom, Value = t.Nom }).ToListAsync();
+
+        public async Task<List<SelectListItem>> ListUser()
+            => await (from t in context.Techniciens select new SelectListItem { Text = t.AllName, Value = t.AllName }).ToListAsync();
     }
 }

@@ -25,7 +25,11 @@ namespace PMT.Controllers
         public async Task<IActionResult> IndexTache()
             => View(await _service.GetWhereDateFinMax());
         public async Task<IActionResult> Details(string id)
-            => View(await _service.Get(id));
+        {
+
+            ViewData["ListTech"] = await _service.ListUser();
+            return View(await _service.Get(id));
+        }
 
         public async Task<IActionResult> Create()
         {
@@ -142,20 +146,31 @@ namespace PMT.Controllers
             {
                 if (item.TechnicienID == idTech)
                 {
-                    return View(await ListAffectationEtDetailsTache(idTache));
+                    return RedirectToAction("Details", new {id = idTache});
                 }
             }
             var affectation = new Affectation
             {
                 TacheID = idTache,
                 TechnicienID = idTech,
+                Date_Affectation = DateTime.Now,
                 EstActif = true,
             };
 
             ViewData["ListTech"] = await _service.ListUser();
             await _service.AddAffectationAsync(affectation);
+            return RedirectToAction("Details", new { id = idTache });
+        }
 
-            return View(await ListAffectationEtDetailsTache(idTache));
+        [HttpGet]
+        public string  Progression(string idTache, string etat)
+        {
+            //async Task<IActionResult>
+            //var tache = await _service.Get(idTache);
+            //tache.Etat = int.Parse(etat);
+            //await _service.Update(tache);
+            //return RedirectToAction("Details", new { id = idTache });
+            return idTache + " - " + etat;
         }
     }
 }

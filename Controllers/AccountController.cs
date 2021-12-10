@@ -62,9 +62,6 @@ namespace PMT.Controllers
         }
 
         public async Task<IActionResult> Profil()
-            => View(await _service.GetUserByUsername(User.Identity.Name));
-
-        public async Task<IActionResult> EditProfil()
         {
             var model = await _service.GetUserByUsername(User.Identity.Name);
             var technicien = new technicienModel
@@ -85,7 +82,7 @@ namespace PMT.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditProfil(technicienModel model)
+        public async Task<IActionResult> Profil(technicienModel model)
         {
             if (model.ID != model.ID)
             {

@@ -24,6 +24,8 @@ namespace PMT.Models
         public string Password { get; set; }
         public bool EstActif { get; set; }
 
+
+        [Display(Name = ("Nom complet"))]
         public string AllName
         {
             get

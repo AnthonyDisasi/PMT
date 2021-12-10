@@ -14,8 +14,8 @@
                 <div class="text-center">
                     <h4>Supprimer la tâche</h4>
                     <div class="pt-2">
-                        <a asp-controller="Tache" asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
-                        <a asp-controller="Tache" asp-action="IndexTache" class="btn btn-primary btn-sm"><i class="bi bi-arrow-right-square"></i></a>
+                        <a asp-controller="Tache" asp-action="Details" asp-route-id="@ViewBag.IdParent" class="btn btn-outline-secondary btn-xs"><i class="fa fa-reply"></i></a>
+                        <a asp-controller="Tache" asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-outline-info btn-xs"><i class="fa fa-pencil"></i></a>
                     </div>
                 </div>
                 <br />
@@ -68,7 +68,7 @@
                 <div class="row mb-3">
                     <label class="col-md-4 col-lg-3 col-form-label">Date finale</label>
                     <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Date_Fin</label>
+                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Date_Fin.Day.ToString()/@Model.Date_Fin.Month.ToString()/@Model.Date_Fin.Year.ToString()</label>
                     </div>
                 </div>
 

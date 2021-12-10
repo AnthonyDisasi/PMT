@@ -40,10 +40,17 @@ namespace PMT.Controllers
         }
 
         public async Task<IActionResult> Profil()
-            => View(await service.GetIdUser(User.Identity.Name));
-
-        public IActionResult Create()
         {
+
+            ViewData["technicien"] = await service.ListUser();
+            ViewData["Titre"] = await service.ListTitre();
+            return View(await service.GetIdUser(User.Identity.Name));
+        }
+
+        public async Task<IActionResult> Create()
+        {
+            ViewData["technicien"] = await service.ListUser();
+            ViewData["Titre"] = await service.ListTitre();
             return View();
         }
 
@@ -68,6 +75,8 @@ namespace PMT.Controllers
                 await service.Create(technicien);
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["technicien"] = await service.ListUser();
+            ViewData["Titre"] = await service.ListTitre();
             return View(model);
         }
 
@@ -96,6 +105,8 @@ namespace PMT.Controllers
                 return NotFound();
             }
 
+            ViewData["technicien"] = await service.ListUser();
+            ViewData["Titre"] = await service.ListTitre();
             ViewData["technicienID"] = id;
             return View(technicien);
         }
@@ -128,6 +139,8 @@ namespace PMT.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            ViewData["technicien"] = await service.ListUser();
+            ViewData["Titre"] = await service.ListTitre();
             ViewData["technicienID"] = model.ID;
             return View(model);
         }

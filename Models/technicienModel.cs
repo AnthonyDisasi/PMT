@@ -35,6 +35,7 @@ namespace PMT.Models
         public bool EstActif { get; set; }
 
 
+        [Display(Name = ("Nom complet"))]
         public string AllName
         {
             get

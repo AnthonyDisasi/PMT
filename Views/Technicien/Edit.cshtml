@@ -6,7 +6,7 @@
 <h1>Modifier le technicien</h1>
 
 <hr />
-<div  class="col-xl-10" style="margin:auto">
+<div  class="col-md-10 col-sm-10" style="margin:auto">
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="x_panel">
@@ -53,8 +53,9 @@
                         <div class="field item form-group">
                             <label class="col-form-label col-md-3 col-sm-3  label-align" asp-for="Titre"></label>
                             <div class="col-md-6 col-sm-6">
-                                <input class="form-control has-feedback-left" asp-for="Titre" />
-                                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                <select asp-for="Titre" asp-items="ViewBag.Titre" class="form-control" aria-label="Default select example" required>
+                                    <option value="">Selectionner un Titre</option>
+                                </select>
                             </div>
                             <span asp-validation-for="Titre" class="text-danger"></span>
                         </div>
@@ -92,7 +93,7 @@
                         <div class="field item form-group">
                             <label class="col-form-label col-md-3 col-sm-3  label-align" asp-for="ConfirmPassword"></label>
                             <div class="col-md-6 col-sm-6">
-                                <input class="form-control" id="password1" asp-for="ConfirmPassword" />
+                                <input class="form-control" id="password1" type="password" asp-for="ConfirmPassword" />
 
                                 <span style="position: absolute;right:15px;top:7px;" onclick="hideshow()">
                                     <i id="slash" class="fa fa-eye-slash"></i>
