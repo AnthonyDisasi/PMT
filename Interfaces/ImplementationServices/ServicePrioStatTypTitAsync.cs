@@ -17,32 +17,6 @@ namespace PMT.Interfaces.ImplementationServices
             _context = context;
         }
 
-        public async Task<Priorite> CreatePrioriteAsync(string nom)
-        {
-            var model = new Priorite
-            {
-                EstActif = true,
-                Nom = nom
-            };
-
-            _context.Priorites.Add(model);
-            await _context.SaveChangesAsync();
-            return model;
-        }
-
-        public async Task<Statut> CreateStatutAsync(string nom)
-        {
-            var model = new Statut
-            {
-                EstActif = true,
-                Nom = nom
-            };
-
-            _context.Statuts.Add(model);
-            await _context.SaveChangesAsync();
-            return model;
-        }
-
         public async Task<Titre> CreateTitreAsync(string nom)
         {
             var titre = new Titre
@@ -77,14 +51,6 @@ namespace PMT.Interfaces.ImplementationServices
             await _context.SaveChangesAsync();
         }
 
-        public async Task DisablePriorite(string id)
-        {
-            var model = await _context.Priorites.FindAsync(id);
-            model.EstActif = false;
-            _context.Entry(model).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-        }
-
         public async Task DisableType(string id)
         {
             var model = await _context.Types.FindAsync(id);
@@ -92,20 +58,6 @@ namespace PMT.Interfaces.ImplementationServices
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
-
-        public async Task DisasbleStatut(string id)
-        {
-            var model = await _context.Statuts.FindAsync(id);
-            model.EstActif = false;
-            _context.Entry(model).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<IEnumerable<Priorite>> GetListPrioriteAsync()
-            => await _context.Priorites.Where(p => p.EstActif == true).ToListAsync();
-
-        public async Task<IEnumerable<Statut>> GetListStatutAsync()
-            => await _context.Statuts.Where(p => p.EstActif == true).ToListAsync();
 
         public async Task<IEnumerable<ModelType>> GetListTypeAsync()
             => await _context.Types.Where(t => t.EstActif == true).ToListAsync();

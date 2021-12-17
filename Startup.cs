@@ -32,9 +32,7 @@ namespace PMT
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IServiceTache, ServiceTache>();
-            services.AddTransient<IServiceNote, ServiceNote>();
             services.AddTransient<IServiceTechnicien, ServiceTechnicien>();
-            services.AddTransient<IServiceAffectation, ServiceAffectation>();
             services.AddTransient<IServicePrioStatTypTitAsync, ServicePrioStatTypTitAsync>();
 
             services.AddTransient<IPasswordValidator<User_App>, CustomPasswordValidator>();

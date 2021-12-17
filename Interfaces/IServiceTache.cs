@@ -10,21 +10,24 @@ namespace PMT.Services
     public interface IServiceTache
     {
         public Task<IEnumerable<Tache>> Get();
-        public Task<IEnumerable<Tache>> GetWhereDateFinMax();
         public Task<Tache> Get(string id);
 
         public Task<List<SelectListItem>> ListUser();
-        public Task AddAffectationAsync(Affectation affectation);
-
-        public Task<List<SelectListItem>> ListStatut();
-        public Task<List<SelectListItem>> ListePriorite();
         public Task<List<SelectListItem>> ListeType();
+        public Task<List<SelectListItem>> GetUser();
 
         public Task<Tache> Create(Tache tache, string Username);
         public Task Update(Tache tache);
         public Task Delete(string id);
 
         //Return tache parent
-        public Task<Tache> AddSousTacheAsync(Tache tache, string id);
+        public Task AddSousTacheAsync(SousTache soustache, string id);
+        public Task AddNote(string commentaire, string idTache, string username);
+
+        //////////////
+        public Task<SousTache> CreateSousTacheAsync(SousTache sousTache, string username);
+        public Task<SousTache> GetSoustacheAsync(string id);
+        public Task UpdateSousTache(SousTache sousTache);
+        public Task DeleteSousTacheAsync(string id);
     }
 }

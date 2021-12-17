@@ -55,6 +55,7 @@ namespace PMT.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(technicienModel model)
         {

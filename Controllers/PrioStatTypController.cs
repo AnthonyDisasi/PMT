@@ -30,36 +30,17 @@ namespace PMT.Controllers
             return View(await _service.GetListTypeAsync());
         }
 
-        public async Task<IActionResult> Priorite()
-        {
-            ViewData["Message"] = message;
-            return View(await _service.GetListPrioriteAsync());
-        }
-
-        public async Task<IActionResult> Statut()
-        {
-            ViewData["Message"] = message;
-            return View(await _service.GetListStatutAsync());
-        }
-
         public async Task<IActionResult> Titre()
         {
             ViewData["Message"] = message;
             return View(await _service.GetTitreAsync());
         }
 
-        public async Task<IActionResult> DeletePriorite(string id)
+        public async Task<IActionResult> DeleteTitre(string id)
         {
-            message = "Priorité a été supprimé pas";
-            await _service.DisablePriorite(id);
-            return RedirectToAction(nameof(Priorite));
-        }
-
-        public async Task<IActionResult> DeleteStatut(string id)
-        {
-            message = "Statut a été supprimé pas";
-            await _service.DisasbleStatut(id);
-            return RedirectToAction(nameof(Statut));
+            message = "Titre a été supprimé pas";
+            await _service.DisableTitreAsync(id);
+            return RedirectToAction(nameof(Titre));
         }
 
         public async Task<IActionResult> DeleteType(string id)
@@ -67,32 +48,6 @@ namespace PMT.Controllers
             message = "Type a été supprimé pas";
             await _service.DisableType(id);
             return RedirectToAction(nameof(Type));
-        }
-
-        public async Task<IActionResult> CreatePriorite(string Nom)
-        {
-            if(Nom == null || Nom == "")
-            {
-                message = "Remplissez le champ pour valider la création de la priorité";
-            }
-            else
-            {
-                await _service.CreatePrioriteAsync(Nom);
-            }
-            return RedirectToAction(nameof(Priorite));
-        }
-
-        public async Task<IActionResult> CreateStatut(string Nom)
-        {
-            if (Nom == null || Nom == "")
-            {
-                message = "Remplissez le champ pour valider la création du statut";
-            }
-            else
-            {
-                await _service.CreateStatutAsync(Nom);
-            }
-            return RedirectToAction(nameof(Statut));
         }
 
         public async Task<IActionResult> CreateType(string Nom)

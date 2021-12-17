@@ -32,6 +32,31 @@
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                 </div>
+                
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Responsable</label>
+                    <div class="col-md-8 col-lg-9">
+                        <select asp-for="ResponsableTache" asp-items="ViewBag.Responsable" class="form-control" aria-label="Default select example" required>
+                            <option value="">Selectionner le responsable</option>
+                        </select>
+                        <span asp-validation-for="ResponsableTache" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Progression</label>
+                    <div class="col-md-8 col-lg-9">
+                        <select asp-for="Progression" class="form-control" aria-label="Default select example" required>
+                            <option value="">Progression</option>
+                            <option value="0">0%</option>
+                            <option value="25">25%</option>
+                            <option value="50">50%</option>
+                            <option value="75">75%</option>
+                            <option value="100">100%</option>
+                        </select>
+                        <span asp-validation-for="Progression" class="text-danger"></span>
+                    </div>
+                </div>
 
                 <div class="row mb-3">
                     <label class="col-md-4 col-lg-3 col-form-label">Type</label>
@@ -40,26 +65,6 @@
                             <option value="">Selectionner un type</option>
                         </select>
                         <span asp-validation-for="Type" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Priorité</label>
-                    <div class="col-md-8 col-lg-9">
-                        <select asp-for="Priorite" asp-items="ViewBag.Priorites" class="form-control" aria-label="Default select example" required>
-                            <option value="">Selectionner une priorité</option>
-                        </select>
-                        <span asp-validation-for="Priorite" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Statut</label>
-                    <div class="col-md-8 col-lg-9">
-                        <select asp-for="Statut" asp-items="ViewBag.Statuts" class="form-control" aria-label="Default select example" required>
-                            <option value="">Selectionner un statut</option>
-                        </select>
-                        <span asp-validation-for="Statut" class="text-danger"></span>
                     </div>
                 </div>
 

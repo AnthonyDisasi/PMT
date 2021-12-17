@@ -150,33 +150,6 @@ namespace PMT.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("PMT.Models.Affectation", b =>
-                {
-                    b.Property<string>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("Date_Affectation")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("EstActif")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("TacheID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("TechnicienID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("TacheID");
-
-                    b.HasIndex("TechnicienID");
-
-                    b.ToTable("Affectations");
-                });
-
             modelBuilder.Entity("PMT.Models.ModelType", b =>
                 {
                     b.Property<string>("ID")
@@ -222,28 +195,50 @@ namespace PMT.Migrations
                     b.ToTable("Notes");
                 });
 
-            modelBuilder.Entity("PMT.Models.Priorite", b =>
+            modelBuilder.Entity("PMT.Models.Notification", b =>
                 {
                     b.Property<string>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("EstActif")
+                    b.Property<DateTime>("DateMessage")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Destinataire")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Expediteur")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Lu")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Nom")
+                    b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.ToTable("Priorites");
+                    b.ToTable("Notifications");
                 });
 
-            modelBuilder.Entity("PMT.Models.Statut", b =>
+            modelBuilder.Entity("PMT.Models.SousTache", b =>
                 {
                     b.Property<string>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreateurTache")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date_Debut")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Date_Fin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("EstActif")
                         .HasColumnType("bit");
@@ -251,9 +246,27 @@ namespace PMT.Migrations
                     b.Property<string>("Nom")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Priorite")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Progression")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ResponsableTache")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TacheID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ID");
 
-                    b.ToTable("Statuts");
+                    b.HasIndex("TacheID");
+
+                    b.ToTable("Soustaches");
                 });
 
             modelBuilder.Entity("PMT.Models.Tache", b =>
@@ -278,29 +291,22 @@ namespace PMT.Migrations
                     b.Property<bool>("EstActif")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Etat")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nom")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Priorite")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Statut")
+                    b.Property<double>("Progression")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ResponsableTache")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TacheID")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Type")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("TacheID");
 
                     b.ToTable("Taches");
                 });
@@ -474,21 +480,6 @@ namespace PMT.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PMT.Models.Affectation", b =>
-                {
-                    b.HasOne("PMT.Models.Tache", "Tache")
-                        .WithMany("Affectations")
-                        .HasForeignKey("TacheID");
-
-                    b.HasOne("PMT.Models.Technicien", "Technicien")
-                        .WithMany("Affectations")
-                        .HasForeignKey("TechnicienID");
-
-                    b.Navigation("Tache");
-
-                    b.Navigation("Technicien");
-                });
-
             modelBuilder.Entity("PMT.Models.Note", b =>
                 {
                     b.HasOne("PMT.Models.Tache", "Tache")
@@ -498,25 +489,20 @@ namespace PMT.Migrations
                     b.Navigation("Tache");
                 });
 
-            modelBuilder.Entity("PMT.Models.Tache", b =>
+            modelBuilder.Entity("PMT.Models.SousTache", b =>
                 {
-                    b.HasOne("PMT.Models.Tache", null)
-                        .WithMany("Taches")
+                    b.HasOne("PMT.Models.Tache", "Tache")
+                        .WithMany("SousTaches")
                         .HasForeignKey("TacheID");
+
+                    b.Navigation("Tache");
                 });
 
             modelBuilder.Entity("PMT.Models.Tache", b =>
                 {
-                    b.Navigation("Affectations");
-
                     b.Navigation("Notes");
 
-                    b.Navigation("Taches");
-                });
-
-            modelBuilder.Entity("PMT.Models.Technicien", b =>
-                {
-                    b.Navigation("Affectations");
+                    b.Navigation("SousTaches");
                 });
 #pragma warning restore 612, 618
         }

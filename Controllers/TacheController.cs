@@ -19,23 +19,26 @@ namespace PMT.Controllers
         {
             _service = service;
         }
-
-        public async Task<ActionResult> Index()
-            => View(await _service.Get());
+        /// <summary>
+        /// IndexTache qui renvoit vers la liste de toute les tâches
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> IndexTache()
-            => View(await _service.GetWhereDateFinMax());
+            => View(await _service.Get());
+
         public async Task<IActionResult> Details(string id)
         {
-
             ViewData["ListTech"] = await _service.ListUser();
             return View(await _service.Get(id));
         }
 
+        public async Task<IActionResult> DetailSoustache(string id)
+            => View(await _service.GetSoustacheAsync(id));
+
         public async Task<IActionResult> Create()
         {
-            ViewData["Priorites"] = await _service.ListePriorite();
-            ViewData["Statuts"] = await _service.ListStatut();
             ViewData["Types"] = await _service.ListeType();
+            ViewData["Responsable"] = await _service.GetUser();
             return View();
         }
 
@@ -43,63 +46,44 @@ namespace PMT.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Tache model)
         {
-            //model.ParentID = "45ea0b4d-1fed-4620-b1d1-72a001ad93cc";
             if (ModelState.IsValid)
             {
                 await _service.Create(model, User.Identity.Name);
                 return RedirectToAction(nameof(IndexTache));
             }
-
-            ViewData["Priorites"] = await _service.ListePriorite();
-            ViewData["Statuts"] = await _service.ListStatut();
             ViewData["Types"] = await _service.ListeType();
+            ViewData["Responsable"] = await _service.GetUser();
             return View(model);
         }
         
-        public async Task<IActionResult> AffecterTech(string id)
-        {
-            ViewData["ListTech"] = await _service.ListUser();
-            return View();
-        }
-
         public async Task<IActionResult> CreateSousTache(string id)
         {
             ViewData["IdParent"] = id;
-            ViewData["Priorites"] = await _service.ListePriorite();
-            ViewData["Statuts"] = await _service.ListStatut();
             ViewData["Types"] = await _service.ListeType();
+            ViewData["Responsable"] = await _service.GetUser();
             return View();
         }
 
         [HttpPost]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> CreateSousTache(Tache tache)
+        public async Task<IActionResult> CreateSousTache(SousTache soustache)
         {
             if (ModelState.IsValid)
             {
-                var model = await _service.Create(tache, User.Identity.Name);
-                await _service.AddSousTacheAsync(model, tache.TacheID);
-                return RedirectToAction("IndexTache");
+                var model = await _service.CreateSousTacheAsync(soustache, User.Identity.Name);
+                await _service.AddSousTacheAsync(model, soustache.TacheID);
+                return RedirectToAction("Details", new {id = model.TacheID});
             }
-            if(tache.TacheID != null)
-            {
-
-                ViewData["IdParent"] = tache.TacheID;
-            }
-            ViewData["Priorites"] = await _service.ListePriorite();
-            ViewData["Statuts"] = await _service.ListStatut();
+            ViewData["IdParent"] = soustache.TacheID;
             ViewData["Types"] = await _service.ListeType();
-            return View(tache);
+            ViewData["Responsable"] = await _service.GetUser();
+            return View(soustache);
         }
-
-        public async Task<IActionResult> TacheParent(string id)
-            => View(await _service.Get(id));
 
         public async Task<IActionResult> Edit(string id)
         {
-            ViewData["Priorites"] = await _service.ListePriorite();
             ViewData["Types"] = await _service.ListeType();
-            ViewData["Statuts"] = await _service.ListStatut();
+            ViewData["Responsable"] = await _service.GetUser();
             return View(await _service.Get(id));
         }
 
@@ -112,15 +96,38 @@ namespace PMT.Controllers
             {
                 model.CreateurTache = User.Identity.Name;
                 await _service.Update(model);
-                return RedirectToAction(nameof(IndexTache));
+                return RedirectToAction("Details", new {id = model.ID});
 
             }
-            ViewData["Priorites"] = await _service.ListePriorite();
-            ViewData["Statuts"] = await _service.ListStatut();
             ViewData["Types"] = await _service.ListeType();
+            ViewData["Responsable"] = await _service.GetUser();
             return View(model);
         }
 
+        public async Task<IActionResult> EditSousTache(string id, string Tacheid)
+        {
+            ViewData["TacheId"] = Tacheid;
+            ViewData["Types"] = await _service.ListeType();
+            ViewData["Responsable"] = await _service.GetUser();
+            return View(await _service.GetSoustacheAsync(id));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditSousTache(SousTache sousTache)
+        {
+            sousTache.EstActif = true;
+            if (ModelState.IsValid)
+            {
+                sousTache.CreateurTache = User.Identity.Name;
+                await _service.UpdateSousTache(sousTache);
+                return RedirectToAction("Details", new {id = sousTache.TacheID});
+            }
+            ViewData["TacheId"] = sousTache.TacheID;
+            ViewData["Types"] = await _service.ListeType();
+            ViewData["Responsable"] = await _service.GetUser();
+            return View(sousTache);
+        }
         public async Task<IActionResult> Delete(string id)
             => View(await _service.Get(id));
 
@@ -132,6 +139,18 @@ namespace PMT.Controllers
             return RedirectToAction(nameof(IndexTache));
         }
 
+        public async Task<IActionResult> DeleteSousTache(string id)
+            => View(await _service.GetSoustacheAsync(id));
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteSousTache(SousTache sousTache)
+        {
+            await _service.DeleteSousTacheAsync(sousTache.ID);
+            return RedirectToAction("Details", new { id = sousTache.TacheID });
+        }
+
         public async Task<IActionResult> ListAffectationEtDetailsTache(string id)
         {
             ViewData["ListTech"] = await _service.ListUser();
@@ -139,38 +158,10 @@ namespace PMT.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddAffectation(string idTache, string idTech)
+        public async Task<IActionResult> AddCommentaire(string idTache, string commentaire)
         {
-            var tache = await _service.Get(idTache);
-            foreach (var item in tache.Affectations)
-            {
-                if (item.TechnicienID == idTech)
-                {
-                    return RedirectToAction("Details", new {id = idTache});
-                }
-            }
-            var affectation = new Affectation
-            {
-                TacheID = idTache,
-                TechnicienID = idTech,
-                Date_Affectation = DateTime.Now,
-                EstActif = true,
-            };
-
-            ViewData["ListTech"] = await _service.ListUser();
-            await _service.AddAffectationAsync(affectation);
+            await _service.AddNote(commentaire, idTache, User.Identity.Name);
             return RedirectToAction("Details", new { id = idTache });
-        }
-
-        [HttpGet]
-        public string  Progression(string idTache, string etat)
-        {
-            //async Task<IActionResult>
-            //var tache = await _service.Get(idTache);
-            //tache.Etat = int.Parse(etat);
-            //await _service.Update(tache);
-            //return RedirectToAction("Details", new { id = idTache });
-            return idTache + " - " + etat;
         }
     }
 }

@@ -3,8 +3,11 @@
     ViewData["Title"] = "Delete";
 }
 <!--arrow-left-square-->
+<br />
+<br />
+<br />
 
-<div class="col-xl-8" style="margin:auto">
+<div class="col-xl-5" style="margin:auto">
 
     <div class="card">
         <div class="card-body pt-3">
@@ -30,33 +33,6 @@
                     <label class="col-md-4 col-lg-3 col-form-label">Type</label>
                     <div class="col-md-8 col-lg-9">
                         <label class="col-md-4 col-lg-9 col-form-label">@Model.Type</label>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Description Tâche parente</label>
-                    <div class="col-md-8 col-lg-9">
-                        @if (Model.TacheID == null)
-                        {
-
-                            <label class="col-md-4 col-lg-9 col-form-label">Pas de tâche parente</label>
-                        }
-                        else
-                        {
-
-                            <label class="col-md-4 col-lg-9 col-form-label">@Model.TacheID</label>
-                        }
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Priorité</label>
-                    <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Priorite</label>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Statut</label>
-                    <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Statut</label>
                     </div>
                 </div>
                 <div class="row mb-3">

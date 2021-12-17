@@ -29,7 +29,7 @@ namespace PMT.Models
         [Required]
         public string Password { get; set; }
 
-        [Compare("Password")]
+        [Compare("Password"), Required]
         [Display(Name = "Confirmer Password")]
         public string ConfirmPassword { get; set; }
         public bool EstActif { get; set; }
@@ -43,7 +43,5 @@ namespace PMT.Models
                 return Nom + " - " + Postnom + " - " + Prenom;
             }
         }
-
-        public ICollection<Affectation> Affectations { get; set; }
     }
 }

@@ -75,12 +75,12 @@ namespace PMT.Services.ImplementationServices
 
         public async Task<IEnumerable<Technicien>> Get()
         {
-            return await context.Techniciens.Where(t => t.EstActif == true).Include(a => a.Affectations).ToListAsync();
+            return await context.Techniciens.Where(t => t.EstActif == true).ToListAsync();
         }
 
         public async Task<Technicien> Get(string id)
         {
-            return await context.Techniciens.Include(a => a.Affectations).ThenInclude(t => t.Tache).FirstOrDefaultAsync(t => t.ID == id);
+            return await context.Techniciens.FirstOrDefaultAsync(t => t.ID == id);
         }
 
         public async Task<string> GetIdUser(string username)
@@ -90,7 +90,7 @@ namespace PMT.Services.ImplementationServices
         }
 
         public async Task<Technicien> GetUserByUsername(string username)
-            => await context.Techniciens.Include(a => a.Affectations).ThenInclude(t => t.Tache).FirstOrDefaultAsync(t => t.Username == username);
+            => await context.Techniciens.FirstOrDefaultAsync(t => t.Username == username);
 
         public async Task<IEnumerable<Tache>> GetTaches(string idUser)
         {
@@ -103,7 +103,6 @@ namespace PMT.Services.ImplementationServices
             if(user != null)
             {
                 user.UserName = technicien.Username;
-                user.Email = technicien.Mail;
                 IdentityResult ValidEmail = await userValidator.ValidateAsync(userManager, user);
                 
                 IdentityResult validPass = null;
@@ -132,9 +131,25 @@ namespace PMT.Services.ImplementationServices
         }
 
         public async Task<List<SelectListItem>> ListTitre()
-            => await (from t in context.Titres select new SelectListItem { Text = t.Nom, Value = t.Nom }).ToListAsync();
+            => await (from t in context.Titres orderby t.Nom where (t.EstActif == true) select new SelectListItem { Text = t.Nom, Value = t.Nom }).ToListAsync();
 
         public async Task<List<SelectListItem>> ListUser()
-            => await (from t in context.Techniciens select new SelectListItem { Text = t.AllName, Value = t.AllName }).ToListAsync();
+            => await (from t in context.Techniciens orderby t.Nom where(t.EstActif == true)  select new SelectListItem { Text = t.AllName, Value = t.AllName }).ToListAsync();
+
+        public async Task<IEnumerable<Notification>> GetNotificationsAsync(string username)
+            => await context.Notifications.Where(n => n.Destinataire == username).ToListAsync();
+        public async Task EnableLuForNotificationAsync(string username)
+        {
+            var notifications = await context.Notifications.Where(n => n.Destinataire == username).ToListAsync();
+            //if (notifications.Any())
+            foreach(var notification in notifications)
+            {
+                if(notification.Lu == false)
+                {
+                    notification.Lu = true;
+                }
+            }
+            await context.SaveChangesAsync();
+        }
     }
 }

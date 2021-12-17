@@ -10,13 +10,12 @@
 
             <!-- Profile Edit Form -->
             <form asp-action="Edit" method="post" novalidate>
-                <input type="hidden" asp-for="TacheID" value="@ViewBag.IdParent" />
+                <!--<input type="hidden" asp-for="TacheID" value="@ViewBag.IdParent" />-->
                 <div class="text-center">
                     <h4>Modifier la tâche</h4>
                     <div class="pt-2">
-                        <a asp-controller="Tache" asp-action="Details" asp-route-id="@Model.ID" class="btn btn-success btn-sm"><i class="bi bi-info-circle"></i></a>
-                        <a asp-controller="Tache" asp-action="Delete" asp-route-id="@Model.ID" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
-                        <a asp-controller="Tache" asp-action="Details" asp-route-id="@ViewBag.IdParent" class="btn btn-primary btn-sm"><i class="bi bi-arrow-right-square"></i></a>
+                        <a asp-controller="Tache" asp-action="IndexTache" class="btn btn-outline-secondary btn-xs"><i class="fa fa-reply"></i></a>
+                        <a asp-controller="Tache" asp-action="Delete" asp-route-id="@Model.ID" class="btn btn-outline-danger btn-xs"><i class="fa fa-trash"></i></a>
                     </div>
                 </div>
                 <br />
@@ -36,15 +35,17 @@
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                 </div>
-                
+
                 <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Progression</label>
+                    <label class="col-md-4 col-lg-3 col-form-label">Responsable</label>
                     <div class="col-md-8 col-lg-9">
-                        <input asp-for="Etat" type="numbre" class="form-control" id="company" required>
-                        <span asp-validation-for="Etat" class="text-danger"></span>
+                        <select asp-for="ResponsableTache" asp-items="ViewBag.Responsable" class="form-control" aria-label="Default select example" required>
+                            <option value="">Selectionner le responsable</option>
+                        </select>
+                        <span asp-validation-for="ResponsableTache" class="text-danger"></span>
                     </div>
                 </div>
-
+                
                 <div class="row mb-3">
                     <label class="col-md-4 col-lg-3 col-form-label">Type</label>
                     <div class="col-md-8 col-lg-9">
@@ -58,20 +59,15 @@
                 <div class="row mb-3">
                     <label class="col-md-4 col-lg-3 col-form-label">Priorité</label>
                     <div class="col-md-8 col-lg-9">
-                        <select asp-for="Priorite" asp-items="ViewBag.Priorites" class="form-control" aria-label="Default select example" required>
-                            <option value="">Selectionner une priorité</option>
+                        <select asp-for="Progression" class="form-control" aria-label="Default select example" required>
+                            <option value="">Progression</option>
+                            <option value="0">0</option>
+                            <option value="25">25%</option>
+                            <option value="50">50%</option>
+                            <option value="75">75%</option>
+                            <option value="100">100%</option>
                         </select>
-                        <span asp-validation-for="Priorite" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Statut</label>
-                    <div class="col-md-8 col-lg-9">
-                        <select asp-for="Statut" asp-items="ViewBag.Statuts" class="form-control" aria-label="Default select example" required>
-                            <option value="">Selectionner un statut</option>
-                        </select>
-                        <span asp-validation-for="Statut" class="text-danger"></span>
+                        <span asp-validation-for="Progression" class="text-danger"></span>
                     </div>
                 </div>
 
@@ -92,7 +88,7 @@
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="btn btn-warning">Modifier</button>
+                    <button type="submit" class="btn btn-warning text-light">Modifier</button>
                 </div>
             </form><!-- End Profile Edit Form -->
 

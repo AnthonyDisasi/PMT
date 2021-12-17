@@ -29,9 +29,7 @@ namespace PMT.Controllers
 
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
-        {
-            return View();
-        }
+            => View();
 
         [HttpPost]
         [AllowAnonymous]
@@ -63,7 +61,8 @@ namespace PMT.Controllers
 
         public async Task<IActionResult> Profil()
         {
-            var model = await _service.GetUserByUsername(User.Identity.Name);
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            var model = await _service.Get(user.Id);
             var technicien = new technicienModel
             {
                 ID = model.ID,
@@ -76,6 +75,8 @@ namespace PMT.Controllers
                 Password = model.Password,
                 ConfirmPassword = model.Password
             };
+
+            ViewData["Titre"] = await _service.ListTitre();
             ViewData["technicienID"] = model.ID;
             return View(technicien);
         }
@@ -84,7 +85,7 @@ namespace PMT.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Profil(technicienModel model)
         {
-            if (model.ID != model.ID)
+            if (model.ID == null)
             {
                 return NotFound();
             }
@@ -105,17 +106,23 @@ namespace PMT.Controllers
                 };
 
                 ViewBag.Message = await _service.Update(technicien, technicien.ID);
-                return RedirectToAction(nameof(Profil));
+                return RedirectToAction(nameof(Logout));
             }
 
+            ViewData["Titre"] = await _service.ListTitre();
             ViewData["technicienID"] = model.ID;
             return View(model);
         }
 
         [AllowAnonymous]
         public IActionResult AccessDenied()
+            => View();
+
+        public async Task<IActionResult> Notification()
         {
-            return View();
+            var notifications = await _service.GetNotificationsAsync(User.Identity.Name);
+            await _service.EnableLuForNotificationAsync(User.Identity.Name);
+            return View(notifications);
         }
     }
 }

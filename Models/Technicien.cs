@@ -33,6 +33,5 @@ namespace PMT.Models
                 return Nom + " - " + Postnom + " - " + Prenom;
             }
         }
-        public ICollection<Affectation> Affectations { get; set; }
     }
 }
