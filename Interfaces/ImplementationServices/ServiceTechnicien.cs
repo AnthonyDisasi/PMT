@@ -134,7 +134,7 @@ namespace PMT.Services.ImplementationServices
             => await (from t in context.Titres orderby t.Nom where (t.EstActif == true) select new SelectListItem { Text = t.Nom, Value = t.Nom }).ToListAsync();
 
         public async Task<List<SelectListItem>> ListUser()
-            => await (from t in context.Techniciens orderby t.Nom where(t.EstActif == true)  select new SelectListItem { Text = t.AllName, Value = t.AllName }).ToListAsync();
+            => await (from t in context.Techniciens orderby t.Nom where(t.EstActif == true)  select new SelectListItem { Text = t.Nom, Value = t.Nom }).ToListAsync();
 
         public async Task<IEnumerable<Notification>> GetNotificationsAsync(string username)
             => await context.Notifications.Where(n => n.Destinataire == username).ToListAsync();

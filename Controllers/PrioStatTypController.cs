@@ -19,11 +19,6 @@ namespace PMT.Controllers
             _service = service;
         }
 
-        public string Create(string Nom)
-        {
-            return Nom;
-        }
-
         public async Task<IActionResult> Type()
         {
             ViewData["Message"] = message;

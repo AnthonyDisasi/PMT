@@ -11,16 +11,19 @@ namespace PMT.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string ID { get; set; }
         public string TacheID { get; set; }
+        public string SousTacheID { get; set; }
 
+
+        [Display(Name = "Créateur de la tâche")]
         public string CreateurTache { get; set; }
         public string Nom { get; set; }
         [Required]
         public string Description { get; set; }
         public string Type { get; set; }
 
+        [Required,  Range(0, 100)]
+        public double Poids { get; set; }
         [Required]
-        public string Priorite { get; set; }
-
         public double Progression { get; set; }
 
         public string Statut
@@ -48,8 +51,7 @@ namespace PMT.Models
             }
         }
 
-        public bool EstActif { get; set; }
-
+        [Display(Name = "Responsable de la tâche")]
         public string ResponsableTache { get; set; }
 
         [Required]
@@ -60,6 +62,9 @@ namespace PMT.Models
         [Display(Name = ("Date limite")), DataType(DataType.Date)]
         public DateTime Date_Fin { get; set; }
 
-        public Tache Tache { get; set; }
+        [Display(Name = "Tâche")]
+        public bool EstActif { get; set; }
+        public virtual Tache Tache { get; set; }
+        public ICollection<SousTache> SousTaches { get; set; }
     }
 }

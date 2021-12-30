@@ -1,6 +1,6 @@
 ﻿@model SousTache
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Suppression";
 }
 <!--arrow-left-square-->
 <br />
@@ -12,7 +12,7 @@
     <div class="card">
         <div class="card-body pt-3">
             <!-- Profile Delete Form -->
-            <form asp-action="Delete" method="post" novalidate>
+            <form asp-action="DeleteSousTache" method="post" novalidate>
                 <div class="text-center">
                     <h4>Supprimer la tâche</h4>
                     <div class="pt-2">
@@ -22,29 +22,70 @@
                 </div>
                 <br />
 
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Description</label>
-                    <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Description</label>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Type</label>
-                    <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Type</label>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Date début</label>
-                    <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Date_Debut</label>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Date finale</label>
-                    <div class="col-md-8 col-lg-9">
-                        <label class="col-md-4 col-lg-9 col-form-label">@Model.Date_Fin.Day.ToString()/@Model.Date_Fin.Month.ToString()/@Model.Date_Fin.Year.ToString()</label>
-                    </div>
+                
+                <div class="x_content">
+                    <dl class="row">
+                        <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                            @Html.DisplayNameFor(model => model.Nom)
+                        </dt>
+                        <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                            @Html.DisplayFor(model => model.Nom)
+                        </dd>
+                        <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                            @Html.DisplayNameFor(model => model.Description)
+                        </dt>
+                        <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                            @Html.DisplayFor(model => model.Description)
+                        </dd>
+                        <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                            @Html.DisplayNameFor(model => model.ResponsableTache)
+                        </dt>
+                        <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                            @Html.DisplayFor(model => model.ResponsableTache)
+                        </dd>
+                        <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                            @Html.DisplayNameFor(model => model.Progression)
+                        </dt>
+                        <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                            <div class="progress progress_sm">
+                                @if(Model.Progression <= 25)
+                                {
+                                    <div class="progress-bar bg-danger" role="progressbar" data-transitiongoal="@Model.Progression"></div>
+                                }
+                                else if(Model.Progression <= 50)
+                                {
+                                    <div class="progress-bar bg-warning" role="progressbar" data-transitiongoal="@Model.Progression"></div>
+                                }
+                                else if(Model.Progression <= 75)
+                                {
+                                    <div class="progress-bar bg-info" role="progressbar" data-transitiongoal="@Model.Progression"></div>
+                                }
+                                else if(Model.Progression <= 100)
+                                {
+                                    <div class="progress-bar bg-success" role="progressbar" data-transitiongoal="@Model.Progression"></div>
+                                }
+                            </div>
+                            <span>@Model.Progression %</span>
+                        </dd>
+                        <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                            @Html.DisplayNameFor(model => model.Poids)
+                        </dt>
+                        <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                            @Html.DisplayFor(model => model.Poids) %
+                        </dd>
+                        <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                            @Html.DisplayNameFor(model => model.Statut)
+                        </dt>
+                        <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                            @Html.DisplayFor(model => model.Statut)
+                        </dd>
+                        <dt class="col-form-label col-md-6 col-sm-6 text-right label-align">
+                            @Html.DisplayNameFor(model => model.Date_Debut)
+                        </dt>
+                        <dd class="col-form-label col-md-6 col-sm-12 text-left label-align">
+                            @Html.DisplayFor(model => model.Date_Fin)
+                        </dd>
+                    </dl>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-danger">Delete</button>

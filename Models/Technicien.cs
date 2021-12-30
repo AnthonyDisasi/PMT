@@ -20,18 +20,10 @@ namespace PMT.Models
 
         [Required]
         public string Username { get; set; }
+        [Display(Name = "E - mail")]
         public string Mail { get; set; }
+        [Display(Name = "Mot de passe")]
         public string Password { get; set; }
         public bool EstActif { get; set; }
-
-
-        [Display(Name = ("Nom complet"))]
-        public string AllName
-        {
-            get
-            {
-                return Nom + " - " + Postnom + " - " + Prenom;
-            }
-        }
     }
 }

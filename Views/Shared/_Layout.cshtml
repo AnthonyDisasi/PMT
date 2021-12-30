@@ -33,15 +33,11 @@
     <link href="~/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="~/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-    
-    <link href="~/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="~/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-    <link href="~/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-    <link href="~/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="~/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="~/build/css/custom.min.css" rel="stylesheet">
+
+
   </head>
 
   <body>
@@ -52,17 +48,31 @@
           <!--Nav bar-->
           <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand">P.M.T</a>
+                <a  asp-controller="Tache" asp-action="IndexTache" class="navbar-brand">P.M.T</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarScroll">
                     <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Technicien" asp-action="Index">Technicien</a>
+                        <li role="presentation" class="nav-link dropdown">
+                            <a id="drop4" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                                Tâches
+                                <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" asp-controller="Tache" asp-action="IndexTache">Tâche</a>
+                                <a class="dropdown-item" asp-controller="PrioStatTyp" asp-action="Type">Type</a>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Tache" asp-action="IndexTache">Tâche</a>
+                        <li role="presentation" class="nav-link dropdown">
+                            <a id="drop4" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                                Techniciens
+                                <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" asp-controller="Technicien" asp-action="Index">Technicien</a>
+                                <a class="dropdown-item" asp-controller="PrioStatTyp" asp-action="Titre">Titre</a>
+                            </div>
                         </li>
                     </ul>
                 </div>

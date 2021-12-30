@@ -53,13 +53,32 @@ namespace PMT.Services.ImplementationServices
             await Update(tache);
         }
         public async Task<IEnumerable<Tache>> Get()
-            => await _context.Taches.Include(t => t.SousTaches).OrderBy(t => t.Date_Debut).Where(t => t.EstActif == true).ToListAsync();
+        {
+            var taches = await _context
+                .Taches.Include(t => t.SousTaches.Where(st => st.EstActif == true))
+                .OrderBy(t => t.Date_Debut)
+                .Where(t => t.EstActif == true)
+                .ToListAsync();
+            return taches;
+        }
 
         public async Task<Tache> Get(string id)
-            => await _context.Taches.AsNoTracking().Include(t => t.SousTaches).Include(n => n.Notes).Where(t => t.EstActif == true).FirstOrDefaultAsync(t => t.ID == id);
+        {
+            var tache = await _context.Taches.AsNoTracking().Include(t => t.SousTaches).Include(n => n.Notes).FirstOrDefaultAsync(t => t.ID == id);
+            tache.SousTaches = tache.SousTaches.Where(st => st.EstActif == true).ToList();
+            return tache;
+        }
 
         public async Task<List<SelectListItem>> ListeType()
-            => await (from t in _context.Types orderby t.Nom where (t.EstActif == true) select new SelectListItem { Text = t.Nom, Value = t.Nom }).ToListAsync();
+            => await (
+            from t in _context.Types 
+            orderby t.Nom
+            where (t.EstActif == true)
+            select new SelectListItem {
+                Text = t.Nom,
+                Value = t.Nom
+            })
+            .ToListAsync();
 
         public async Task Update(Tache tache)
         {
@@ -68,15 +87,28 @@ namespace PMT.Services.ImplementationServices
         }
 
         public async Task<List<SelectListItem>> ListUser()
-            => await (from t in _context.Techniciens orderby t.Username where (t.EstActif == true) select new SelectListItem { Text = t.AllName, Value = t.ID }).ToListAsync();
-
+            => await (from t in _context.Techniciens
+                      orderby t.Username
+                      where (t.EstActif == true)
+                      select new SelectListItem {
+                          Text = t.Username,
+                          Value = t.ID 
+                      })
+            .ToListAsync();
 
         public async Task<List<SelectListItem>> GetUser()
-            => await (from t in _context.Techniciens orderby t.Username where (t.EstActif == true) select new SelectListItem { Text = t.AllName, Value = t.Username }).ToListAsync();
+            => await (from t in _context.Techniciens
+                      orderby t.Username
+                      where (t.EstActif == true)
+                      select new SelectListItem {
+                          Text = t.Username,
+                          Value = t.Username
+                      })
+            .ToListAsync();
 
         public async Task AddNote(string commentaire, string idTache, string username)
         {
-            if(commentaire != null || idTache != null)
+            if (commentaire != null || idTache != null)
             {
                 var note = new Note
                 {
@@ -94,91 +126,140 @@ namespace PMT.Services.ImplementationServices
             }
         }
 
-        public async Task AddSousTacheAsync(SousTache soustache, string id)
+        public async Task AddSousTacheAsync(SousTache model, string id)
         {
-            var tache = await _context.Taches.FindAsync(id);
-            tache.SousTaches.Add(soustache);
-            ///
+            double PoidsTotal = 0;
+            double temp = 0;
             double calcul = 0.0;
-            double nb = 0;
-            foreach (var sousTache in tache.SousTaches)
+            var tache = await _context.Taches.Include(s => s.SousTaches).FirstOrDefaultAsync(t => t.ID == model.TacheID);
+            if (tache.SousTaches.Count > 0)
             {
-                if (sousTache.Priorite == "0")
+                tache.SousTaches = tache.SousTaches.Where(st => st.EstActif == true).ToList();
+                foreach (var item in tache.SousTaches)
                 {
-                    calcul += sousTache.Progression;
+                    PoidsTotal += item.Poids;
                 }
-                else
+                if (PoidsTotal == 100)
                 {
-                    calcul += (sousTache.Progression * (double.Parse(sousTache.Priorite) / 25));
-                    nb += double.Parse(sousTache.Priorite) / 25;
+                    temp = 100 - model.Poids;
+                    foreach (var ite in tache.SousTaches)
+                    {
+                        ite.Poids = (ite.Poids * temp) / 100;
+                        _context.Entry(ite).State = EntityState.Modified;
+                    }
+                }
+                else if ((PoidsTotal + model.Poids) > 100)
+                {
+                    temp = 100 - model.Poids;
+                    foreach (var ite in tache.SousTaches)
+                    {
+                        ite.Poids = (ite.Poids / PoidsTotal) * temp;
+                        _context.Entry(ite).State = EntityState.Modified;
+
+                    }
                 }
             }
-            tache.Progression = (calcul / nb);
-            ///
-            await Update(tache);
-        }
-
-        public async Task<SousTache> CreateSousTacheAsync(SousTache sousTache, string username)
-        {
-            sousTache.CreateurTache = username;
-            var not = new Notification
+            model.ID = null;
+            model.EstActif = true;
+            _context.Soustaches.Add(model);
+            foreach (var item in tache.SousTaches)
             {
-                Expediteur = username,
-                Destinataire = sousTache.ResponsableTache,
-                Message = "Vous êtes responsable de la tâche " + sousTache.Nom,
-                DateMessage = DateTime.Now,
-                Lu = false
-            };
-            sousTache.ID = null;
-            _context.Notifications.Add(not);
-
-            sousTache.EstActif = true;
-            _context.Soustaches.Add(sousTache);
-            return sousTache;
-        }
-
-        public async Task<SousTache> GetSoustacheAsync(string id)
-            => await _context.Soustaches.Where(s => s.EstActif == true).Include(t => t.Tache).FirstOrDefaultAsync(s => s.ID == id);
-
-        public async Task UpdateSousTache(SousTache sousTache)
-        {
-            _context.Entry(sousTache).State = EntityState.Modified;
-            await UpdateTable();
+                calcul += (item.Progression / 100) * item.Poids;
+            }
+            tache.Progression = ((int)calcul);
+            _context.Entry(tache).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateTable()
+        public async Task<SousTache> GetSoustacheAsync(string id)
         {
-            var taches = await _context.Taches.Include(t => t.SousTaches).Where(t => t.EstActif == true).ToListAsync();
-            foreach (var tache in taches)
+            var model = await _context.Soustaches
+                            .Include(t => t.Tache)
+                            .Include(st => st.SousTaches)
+                            .FirstOrDefaultAsync(s => s.ID == id);
+            model.SousTaches = model.SousTaches.Where(st => st.EstActif == true).ToList();
+            return model;
+        }
+
+        public async Task<SousTache> UpdateSousTache(SousTache model, string idParent)
+        {
+            model.EstActif = true;
+            model.TacheID = idParent;
+            _context.Entry(model).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return model;
+        }
+        
+        public async Task UpdateSousTacheAsync(SousTache model)
+        {
+            double PoidsTotal = 0;
+            double temp = 0; double calcul = 0.0;
+            var tache = await _context.Taches.Include(s => s.SousTaches).FirstOrDefaultAsync(t => t.ID == model.TacheID);
+            if (tache.SousTaches.Count > 0)
             {
-                double calcul = 0.0;
-                double nb = 0;
-                if (tache.SousTaches.Count > 0)
+                tache.SousTaches = tache.SousTaches.Where(st => st.EstActif == true).ToList();
+                
+                foreach (var item in tache.SousTaches)
                 {
-                    foreach (var sousTache in tache.SousTaches)
+                    if(item.ID != model.ID)
+                        PoidsTotal += item.Poids;
+                }
+                if (PoidsTotal == 100)
+                {
+                    temp = 100 - model.Poids;
+                    foreach (var ite in tache.SousTaches)
                     {
-                        if (sousTache.Priorite == "0")
-                        {
-                            calcul += sousTache.Progression;
-                        }
-                        else
-                        {
-                            calcul += (sousTache.Progression * (double.Parse(sousTache.Priorite) / 25));
-                            nb += double.Parse(sousTache.Priorite)/ 25;
+
+                        if (ite.ID != model.ID) 
+                        { 
+                            ite.Poids = (ite.Poids * temp) / 100;
+                            _context.Entry(ite).State = EntityState.Modified;
                         }
                     }
-                    tache.Progression = (calcul / nb);
-                    _context.Entry(tache).State = EntityState.Modified;
                 }
-                //yield return tache;
+                else if ((PoidsTotal + model.Poids) > 100)
+                {
+                    temp = 100 - model.Poids;
+                    foreach (var ite in tache.SousTaches)
+                    {
+                        if(ite.ID != model.ID)
+                        {
+                            ite.Poids = (ite.Poids / PoidsTotal) * temp;
+                            _context.Entry(ite).State = EntityState.Modified;
+                        }
+                    }
+                }
+            
+                foreach (var item in (tache.SousTaches).ToList())
+                {
+                    if (item.EstActif == true)
+                        calcul += (item.Progression / 100) * item.Poids;
+                }
+                tache.Progression = ((int)calcul);
+                _context.Entry(tache).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
             }
         }
 
         public async Task DeleteSousTacheAsync(string id)
         {
-            var soustache = await _context.Soustaches.FindAsync(id);
-            _context.Soustaches.Remove(soustache);
+            double calcul = 0.0;
+            var model = await _context.Soustaches.FindAsync(id);
+
+            var tache = await _context.Taches.Include(st => st.SousTaches).FirstOrDefaultAsync(s => s.ID == model.TacheID);
+
+            foreach (var item in tache.SousTaches)
+            {
+                if(item.ID != model.ID)
+                    calcul += (item.Progression / 100) * item.Poids;
+            }
+
+            model.EstActif = false;
+            _context.Entry(model).State = EntityState.Modified;
+
+            tache.Progression = ((int)calcul);
+            _context.Entry(tache).State = EntityState.Modified;
+
             await _context.SaveChangesAsync();
         }
     }

@@ -34,6 +34,7 @@ namespace PMT
             services.AddTransient<IServiceTache, ServiceTache>();
             services.AddTransient<IServiceTechnicien, ServiceTechnicien>();
             services.AddTransient<IServicePrioStatTypTitAsync, ServicePrioStatTypTitAsync>();
+            services.AddTransient<ISousTacheServiceAsync, SousTacheServiceAsync>();
 
             services.AddTransient<IPasswordValidator<User_App>, CustomPasswordValidator>();
             services.AddTransient<IUserValidator<User_App>, CustomUserValidator>();

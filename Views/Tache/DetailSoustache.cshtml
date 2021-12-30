@@ -3,6 +3,7 @@
     ViewData["Title"] = "Detail";
     int nb = 1;
 }
+
 <!-------->
 <div class="row">
     <div class="col-md-12">
@@ -10,183 +11,35 @@
         <div class="x_title">
         <h2>Detail de la tâche</h2>
         <ul class="nav navbar-right panel_toolbox">
-            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-            </li>
-            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            <li>
+                <div class="btn-group">
+                    <a asp-controller="SousTache" asp-action="Create" asp-route-id="@Model.ID"  class="btn btn-primary text-light">Ajouter une sous-tâche</a>
+                    <a class="btn btn-outline-secondary btn-xs collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    <a class="btn btn-outline-secondary btn-xs collapse-link close-link"><i class="fa fa-close"></i></a>
+                    <a asp-controller="Tache" asp-action="Details" asp-route-id="@Model.TacheID" class="btn btn-outline-secondary btn-xs"><i class="fa fa-reply"></i></a>
+                    <a asp-controller="Tache" asp-action="EditSousTache" asp-route-id="@Model.ID" asp-route-Tacheid="@Model.TacheID" class="btn btn-outline-info btn-xs"><i class="fa fa-pencil"></i></a>
+                    <a asp-controller="Tache" asp-action="DeleteSousTache" asp-route-id="@Model.ID" class="btn btn-outline-danger btn-xs"><i class="fa fa-trash"></i></a>
+                </div>
             </li>
         </ul>
         <div class="clearfix"></div>
         </div>
         <div class="x_content">
-        <div class="row">
-            <div class="col-sm-12 mail_view">
-            <div class="inbox-body">
-              <div class="col-md-6 col-sm-6  ">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2><i class="fa fa-bars"></i> Detail <small>Tâche principale</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li>
-                        @if(Model.CreateurTache == User.Identity.Name)
-                        {             
-                            <div class="btn-group">
-                                <a class="btn btn-outline-secondary btn-xs collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                <a class="btn btn-outline-secondary btn-xs collapse-link close-link"><i class="fa fa-close"></i></a>
-                                <a asp-controller="Tache" asp-action="Edit" asp-route-id="@Model.Tache.ID" class="btn btn-outline-info btn-xs"><i class="fa fa-pencil"></i></a>
-                                <a asp-controller="Tache" asp-action="Delete" asp-route-id="@Model.Tache.ID" class="btn btn-outline-danger btn-xs"><i class="fa fa-trash"></i></a>
-                            </div>
-                        }
-                        else
-                        {             
-                            <div class="btn-group">
-                                <a class="btn btn-outline-secondary btn-xs collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                <a class="btn btn-outline-secondary btn-xs collapse-link close-link"><i class="fa fa-close"></i></a>
-                            </div>
-                        }
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                      
-                    <!-- Profile Edit Form -->
-                    <form>
-                        <div class="row mb-3">
-                            <label class="col-md-4 col-lg-3 col-form-label">Nom</label>
-                            <div class="col-md-8 col-lg-9">
-                                <label class="col-md-4 col-lg-9 col-form-label">@Model.Tache.Nom</label>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-4 col-lg-3 col-form-label">Description</label>
-                            <div class="col-md-8 col-lg-9">
-                                <label class="col-md-4 col-lg-9 col-form-label">@Model.Tache.Description</label>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-4 col-lg-3 col-form-label">Type</label>
-                            <div class="col-md-8 col-lg-9">
-                                <label class="col-md-4 col-lg-9 col-form-label">@Model.Tache.Type</label>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-4 col-lg-3 col-form-label">Date début</label>
-                            <div class="col-md-8 col-lg-9">
-                                <label class="col-md-4 col-lg-9 col-form-label">@Model.Tache.Date_Debut</label>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-4 col-lg-3 col-form-label">Date finale</label>
-                            <div class="col-md-8 col-lg-9">
-                                <label class="col-md-4 col-lg-9 col-form-label">@Model.Tache.Date_Fin</label>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-4 col-lg-3 col-form-label">Progression</label>
-                            <div class="col-md-4 col-lg-9 col-form-label">
-                                <div>
-                                    <div class="progress progress_sm">
-                                        @if(Model.Tache.Progression <= 25)
-                                        {
-                                            <div class="progress-bar bg-danger" role="progressbar" data-transitiongoal="@Model.Tache.Progression"></div>
-                                        }
-                                        else if(Model.Tache.Progression <= 50)
-                                        {
-                                            <div class="progress-bar bg-warning" role="progressbar" data-transitiongoal="@Model.Tache.Progression"></div>
-                                        }
-                                        else if(Model.Tache.Progression <= 75)
-                                        {
-                                            <div class="progress-bar bg-info" role="progressbar" data-transitiongoal="@Model.Tache.Progression"></div>
-                                        }
-                                        else if(Model.Tache.Progression == 100)
-                                        {
-                                            <div class="progress-bar bg-success" role="progressbar" data-transitiongoal="@Model.Tache.Progression"></div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form><!-- End Profile Edit Form -->
-                  </div>
-                </div>
-              </div>
-              
-              <div class="col-md-6 col-sm-6  ">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2><i class="fa fa-bars"></i> Detail <small>Sous tâche</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li>
-                        @if(Model.CreateurTache == User.Identity.Name)
-                        {             
-                            <div class="btn-group">
-                                <a class="btn btn-outline-secondary btn-xs collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                <a class="btn btn-outline-secondary btn-xs collapse-link close-link"><i class="fa fa-close"></i></a>
-                                <a asp-controller="Tache" asp-action="Details" asp-route-id="@Model.TacheID" class="btn btn-outline-secondary btn-xs"><i class="fa fa-reply"></i></a>
-                                <a asp-controller="Tache" asp-action="EditSousTache" asp-route-id="@Model.ID" asp-route-Tacheid="@Model.TacheID" class="btn btn-outline-info btn-xs"><i class="fa fa-pencil"></i></a>
-                                <a asp-controller="Tache" asp-action="DeleteSousTache" asp-route-id="@Model.ID" class="btn btn-outline-danger btn-xs"><i class="fa fa-trash"></i></a>
-                            </div>
-                        }
-                        else
-                        {             
-                            <div class="btn-group">
-                                <a class="btn btn-outline-secondary btn-xs collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                <a class="btn btn-outline-secondary btn-xs collapse-link close-link"><i class="fa fa-close"></i></a>
-                                <a asp-controller="Tache" asp-action="Details" asp-route-id="@Model.TacheID" class="btn btn-outline-secondary btn-xs"><i class="fa fa-reply"></i></a>
-                            </div>
-                        }
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                      
-                    <!-- Profile Edit Form -->
-                    <form>
-                        <div class="row mb-3">
-                            <label class="col-md-4 col-lg-3 col-form-label">Nom</label>
-                            <div class="col-md-8 col-lg-9">
-                                <label class="col-md-4 col-lg-9 col-form-label">@Model.Nom</label>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-4 col-lg-3 col-form-label">Description</label>
-                            <div class="col-md-8 col-lg-9">
-                                <label class="col-md-4 col-lg-9 col-form-label">@Model.Description</label>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-4 col-lg-3 col-form-label">Type</label>
-                            <div class="col-md-8 col-lg-9">
-                                <label class="col-md-4 col-lg-9 col-form-label">@Model.Type</label>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-4 col-lg-3 col-form-label">Priorité</label>
-                            <div class="col-md-8 col-lg-9">
-                                <label class="col-md-4 col-lg-9 col-form-label">@Model.Priorite</label>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-4 col-lg-3 col-form-label">Statut</label>
-                            <div class="col-md-8 col-lg-9">
-                                <label class="col-md-4 col-lg-9 col-form-label">@Model.Statut</label>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-4 col-lg-3 col-form-label">Date début</label>
-                            <div class="col-md-8 col-lg-9">
-                                <label class="col-md-4 col-lg-9 col-form-label">@Model.Date_Debut</label>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-4 col-lg-3 col-form-label">Date finale</label>
-                            <div class="col-md-8 col-lg-9">
-                                <label class="col-md-4 col-lg-9 col-form-label">@Model.Date_Fin</label>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-md-4 col-lg-3 col-form-label">Progression</label>
-                            <div class="col-md-4 col-lg-9 col-form-label">
-                                <div>
+            <section class="content invoice">
+                <!-- info row -->
+                <div class="row invoice-info col-xl-6" style="margin:auto">
+                    <!-- /.col -->
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td><b>Nom :</b> @Model.Nom</td>
+                                <td><b>Responsable :</b> @Model.ResponsableTache </td>
+                                <td><b>Progression :</b> </td>
+                            </tr>
+                            <tr>
+                                <td><b>Type :</b> @Model.Type</td>
+                                <td><b>Créateur :</b> @Model.CreateurTache</td>
+                                <td>
                                     <div class="progress progress_sm">
                                         @if(Model.Progression <= 25)
                                         {
@@ -200,20 +53,128 @@
                                         {
                                             <div class="progress-bar bg-info" role="progressbar" data-transitiongoal="@Model.Progression"></div>
                                         }
-                                        else if(Model.Progression == 100)
+                                        else if(Model.Progression <= 100)
                                         {
                                             <div class="progress-bar bg-success" role="progressbar" data-transitiongoal="@Model.Progression"></div>
                                         }
                                     </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Début :</b> @Model.Date_Debut.Day / @Model.Date_Debut.Month / @Model.Date_Debut.Year </td>
+                                <td colspan="2"><b>Fin :</b> @Model.Date_Fin.Day / @Model.Date_Fin.Month / @Model.Date_Fin.Year</td>
+                            </tr>
+                            <tr>
+                                <td><b>Description :</b> </td>
+                                <td colspan="3">@Model.Description</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </section>
+        <div class="row">
+            <!-- CONTENT MAIL -->
+            <div class="col-sm-12 mail_view">
+            <div class="inbox-body">
+                <div class="view-mail">
+                    <br />
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li>
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="card-box table-responsive">
+                                        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                                        <p class="text-muted font-13 m-b-30">Les sous-tâches</p>
+                                        <!-- Table with stripped rows -->
+                                        <table class="table datatable">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Nom</th>
+                                                <th scope="col">Responsable</th>
+                                                <th scope="col">Déscription</th>
+                                                <th scope="col">Début</th>
+                                                <th scope="col">Fin</th>
+                                                <th scope="col">Statut</th>
+                                                <th scope="col">Poids</th>
+                                                <th scope="col">Progression</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.SousTaches.Count != 0)
+                                            {
+                                                nb = 1;
+                                                @foreach (var item in Model.SousTaches)
+                                                {
+                                                    <tr>
+                                                        <th scope="row">@nb</th>
+                                                        <td>@Html.DisplayFor(i => item.Nom)</td>
+                                                        <td>@Html.DisplayFor(i => item.ResponsableTache)</td>
+                                                        <td>@Html.DisplayFor(i => item.Description)</td>
+                                                        <td>@item.Date_Debut.Day / @item.Date_Debut.Month / @item.Date_Debut.Year</td>
+                                                        <td>@item.Date_Fin.Day / @item.Date_Fin.Month / @item.Date_Fin.Year</td>
+                                                        <td>@Html.DisplayFor(i => item.Statut)</td>
+                                                        <td>@Html.DisplayFor(i => item.Poids) %</td>
+                                                        <td class="project_progress">
+                                                            <div class="progress progress_sm">
+                                                                @if(item.Progression <= 25)
+                                                                {
+                                                                    <div class="progress-bar bg-danger" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                                }
+                                                                else if(item.Progression <= 50)
+                                                                {
+                                                                    <div class="progress-bar bg-warning" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                                }
+                                                                else if(item.Progression <= 75)
+                                                                {
+                                                                    <div class="progress-bar bg-info" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                                }
+                                                                else if(item.Progression <= 100)
+                                                                {
+                                                                    <div class="progress-bar bg-success" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                                }
+                                                            </div>
+                                                            <span>@item.Progression %</span>
+                                                        </td>
+                                                        <td>
+                                                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                                                <a asp-controller="SousTache" asp-action="Detail" asp-route-id="@item.ID" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> </a>
+                                                                <a asp-controller="SousTache" asp-action="Update" asp-route-id="@item.ID" asp-route-idParent="@Model.SousTacheID" class="btn btn-outline-info btn-xs"><i class="fa fa-pencil"></i></a>
+                                                                <a asp-controller="SousTache" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-outline-danger btn-xs"><i class="fa fa-trash"></i></a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    nb++;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="8">Aucune sous tâche</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                        </table>
+                                        <!-- End Table with stripped rows -->
+                            
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </form><!-- End Profile Edit Form -->
-                  </div>
+                    </div>
                 </div>
-              </div>
             </div>
-            <!-- /CONTENT MAIL -->
         </div>
         </div>
     </div>

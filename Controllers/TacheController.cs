@@ -28,7 +28,7 @@ namespace PMT.Controllers
 
         public async Task<IActionResult> Details(string id)
         {
-            ViewData["ListTech"] = await _service.ListUser();
+            ViewData["Responsable"] = await _service.GetUser();
             return View(await _service.Get(id));
         }
 
@@ -70,9 +70,9 @@ namespace PMT.Controllers
         {
             if (ModelState.IsValid)
             {
-                var model = await _service.CreateSousTacheAsync(soustache, User.Identity.Name);
-                await _service.AddSousTacheAsync(model, soustache.TacheID);
-                return RedirectToAction("Details", new {id = model.TacheID});
+                soustache.CreateurTache = User.Identity.Name;
+                 await _service.AddSousTacheAsync(soustache, soustache.TacheID);
+                return RedirectToAction("Details", new {id = soustache.TacheID});
             }
             ViewData["IdParent"] = soustache.TacheID;
             ViewData["Types"] = await _service.ListeType();
@@ -116,18 +116,21 @@ namespace PMT.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditSousTache(SousTache sousTache)
         {
-            sousTache.EstActif = true;
+            string idParent = sousTache.TacheID;
+            string idt = sousTache.ID;
             if (ModelState.IsValid)
             {
                 sousTache.CreateurTache = User.Identity.Name;
-                await _service.UpdateSousTache(sousTache);
-                return RedirectToAction("Details", new {id = sousTache.TacheID});
+                var model = await _service.UpdateSousTache(sousTache, idParent);
+                await _service.UpdateSousTacheAsync(model);
+                return RedirectToAction("Details", new {id = idParent});
             }
             ViewData["TacheId"] = sousTache.TacheID;
             ViewData["Types"] = await _service.ListeType();
             ViewData["Responsable"] = await _service.GetUser();
             return View(sousTache);
         }
+
         public async Task<IActionResult> Delete(string id)
             => View(await _service.Get(id));
 
@@ -148,7 +151,7 @@ namespace PMT.Controllers
         public async Task<IActionResult> DeleteSousTache(SousTache sousTache)
         {
             await _service.DeleteSousTacheAsync(sousTache.ID);
-            return RedirectToAction("Details", new { id = sousTache.TacheID });
+            return RedirectToAction(nameof(IndexTache));
         }
 
         public async Task<IActionResult> ListAffectationEtDetailsTache(string id)

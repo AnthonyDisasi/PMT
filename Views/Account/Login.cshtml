@@ -3,8 +3,6 @@
     ViewData["Title"] = "Login";
 }
 
-<link rel="stylesheet" href="~/css/Form_Login.css" />
-
 <br />
 <br />
 <br />
@@ -12,10 +10,10 @@
 <section class="get_in_touch">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 col-sm-12">
+            <div class="col-xl-5" style="margin:auto">
                 <div class="x_panel">
                     <div class="x_content">
-                        <form class="" asp-controller="Account" asp-action="Login" novalidate>
+                        <form class="" asp-controller="Account" asp-action="Login" method="post" novalidate>
 
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div style="text-align:center">
@@ -48,7 +46,8 @@
                                 <div class="form-group">
                                     <br /><br />
                                     <div class="col-md-6 offset-md-3 text-center">
-                                        <button type='submit' class="btn btn-primary">Connexion</button>
+                                        <button type='submit' class="btn btn-primary">Enregistrer</button>
+                                        <button type='reset' class="btn btn-success">Recommencer</button>
                                     </div>
                                 </div>
                             </div>
@@ -107,4 +106,3 @@
     }).prop('checked', false);
 
 </script>
-

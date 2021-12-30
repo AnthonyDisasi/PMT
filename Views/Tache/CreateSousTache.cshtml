@@ -1,6 +1,6 @@
 ﻿@model SousTache
 @{
-    ViewData["Title"] = "New";
+    ViewData["Title"] = "Nouvelle";
 }
 
 <div class="col-xl-8" style="margin:auto">
@@ -44,13 +44,22 @@
                         <span asp-validation-for="ResponsableTache" class="text-danger"></span>
                     </div>
                 </div>
+                
+                <div class="row mb-3">
+                    <label class="col-md-4 col-lg-3 col-form-label">Type</label>
+                    <div class="col-md-8 col-lg-9">
+                        <select asp-for="Type" asp-items="ViewBag.Types" class="form-control" aria-label="Default select example" required>
+                            <option value="">Selectionner un type</option>
+                        </select>
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                    </div>
+                </div>
 
                 <div class="row mb-3">
                     <label class="col-md-4 col-lg-3 col-form-label">Progression</label>
                     <div class="col-md-8 col-lg-9">
                         <select asp-for="Progression" class="form-control" aria-label="Default select example" required>
-                            <option value="">Progression</option>
-                            <option value="0">0</option>
+                            <option value="0">0%</option>
                             <option value="25">25%</option>
                             <option value="50">50%</option>
                             <option value="75">75%</option>
@@ -61,27 +70,10 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Priorité</label>
+                    <label class="col-md-4 col-lg-3 col-form-label">Poids</label>
                     <div class="col-md-8 col-lg-9"><!--asp-items="ViewBag.Priorites"-->
-                        <select asp-for="Priorite" class="form-control" aria-label="Default select example" required>
-                            <option value="">Selectionner une priorité</option>
-                            <option value="0">0</option>
-                            <option value="25">25%</option>
-                            <option value="50">50%</option>
-                            <option value="75">75%</option>
-                            <option value="100">100%</option>
-                        </select>
-                        <span asp-validation-for="Priorite" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label class="col-md-4 col-lg-3 col-form-label">Type</label>
-                    <div class="col-md-8 col-lg-9">
-                        <select asp-for="Type" asp-items="ViewBag.Types" class="form-control" aria-label="Default select example" required>
-                            <option value="">Selectionner un type</option>
-                        </select>
-                        <span asp-validation-for="Type" class="text-danger"></span>
+                        <input type="number" class="form-control" asp-for="Poids" required>
+                        <span asp-validation-for="Poids" class="text-danger"></span>
                     </div>
                 </div>
 

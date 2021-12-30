@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -45,10 +46,10 @@ namespace PMT.Controllers
                     Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(user, login.Password, false, false);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction(nameof(Profil));
+                        return RedirectToAction("IndexTache", "Tache");
                     }
                 }
-                ModelState.AddModelError(nameof(LoginModel.Username), "Le mot de passe ou le 'username' sont invalides");
+                ModelState.AddModelError(nameof(LoginModel.Username), "Le mot de passe ou le username est invalide");
             }
             return View(login);
         }
@@ -123,6 +124,6 @@ namespace PMT.Controllers
             var notifications = await _service.GetNotificationsAsync(User.Identity.Name);
             await _service.EnableLuForNotificationAsync(User.Identity.Name);
             return View(notifications);
-        }
+        }  
     }
 }

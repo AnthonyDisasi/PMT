@@ -25,9 +25,9 @@ namespace PMT.Services
         public Task AddNote(string commentaire, string idTache, string username);
 
         //////////////
-        public Task<SousTache> CreateSousTacheAsync(SousTache sousTache, string username);
         public Task<SousTache> GetSoustacheAsync(string id);
-        public Task UpdateSousTache(SousTache sousTache);
+        public Task<SousTache> UpdateSousTache(SousTache sousTache, string idParent);
+        public Task UpdateSousTacheAsync(SousTache soustache);
         public Task DeleteSousTacheAsync(string id);
     }
 }

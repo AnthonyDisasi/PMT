@@ -27,21 +27,12 @@ namespace PMT.Models
         public string Mail { get; set; }
         [DataType(DataType.Password)]
         [Required]
+        [Display(Name = "Mot de passe")]
         public string Password { get; set; }
 
         [Compare("Password"), Required]
-        [Display(Name = "Confirmer Password")]
+        [Display(Name = "Confirmer Mot de passe")]
         public string ConfirmPassword { get; set; }
         public bool EstActif { get; set; }
-
-
-        [Display(Name = ("Nom complet"))]
-        public string AllName
-        {
-            get
-            {
-                return Nom + " - " + Postnom + " - " + Prenom;
-            }
-        }
     }
 }

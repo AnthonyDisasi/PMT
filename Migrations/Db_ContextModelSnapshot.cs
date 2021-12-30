@@ -246,15 +246,17 @@ namespace PMT.Migrations
                     b.Property<string>("Nom")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Priorite")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Poids")
+                        .HasColumnType("float");
 
                     b.Property<double>("Progression")
                         .HasColumnType("float");
 
                     b.Property<string>("ResponsableTache")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SousTacheID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("TacheID")
                         .HasColumnType("nvarchar(450)");
@@ -263,6 +265,8 @@ namespace PMT.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("SousTacheID");
 
                     b.HasIndex("TacheID");
 
@@ -295,8 +299,8 @@ namespace PMT.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Progression")
-                        .HasColumnType("float");
+                    b.Property<int>("Progression")
+                        .HasColumnType("int");
 
                     b.Property<string>("ResponsableTache")
                         .IsRequired()
@@ -491,11 +495,20 @@ namespace PMT.Migrations
 
             modelBuilder.Entity("PMT.Models.SousTache", b =>
                 {
+                    b.HasOne("PMT.Models.SousTache", null)
+                        .WithMany("SousTaches")
+                        .HasForeignKey("SousTacheID");
+
                     b.HasOne("PMT.Models.Tache", "Tache")
                         .WithMany("SousTaches")
                         .HasForeignKey("TacheID");
 
                     b.Navigation("Tache");
+                });
+
+            modelBuilder.Entity("PMT.Models.SousTache", b =>
+                {
+                    b.Navigation("SousTaches");
                 });
 
             modelBuilder.Entity("PMT.Models.Tache", b =>

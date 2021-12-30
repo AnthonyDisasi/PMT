@@ -54,7 +54,7 @@ namespace PMT.Interfaces.ImplementationServices
         public async Task DisableType(string id)
         {
             var model = await _context.Types.FindAsync(id);
-            model.EstActif = true;
+            model.EstActif = false;
             _context.Entry(model).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }

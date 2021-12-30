@@ -23,80 +23,274 @@
                         </ul>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="x_content">
+                    
+                  <div class="x_content">
+
+                    <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Toutes</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Terminé</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Non terminé</a>
+                      </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <!-- start tache list -->
-                        <table id="datatable-keytable" class="table table-striped table-bordered" style="width:100%">
+                        <div class="card-box table-responsive">
+                            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                            <p class="text-muted font-13 m-b-30">Les sous-tâches</p>
+                            <!-- Table with stripped rows -->
+                            <table class="table datatable">
                             <thead>
-                            <tr>
-                                <th style="width: 1%">#</th>
-                                <th style="width: 20%">Nom</th>
-                                <th>Responsable</th>
-                                <th>Sous-Taches</th>
-                                <th>Début</th>
-                                <th>Fin</th>
-                                <th>Progression</th>
-                                <th>Action</th>
-                            </tr>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Responsable</th>
+                                    <th scope="col">Déscription</th>
+                                    <th scope="col">Sous-Tâches</th>
+                                    <th scope="col">Début</th>
+                                    <th scope="col">Fin</th>
+                                    <th scope="col">Statut</th>
+                                    <th scope="col">Progression</th>
+                                    <th>Action</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @foreach(var item in Model)
-                            {
-                            <tr>
-                                <td>@nb</td>
-                                <td>@item.Nom</td>
-                                <td>@item.ResponsableTache</td>
-                                <td>
-                                <ul class="list-inline">@item.SousTaches.Count()</ul>
-                                </td>
-                                <td>@item.Date_Debut.Day / @item.Date_Debut.Month / @item.Date_Debut.Year</td>
-                                <td>@item.Date_Fin.Day / @item.Date_Fin.Month / @item.Date_Fin.Year</td>
-                                <td class="project_progress">
-                                <div class="progress progress_sm">
-                                    @if(item.Progression <= 25)
+                                @{
+                                    nb = 1;
+                                }
+                                @if (Model.Count() != 0)
+                                {
+                                    @foreach (var item in Model)
                                     {
-                                        <div class="progress-bar bg-danger" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                        <tr>
+                                            <th scope="row">@nb</th>
+                                            <td>@Html.DisplayFor(i => item.Nom)</td>
+                                            <td>@Html.DisplayFor(i => item.ResponsableTache)</td>
+                                            <td>@Html.DisplayFor(i => item.Description)</td>
+                                            <td>@item.SousTaches.Count</td>
+                                            <td>@item.Date_Debut.Day / @item.Date_Debut.Month / @item.Date_Debut.Year</td>
+                                            <td>@item.Date_Fin.Day / @item.Date_Fin.Month / @item.Date_Fin.Year</td>
+                                            <td>@Html.DisplayFor(i => item.Statut)</td>
+                                            <td class="project_progress">
+                                                <div class="progress progress_sm">
+                                                    @if(item.Progression <= 25)
+                                                    {
+                                                        <div class="progress-bar bg-danger" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                    }
+                                                    else if(item.Progression <= 50)
+                                                    {
+                                                        <div class="progress-bar bg-warning" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                    }
+                                                    else if(item.Progression <= 75)
+                                                    {
+                                                        <div class="progress-bar bg-info" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                    }
+                                                    else if(item.Progression <= 100)
+                                                    {
+                                                        <div class="progress-bar bg-success" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                    }
+                                                </div>
+                                                <span>@item.Progression %</span>
+                                            </td>
+                                            <td>
+                                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                                <a asp-controller="Tache" asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-xs"><i class="fa fa-folder"></i> Detail </a>
+                                            </div>
+                                            </td>
+                                        </tr>
+                                        nb++;
                                     }
-                                    else if(item.Progression <= 50)
-                                    {
-                                        <div class="progress-bar bg-warning" role="progressbar" data-transitiongoal="@item.Progression"></div>
-                                    }
-                                    else if(item.Progression <= 75)
-                                    {
-                                        <div class="progress-bar bg-info" role="progressbar" data-transitiongoal="@item.Progression"></div>
-                                    }
-                                    else if(item.Progression <= 100)
-                                    {
-                                        <div class="progress-bar bg-success" role="progressbar" data-transitiongoal="@item.Progression"></div>
-                                    }
-                                </div>
-                                </td>
-                                <td>
-                                <a asp-controller="Tache" asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-xs"><i class="fa fa-folder"></i> Detail </a>
-                                </td>
-                            </tr>
-                            nb++;
-                            }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="8">Aucune sous tâche</td>
+                                    </tr>
+                                }
                             </tbody>
-                        </table>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
                         <!-- end tache list -->
+                      </div>
+                      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <!-- start tache list -->
+                        <div class="card-box table-responsive">
+                            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                            <p class="text-muted font-13 m-b-30">Les sous-tâches</p>
+                            <!-- Table with stripped rows -->
+                            <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Responsable</th>
+                                    <th scope="col">Déscription</th>
+                                    <th scope="col">Sous-Tâches</th>
+                                    <th scope="col">Début</th>
+                                    <th scope="col">Fin</th>
+                                    <th scope="col">Statut</th>
+                                    <th scope="col">Progression</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    nb = 1;
+                                }
+                                @if (Model.Count() != 0)
+                                {
+                                    @foreach (var item in Model)
+                                    {
+                                        if(item.Progression == 100)
+                                        {
+                                            <tr>
+                                            <th scope="row">@nb</th>
+                                            <td>@Html.DisplayFor(i => item.Nom)</td>
+                                            <td>@Html.DisplayFor(i => item.ResponsableTache)</td>
+                                            <td>@Html.DisplayFor(i => item.Description)</td>
+                                            <td>@item.SousTaches.Count</td>
+                                            <td>@item.Date_Debut.Day / @item.Date_Debut.Month / @item.Date_Debut.Year</td>
+                                            <td>@item.Date_Fin.Day / @item.Date_Fin.Month / @item.Date_Fin.Year</td>
+                                            <td>@Html.DisplayFor(i => item.Statut)</td>
+                                            <td class="project_progress">
+                                                <div class="progress progress_sm">
+                                                    @if(item.Progression <= 25)
+                                                    {
+                                                        <div class="progress-bar bg-danger" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                    }
+                                                    else if(item.Progression <= 50)
+                                                    {
+                                                        <div class="progress-bar bg-warning" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                    }
+                                                    else if(item.Progression <= 75)
+                                                    {
+                                                        <div class="progress-bar bg-info" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                    }
+                                                    else if(item.Progression <= 100)
+                                                    {
+                                                        <div class="progress-bar bg-success" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                    }
+                                                </div>
+                                                <span>@item.Progression %</span>
+                                            </td>
+                                            <td>
+                                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                                <a asp-controller="Tache" asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-xs"><i class="fa fa-folder"></i> Detail </a>
+                                            </div>
+                                            </td>
+                                        </tr>
+                                        }
+                                        nb++;
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="8">Aucune sous tâche</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
+                        <!-- end tache list -->
+                      </div>
+                      <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        <!-- start tache list -->
+                        
+                        <div class="card-box table-responsive">
+                            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                            <p class="text-muted font-13 m-b-30">Les sous-tâches</p>
+                            <!-- Table with stripped rows -->
+                            <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Responsable</th>
+                                    <th scope="col">Déscription</th>
+                                    <th scope="col">Sous-Tâches</th>
+                                    <th scope="col">Début</th>
+                                    <th scope="col">Fin</th>
+                                    <th scope="col">Statut</th>
+                                    <th scope="col">Progression</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    nb = 1;
+                                }
+                                @if (Model.Count() != 0)
+                                {
+                                    @foreach (var item in Model)
+                                    {
+                                        if(item.Progression < 100)
+                                        {
+                                            <tr>
+                                            <th scope="row">@nb</th>
+                                            <td>@Html.DisplayFor(i => item.Nom)</td>
+                                            <td>@Html.DisplayFor(i => item.ResponsableTache)</td>
+                                            <td>@Html.DisplayFor(i => item.Description)</td>
+                                            <td>@item.SousTaches.Count</td>
+                                            <td>@item.Date_Debut.Day / @item.Date_Debut.Month / @item.Date_Debut.Year</td>
+                                            <td>@item.Date_Fin.Day / @item.Date_Fin.Month / @item.Date_Fin.Year</td>
+                                            <td>@Html.DisplayFor(i => item.Statut)</td>
+                                            <td class="project_progress">
+                                                <div class="progress progress_sm">
+                                                    @if(item.Progression <= 25)
+                                                    {
+                                                        <div class="progress-bar bg-danger" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                    }
+                                                    else if(item.Progression <= 50)
+                                                    {
+                                                        <div class="progress-bar bg-warning" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                    }
+                                                    else if(item.Progression <= 75)
+                                                    {
+                                                        <div class="progress-bar bg-info" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                    }
+                                                    else if(item.Progression <= 100)
+                                                    {
+                                                        <div class="progress-bar bg-success" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                    }
+                                                </div>
+                                                <span>@item.Progression %</span>
+                                            </td>
+                                            <td>
+                                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                                <a asp-controller="Tache" asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-xs"><i class="fa fa-folder"></i> Detail </a>
+                                            </div>
+                                            </td>
+                                        </tr>
+                                        }
+                                        nb++;
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="8">Aucune sous tâche</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+                        </div>
+                        <!-- end tache list -->
+                      </div>
+                    </div>
+                  </div>
+                    <div class="x_content">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="~/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="~/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="~/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="~/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-<script src="~/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-<script src="~/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="~/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="~/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-<script src="~/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-<script src="~/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="~/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<script src="~/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-<script src="~/vendors/jszip/dist/jszip.min.js"></script>
-<script src="~/vendors/pdfmake/build/pdfmake.min.js"></script>
-<script src="~/vendors/pdfmake/build/vfs_fonts.js"></script>
