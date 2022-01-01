@@ -1,7 +1,7 @@
 ﻿@model SousTache
 @{
     ViewData["Title"] = "Detail";
-    int nb = 1;
+    int nb = 1; int progression = (int)Model.Progression; int poids = (int)Model.Progression;
 }
 <!-------->
 <div class="row">
@@ -42,21 +42,22 @@
                                     <div class="progress progress_sm">
                                         @if(Model.Progression <= 25)
                                         {
-                                            <div class="progress-bar bg-danger" role="progressbar" data-transitiongoal="@Model.Progression"></div>
+                                            <div class="progress-bar bg-danger" role="progressbar" data-transitiongoal="@progression"></div>
                                         }
                                         else if(Model.Progression <= 50)
                                         {
-                                            <div class="progress-bar bg-warning" role="progressbar" data-transitiongoal="@Model.Progression"></div>
+                                            <div class="progress-bar bg-warning" role="progressbar" data-transitiongoal="@progression"></div>
                                         }
                                         else if(Model.Progression <= 75)
                                         {
-                                            <div class="progress-bar bg-info" role="progressbar" data-transitiongoal="@Model.Progression"></div>
+                                            <div class="progress-bar bg-info" role="progressbar" data-transitiongoal="@progression"></div>
                                         }
                                         else if(Model.Progression <= 100)
                                         {
-                                            <div class="progress-bar bg-success" role="progressbar" data-transitiongoal="@Model.Progression"></div>
+                                            <div class="progress-bar bg-success" role="progressbar" data-transitiongoal="@progression"></div>
                                         }
                                     </div>
+                                    <span>@progression %</span>
                                 </td>
                             </tr>
                             <tr>
@@ -113,6 +114,9 @@
                                         <tbody>
                                             @if (Model.SousTaches.Count != 0)
                                             {
+                                                progression = (int)Model.Progression;
+                                                poids = (int) Model.Poids;
+
                                                 nb = 1;
                                                 @foreach (var item in Model.SousTaches)
                                                 {
@@ -124,32 +128,32 @@
                                                         <td>@item.Date_Debut.Day / @item.Date_Debut.Month / @item.Date_Debut.Year</td>
                                                         <td>@item.Date_Fin.Day / @item.Date_Fin.Month / @item.Date_Fin.Year</td>
                                                         <td>@Html.DisplayFor(i => item.Statut)</td>
-                                                        <td>@Html.DisplayFor(i => item.Poids) %</td>
+                                                        <td>@poids %</td>
                                                         <td class="project_progress">
                                                             <div class="progress progress_sm">
                                                                 @if(item.Progression <= 25)
                                                                 {
-                                                                    <div class="progress-bar bg-danger" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                                    <div class="progress-bar bg-danger" role="progressbar" data-transitiongoal="@progression"></div>
                                                                 }
                                                                 else if(item.Progression <= 50)
                                                                 {
-                                                                    <div class="progress-bar bg-warning" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                                    <div class="progress-bar bg-warning" role="progressbar" data-transitiongoal="@progression"></div>
                                                                 }
                                                                 else if(item.Progression <= 75)
                                                                 {
-                                                                    <div class="progress-bar bg-info" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                                    <div class="progress-bar bg-info" role="progressbar" data-transitiongoal="@progression"></div>
                                                                 }
                                                                 else if(item.Progression <= 100)
                                                                 {
-                                                                    <div class="progress-bar bg-success" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                                    <div class="progress-bar bg-success" role="progressbar" data-transitiongoal="@progression"></div>
                                                                 }
                                                             </div>
-                                                            <span>@item.Progression %</span>
+                                                            <span>@progression %</span>
                                                         </td>
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                                                 <a asp-controller="SousTache" asp-action="Detail" asp-route-id="@item.ID" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> </a>
-                                                                <a asp-controller="SousTache" asp-action="Update" asp-route-id="@item.ID" asp-route-idParent="@Model.SousTacheID" class="btn btn-outline-info btn-xs"><i class="fa fa-pencil"></i></a>
+                                                                <a asp-controller="SousTache" asp-action="Update" asp-route-id="@item.ID" asp-route-idParent="@item.SousTacheID" class="btn btn-outline-info btn-xs"><i class="fa fa-pencil"></i></a>
                                                                 <a asp-controller="SousTache" asp-action="Delete" asp-route-id="@item.ID" class="btn btn-outline-danger btn-xs"><i class="fa fa-trash"></i></a>
                                                             </div>
                                                         </td>
@@ -174,8 +178,69 @@
                     </div>
                 </div>
             </div>
+            <!--Commentaire-->
+            <div class="col-sm-6 mail_list_column" style="margin:auto">
+            <button id="compose" class="btn btn-sm btn-success btn-block" type="button">Ajouter un commentaire</button>
+            @if(Model.Commentaires.Count != 0)
+            {
+                foreach (var item in Model.Commentaires)
+                {
+                    <a>
+                        <div class="mail_list">
+                        <div class="left">
+                            <i class="fa fa-circle"></i> <i class="fa fa-edit"></i>
+                        </div>
+                        <div class="right">
+                            <h3>@item.UserPost <small>@item.Date_Post</small></h3>
+                            <p class="Text-truncate">/ @item.Note</p>
+                        </div>
+                        </div>
+                    </a>
+                }
+            }
+            else
+            {
+                <a>
+                    <div class="mail_list">
+                    <div class="left">
+                        <i class="fa fa-circle"></i> <i class="fa fa-edit"></i>
+                    </div>
+                    <div class="right">
+                        <h3>Aucun commentaire</h3>
+                    </div>
+                    </div>
+                </a>
+            }
+            </div>
         </div>
         </div>
     </div>
     </div>
 </div>
+
+<!-- compose -->
+<div class="compose col-md-4  ">
+    <div class="compose-header">
+    Nouveau commentaire
+    <button type="button" class="close compose-close">
+        <span>×</span>
+    </button>
+    </div>
+
+    <div class="compose-body">
+    <div id="alerts"></div>
+    <br />
+    <form asp-action="AddNote" method="get" novalidate>
+        <input type="hidden" name="idSousTache" value="@Model.ID" />
+        <div class="row mb-3">
+            <label class="col-md-4 col-lg-3 col-form-label">  Commentaire</label>
+            <div class="col-md-8 col-lg-9">
+                <textarea name="commetaire" class="form-control" id="about" required style="height: 100px"></textarea>
+            </div>
+        </div>
+        <div class="compose-footer">
+            <button class="btn btn-sm btn-success" type="submit">Poster</button>
+        </div>
+    </form>
+</div>
+<!-- /compose -->   

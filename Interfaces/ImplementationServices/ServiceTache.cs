@@ -126,6 +126,23 @@ namespace PMT.Services.ImplementationServices
             }
         }
 
+        public async Task AddCommentaire(string note, string idSoustache, string username)
+        {
+            if (note != null || idSoustache != null)
+            {
+                var commentaire = new Commentaire
+                {
+                    SousTacheID = idSoustache,
+                    UserPost = username,
+                    Date_Post = DateTime.Now,
+                    Note = note,
+                    EstActif = true
+                };
+                _context.Commentaires.Add(commentaire);
+                await _context.SaveChangesAsync();
+            }
+        }
+
         public async Task AddSousTacheAsync(SousTache model, string id)
         {
             double PoidsTotal = 0;
@@ -176,6 +193,7 @@ namespace PMT.Services.ImplementationServices
             var model = await _context.Soustaches
                             .Include(t => t.Tache)
                             .Include(st => st.SousTaches)
+                            .Include(co => co.Commentaires)
                             .FirstOrDefaultAsync(s => s.ID == id);
             model.SousTaches = model.SousTaches.Where(st => st.EstActif == true).ToList();
             return model;

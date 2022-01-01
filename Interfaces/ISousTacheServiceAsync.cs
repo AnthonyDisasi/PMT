@@ -16,5 +16,7 @@ namespace PMT.Interfaces
 
         public Task<List<SelectListItem>> ListeTypeAsync();
         public Task<List<SelectListItem>> GetUserAsync();
+
+        public Task AddCommentaire(string note, string idSoustache, string username);
     }
 }

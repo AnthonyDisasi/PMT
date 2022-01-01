@@ -23,6 +23,7 @@ namespace PMT.Services
         //Return tache parent
         public Task AddSousTacheAsync(SousTache soustache, string id);
         public Task AddNote(string commentaire, string idTache, string username);
+        public Task AddCommentaire(string note, string idSoustache, string username);
 
         //////////////
         public Task<SousTache> GetSoustacheAsync(string id);

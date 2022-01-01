@@ -1,7 +1,7 @@
 ﻿@model Tache
 @{
     ViewData["Title"] = "Detail";
-    int nb = 1;
+    int nb = 1; int progression = 1; int poids = 1;
 }
 <!-------->
 <div class="row">
@@ -57,6 +57,7 @@
                                             <div class="progress-bar bg-success" role="progressbar" data-transitiongoal="@Model.Progression"></div>
                                         }
                                     </div>
+                                    <span>@Model.Progression %</span>
                                 </td>
                             </tr>
                             <tr>
@@ -116,6 +117,9 @@
                                                 nb = 1;
                                                 @foreach (var item in Model.SousTaches)
                                                 {
+                                                    progression = (int)item.Progression;
+                                                    poids = (int)item.Poids;
+
                                                     <tr>
                                                         <th scope="row">@nb</th>
                                                         <td>@Html.DisplayFor(i => item.Nom)</td>
@@ -124,27 +128,27 @@
                                                         <td>@item.Date_Debut.Day / @item.Date_Debut.Month / @item.Date_Debut.Year</td>
                                                         <td>@item.Date_Fin.Day / @item.Date_Fin.Month / @item.Date_Fin.Year</td>
                                                         <td>@Html.DisplayFor(i => item.Statut)</td>
-                                                        <td>@Html.DisplayFor(i => item.Poids) %</td>
+                                                        <td>@poids %</td>
                                                         <td class="project_progress">
                                                             <div class="progress progress_sm">
                                                                 @if(item.Progression <= 25)
                                                                 {
-                                                                    <div class="progress-bar bg-danger" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                                    <div class="progress-bar bg-danger" role="progressbar" data-transitiongoal="@progression"></div>
                                                                 }
                                                                 else if(item.Progression <= 50)
                                                                 {
-                                                                    <div class="progress-bar bg-warning" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                                    <div class="progress-bar bg-warning" role="progressbar" data-transitiongoal="@progression"></div>
                                                                 }
                                                                 else if(item.Progression <= 75)
                                                                 {
-                                                                    <div class="progress-bar bg-info" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                                    <div class="progress-bar bg-info" role="progressbar" data-transitiongoal="@progression"></div>
                                                                 }
                                                                 else if(item.Progression <= 100)
                                                                 {
-                                                                    <div class="progress-bar bg-success" role="progressbar" data-transitiongoal="@item.Progression"></div>
+                                                                    <div class="progress-bar bg-success" role="progressbar" data-transitiongoal="@progression"></div>
                                                                 }
                                                             </div>
-                                                            <span>@item.Progression %</span>
+                                                            <span>@progression %</span>
                                                         </td>
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
@@ -234,7 +238,7 @@
             </div>
         </div>
         <div class="compose-footer">
-            <button class="btn btn-sm btn-success" type="submit">Envoyer</button>
+            <button class="btn btn-sm btn-success" type="submit">Poster</button>
         </div>
     </form>
 </div>

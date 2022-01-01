@@ -166,5 +166,12 @@ namespace PMT.Controllers
             await _service.AddNote(commentaire, idTache, User.Identity.Name);
             return RedirectToAction("Details", new { id = idTache });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AddNote(string idSousTache, string commetaire)
+        {
+            await _service.AddCommentaire(commetaire, idSousTache, User.Identity.Name);
+            return RedirectToAction("DetailSoustache", new { id = idSousTache });
+        }
     }
 }

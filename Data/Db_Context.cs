@@ -15,6 +15,7 @@ namespace PMT.Data
         public DbSet<Tache> Taches {get; set;}
         public DbSet<SousTache> Soustaches { get; set; }
         public DbSet<Note> Notes { get; set; }
+        public DbSet<Commentaire> Commentaires { get; set; }
         public DbSet<Technicien> Techniciens { get; set; }
         public DbSet<ModelType> Types { get; set; }
         public DbSet<Titre> Titres { get; set; }

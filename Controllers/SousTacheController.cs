@@ -64,13 +64,13 @@ namespace PMT.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Update(SousTache model)
         {
-            string id = model.SousTacheID;
-            string idST = model.ID;
+            string idST = model.SousTacheID;
+            string id = model.ID;
             if (ModelState.IsValid)
             {
                 model.CreateurTache = User.Identity.Name;
-                var model_sous = await _service.UpdateSousTacheAsync(model, model.SousTacheID);
-                await _service.UpdateSousTacheParentAsync(model_sous);
+                var tache = await _service.UpdateSousTacheAsync(model, idST);
+                await _service.UpdateSousTacheParentAsync(tache);
                 return RedirectToAction("Detail", new { id = model.SousTacheID });
             }
             await _service.UpdateSousTacheAsync(model, model.ID);
@@ -89,6 +89,13 @@ namespace PMT.Controllers
                 return RedirectToAction("Details", "Tache", new {id = model.TacheID});
             }
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddNote(string idSousTache, string commetaire)
+        {
+            await _service.AddCommentaire(commetaire, idSousTache, User.Identity.Name);
+            return RedirectToAction("Detail", new { id = idSousTache });
         }
     }
 }

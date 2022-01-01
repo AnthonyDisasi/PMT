@@ -24,7 +24,7 @@ namespace PMT.Models
         [Required,  Range(0, 100)]
         public double Poids { get; set; }
         [Required]
-        public double Progression { get; set; }
+        public double Progression {get; set; }
 
         public string Statut
         {
@@ -66,5 +66,6 @@ namespace PMT.Models
         public bool EstActif { get; set; }
         public virtual Tache Tache { get; set; }
         public ICollection<SousTache> SousTaches { get; set; }
+        public ICollection<Commentaire> Commentaires { get; set; }
     }
 }

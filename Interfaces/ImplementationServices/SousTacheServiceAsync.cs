@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PMT.Data;
 using PMT.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -90,7 +91,7 @@ namespace PMT.Interfaces.ImplementationServices
 
         public async Task<SousTache> GetSousTacheAsync(string id)
         {
-            var model = await _context.Soustaches.Include(s => s.SousTaches).FirstOrDefaultAsync(s => s.ID == id);
+            var model = await _context.Soustaches.Include(s => s.SousTaches).Include(co => co.Commentaires).FirstOrDefaultAsync(s => s.ID == id);
             model.SousTaches = model.SousTaches.Where(s => s.EstActif == true).ToList();
             return model;
         }
@@ -126,13 +127,29 @@ namespace PMT.Interfaces.ImplementationServices
             await _context.SaveChangesAsync();
             return model;
         }
+        public async Task AddCommentaire(string note, string idSoustache, string username)
+        {
+            if (note != null || idSoustache != null)
+            {
+                var commentaire = new Commentaire
+                {
+                    SousTacheID = idSoustache,
+                    UserPost = username,
+                    Date_Post = DateTime.Now,
+                    Note = note,
+                    EstActif = true
+                };
+                _context.Commentaires.Add(commentaire);
+                await _context.SaveChangesAsync();
+            }
+        }
 
         public async Task UpdateSousTacheParentAsync(SousTache model)
         {
             double PoidsTotal = 0;
             double temp = 0; double calcul = 0.0;
             var soustache = await _context.Soustaches.Include(s => s.SousTaches).FirstOrDefaultAsync(t => t.ID == model.SousTacheID);
-            if (soustache.SousTaches.Count > 0)
+            if (soustache.SousTaches.Count() > 0)
             {
                 soustache.SousTaches = soustache.SousTaches.Where(st => st.EstActif == true).ToList();
 
